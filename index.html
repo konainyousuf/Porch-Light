@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Porch Light</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-deep:   #0b1530;
+    --night-blue:   #16264f;
+    --night-soft:   #22366b;
+    --porch-amber:  #ffb066;
+    --porch-ember:  #ff8a4c;
+    --porch-core:   #fff3d6;
+    --cream:        #f4ecdd;
+    --cream-dim:    rgba(244,236,221,0.62);
+    --glow-strength: 0.55;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; padding:0; height:100%;
+    background: radial-gradient(ellipse at 50% 15%, var(--night-blue) 0%, var(--night-deep) 60%, #060b1c 100%);
+    font-family: 'Nunito Sans', sans-serif;
+    color: var(--cream);
+    overflow-x:hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .stage{ position:relative; min-height:100vh; width:100vw; display:flex; flex-direction:column; align-items:center; }
+
+  .star{ position:absolute; border-radius:50%; background:#dfe6ff; opacity:0.5; animation: twinkle 4s ease-in-out infinite; z-index:0; }
+  @keyframes twinkle{ 0%,100%{ opacity:0.15; } 50%{ opacity:0.9; } }
+
+  .intro{ text-align:center; width:min(560px, 88vw); z-index:5; margin-top:5vh; }
+  .intro .eyebrow{ font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase; color: var(--cream-dim); margin:0 0 10px; }
+  .intro h1{ font-family:'Caveat', cursive; font-size:2.6rem; font-weight:600; margin:0 0 8px; color: var(--porch-core); text-shadow: 0 0 24px rgba(255,176,102,0.25); }
+  .intro p{ font-size:0.95rem; line-height:1.55; color: var(--cream-dim); margin:0; }
+
+  .nav{ display:flex; gap:8px; margin:22px 0 8px; z-index:6; flex-wrap:wrap; justify-content:center; padding:0 12px; }
+  .nav button{ background: rgba(255,255,255,0.05); border:1px solid rgba(255,176,102,0.25); color: var(--cream-dim); font-family:'Nunito Sans',sans-serif; font-size:0.8rem; padding:8px 15px; border-radius:999px; cursor:pointer; transition: all 0.2s ease; }
+  .nav button.active, .nav button:hover, .nav button:focus-visible{ border-color: var(--porch-amber); color: var(--porch-core); background: rgba(255,176,102,0.1); }
+
+  .view{ display:none; width:100%; flex:1; flex-direction:column; align-items:center; }
+  .view.active{ display:flex; }
+
+  /* ============ WINDOW ============ */
+  .count-note{ position:absolute; top:14px; right:16px; font-size:0.72rem; color: var(--cream-dim); z-index:5; }
+  .scene{ position:relative; width:min(680px, 92vw); z-index:4; margin-top:auto; }
+  .roofline{ width:100%; height:64px; background: var(--night-soft); clip-path: polygon(50% 0%, 100% 62%, 100% 100%, 0% 100%, 0% 62%); opacity:0.9; }
+  .house{ width:100%; height:min(34vh, 280px); background: linear-gradient(180deg, var(--night-soft) 0%, #0e1a3c 100%); position:relative; border-top: 1px solid rgba(255,255,255,0.06); }
+  .window-wrap{ position:absolute; left:50%; top:34%; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; z-index:5; }
+  .window{ width:132px; height:158px; border-radius:6px 6px 4px 4px; background: radial-gradient(ellipse at 50% 45%, var(--porch-core) 0%, var(--porch-amber) 45%, var(--porch-ember) 85%); border: 6px solid #0a1330; box-shadow: 0 0 calc(40px * var(--glow-strength)) calc(18px * var(--glow-strength)) rgba(255,154,77, var(--glow-strength)), inset 0 0 20px rgba(255,255,255,0.25); cursor:pointer; position:relative; animation: breathe 4.4s ease-in-out infinite; }
+  .window::before, .window::after{ content:''; position:absolute; background:#0a1330; }
+  .window::before{ left:50%; top:0; bottom:0; width:5px; transform:translateX(-50%); }
+  .window::after{ top:50%; left:0; right:0; height:5px; transform:translateY(-50%); }
+  .window:focus-visible{ outline:2px solid var(--porch-core); outline-offset:6px; }
+  @keyframes breathe{ 0%,100%{ filter:brightness(1); } 50%{ filter:brightness(1.16); } }
+  .presence-label{ margin-top:16px; font-size:0.82rem; color: var(--cream-dim); letter-spacing:0.03em; text-align:center; min-height:1.2em; }
+  .presence-label strong{ color: var(--porch-amber); font-weight:600; }
+  .firefly{ position:absolute; width:9px; height:9px; border-radius:50%; background: var(--porch-amber); box-shadow: 0 0 8px 3px rgba(255,176,102,0.55); cursor:pointer; border:none; animation: drift 9s ease-in-out infinite; transition: transform 0.2s ease; z-index:6; }
+  .firefly:hover{ transform: scale(1.4); }
+  .firefly:focus-visible{ outline:2px solid var(--porch-core); outline-offset:4px; }
+  .firefly.caught{ animation: none; opacity:0; transform: scale(0.2); pointer-events:none; }
+  @keyframes drift{ 0%{ transform: translate(0,0); } 25%{ transform: translate(14px,-18px); } 50%{ transform: translate(-10px,-30px); } 75%{ transform: translate(-18px,-8px); } 100%{ transform: translate(0,0); } }
+  .affirmation{ position:absolute; bottom:calc(100% + 14px); left:50%; transform:translateX(-50%); width:max(240px, 22vw); max-width:320px; background: rgba(20,30,60,0.92); border:1px solid rgba(255,176,102,0.35); border-radius:14px; padding:14px 16px; font-family:'Caveat', cursive; font-size:1.35rem; line-height:1.3; color: var(--porch-core); text-align:center; opacity:0; pointer-events:none; transition: opacity 0.6s ease, transform 0.6s ease; }
+  .affirmation.show{ opacity:1; transform:translate(-50%, -4px); }
+  .lantern{ width:min(420px, 90vw); z-index:8; text-align:center; margin: 26px 0 5vh; }
+  .lantern-toggle{ background:none; border:1px solid rgba(244,236,221,0.28); color: var(--cream-dim); font-family:'Nunito Sans',sans-serif; font-size:0.78rem; padding:8px 16px; border-radius:999px; cursor:pointer; }
+  .lantern-toggle:hover, .lantern-toggle:focus-visible{ border-color: var(--porch-amber); color: var(--porch-core); }
+  .lantern-panel{ margin-top:12px; background:rgba(11,21,48,0.9); border:1px solid rgba(255,176,102,0.25); border-radius:14px; padding:14px; display:none; }
+  .lantern-panel.open{ display:block; }
+  .lantern-panel p{ margin:0 0 8px; font-size:0.76rem; color:var(--cream-dim); line-height:1.4; }
+  .lantern-panel textarea{ width:100%; min-height:64px; resize:vertical; background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:10px; color:var(--cream); font-family:'Nunito Sans',sans-serif; font-size:0.85rem; transition: opacity 0.5s ease; }
+  .lantern-panel textarea:focus-visible{ outline:2px solid var(--porch-amber); }
+  .lantern-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:8px; }
+  .tuck-btn{ background: var(--porch-ember); border:none; color:#20130a; font-weight:600; font-size:0.78rem; padding:7px 14px; border-radius:999px; cursor:pointer; }
+  .tuck-btn:hover{ background: var(--porch-amber); }
+  .tuck-msg{ font-size:0.78rem; color: var(--porch-amber); margin-top:8px; opacity:0; transition: opacity 0.6s ease; }
+  .tuck-msg.show{ opacity:1; }
+
+  /* ============ shared game bits ============ */
+  .game-wrap{ width:min(600px,94vw); text-align:center; padding: 10px 0 6vh; z-index:4; display:flex; flex-direction:column; align-items:center; }
+  .game-caption{ font-family:'Caveat', cursive; font-size:1.55rem; color:var(--porch-amber); min-height:2.4rem; margin:10px 0 4px; max-width:520px; }
+  .game-stats{ font-size:0.78rem; color:var(--cream-dim); margin-top:6px; }
+  .game-reset{ background:none; border:1px solid rgba(255,176,102,0.35); color:var(--cream-dim); padding:7px 16px; border-radius:999px; cursor:pointer; font-size:0.8rem; margin-top:14px; }
+  .game-reset:hover{ border-color:var(--porch-amber); color:var(--porch-core); }
+
+  /* ============ BUBBLES ============ */
+  .bubble-grid{ display:grid; grid-template-columns: repeat(6, 1fr); gap:10px; background: rgba(255,255,255,0.03); border:1px solid rgba(255,176,102,0.15); border-radius:16px; padding:16px; width:100%; }
+  .bubble{ aspect-ratio:1; border-radius:50%; background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), var(--porch-amber) 55%, var(--night-soft) 100%); border:none; cursor:pointer; box-shadow: 0 0 10px rgba(255,176,102,0.3); transition: transform 0.08s ease; }
+  .bubble:hover{ transform: scale(1.05); }
+  .bubble:active{ transform: scale(0.85); }
+  .bubble.popped{ background: rgba(255,255,255,0.03); box-shadow:none; cursor:default; transform: scale(0.8); opacity:0.35; pointer-events:none; }
+  .bubble:focus-visible{ outline:2px solid var(--porch-core); outline-offset:3px; }
+
+  /* ============ POND ============ */
+  .pond{ position:relative; width:100%; height:min(46vh, 340px); background: radial-gradient(ellipse at 50% 40%, #17306b 0%, #0d1c44 70%, #081130 100%); border-radius:16px; border:1px solid rgba(255,176,102,0.15); overflow:hidden; cursor: crosshair; }
+  .ripple{ position:absolute; border-radius:50%; border:2px solid rgba(255,176,102,0.55); transform:translate(-50%,-50%); animation: ripple-out 1.8s ease-out forwards; pointer-events:none; }
+  @keyframes ripple-out{ 0%{ width:4px; height:4px; opacity:0.9; } 100%{ width:220px; height:220px; opacity:0; } }
+  .pebble{ position:absolute; width:6px; height:6px; border-radius:50%; background: var(--porch-core); box-shadow:0 0 6px rgba(255,243,214,0.8); transform:translate(-50%,-50%); animation: sink 0.5s ease-in forwards; pointer-events:none; }
+  @keyframes sink{ 0%{ opacity:1; transform:translate(-50%,-50%) scale(1); } 100%{ opacity:0; transform:translate(-50%,-50%) scale(0.3); } }
+
+  /* ============ CRICKET NETS ============ */
+  .pitch{ position:relative; width:100%; height:min(34vh,260px); background: linear-gradient(180deg, #1c3168 0%, #142450 60%, #0e1a3c 100%); border-radius:16px; border:1px solid rgba(255,176,102,0.15); overflow:hidden; }
+  .crease-line{ position:absolute; right:70px; top:0; bottom:0; width:2px; background:rgba(255,243,214,0.35); }
+  .sweet-zone{ position:absolute; right:40px; top:0; bottom:0; width:60px; background:rgba(255,176,102,0.08); border-left:1px dashed rgba(255,176,102,0.3); border-right:1px dashed rgba(255,176,102,0.3); }
+  .batter{ position:absolute; right:14px; top:50%; transform:translateY(-50%); font-size:2.2rem; }
+  .bowler{ position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:1.8rem; }
+  .ball{ position:absolute; top:50%; left:60px; width:14px; height:14px; margin-top:-7px; border-radius:50%; background: radial-gradient(circle at 35% 30%, #ffdede, var(--porch-ember) 60%, #8a2b12 100%); box-shadow:0 0 6px rgba(255,138,76,0.6); }
+  .swing-btn{ margin-top:16px; background: var(--porch-ember); border:none; color:#20130a; font-weight:700; font-size:0.95rem; padding:12px 30px; border-radius:999px; cursor:pointer; }
+  .swing-btn:hover{ background: var(--porch-amber); }
+  .swing-btn:disabled{ opacity:0.4; cursor:default; }
+
+  /* ============ CLUTCH RELEASE ============ */
+  .clutch-scene{ position:relative; width:100%; height:min(34vh,260px); background: linear-gradient(180deg, #16264f 0%, #101f45 55%, #0b1530 100%); border-radius:16px; border:1px solid rgba(255,176,102,0.15); overflow:hidden; }
+  .peak{ position:absolute; bottom:0; width:0; height:0; opacity:0.5; }
+  .peak.p1{ left:5%; border-left:60px solid transparent; border-right:60px solid transparent; border-bottom:90px solid #22366b; }
+  .peak.p2{ left:32%; border-left:80px solid transparent; border-right:80px solid transparent; border-bottom:130px solid #1b2c5c; }
+  .peak.p3{ right:6%; border-left:70px solid transparent; border-right:70px solid transparent; border-bottom:100px solid #22366b; }
+  .road{ position:absolute; bottom:0; left:0; right:0; height:34px; background:#0a1330; border-top:2px dashed rgba(255,243,214,0.25); }
+  .rider{ position:absolute; bottom:30px; left:2%; font-size:2.4rem; transition: left 0.05s linear; }
+  .clutch-controls{ width:100%; max-width:420px; margin-top:18px; }
+  .clutch-labels{ display:flex; justify-content:space-between; font-size:0.72rem; color:var(--cream-dim); margin-bottom:6px; }
+  input[type="range"].clutch-slider{ width:100%; accent-color: var(--porch-amber); cursor:pointer; }
+
+  @media (prefers-reduced-motion: reduce){ .firefly, .window, .star, .ripple, .pebble{ animation:none !important; } }
+  @media (max-width: 480px){ .intro h1{ font-size:2.1rem; } .window{ width:104px; height:124px; } .bubble-grid{ grid-template-columns: repeat(5, 1fr); } }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <div class="intro">
+    <p class="eyebrow">a window, some bubbles, a pond, an over, a clutch</p>
+    <h1>The Porch Light</h1>
+    <p>You don't have to say anything. You don't have to stay. Someone left the light on anyway — poke around, pop things, skip a few stones, or just idle here for a bit.</p>
+  </div>
+
+  <div class="nav" id="nav">
+    <button class="active" data-view="window">the window</button>
+    <button data-view="bubbles">pop bubbles</button>
+    <button data-view="pond">skip stones</button>
+    <button data-view="cricket">the nets</button>
+    <button data-view="bike">release the clutch</button>
+  </div>
+
+  <!-- ================= WINDOW ================= -->
+  <div class="view active" id="view-window">
+    <div class="count-note" id="countNote"></div>
+    <div class="scene">
+      <div class="roofline"></div>
+      <div class="house">
+        <div class="window-wrap">
+          <div class="affirmation" id="affirmation"></div>
+          <button class="window" id="window" aria-label="The lit window. Click it."></button>
+          <div class="presence-label" id="presenceLabel">someone's <strong>still here</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="lantern">
+      <button class="lantern-toggle" id="lanternToggle">leave something in the light (optional)</button>
+      <div class="lantern-panel" id="lanternPanel">
+        <p>Whatever you write here goes quietly to the person who lit this window — nothing pops up on your phone, no read receipt, no pressure to keep talking. Close it and never open it — also fine.</p>
+        <textarea id="lanternText" placeholder="only if you want to..." aria-label="A private note"></textarea>
+        <div class="lantern-actions">
+          <button class="tuck-btn" id="tuckBtn">tuck it into the light</button>
+        </div>
+        <div class="tuck-msg" id="tuckMsg">kept safe. no reply needed. ✦</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BUBBLES ================= -->
+  <div class="view" id="view-bubbles">
+    <div class="game-wrap">
+      <div class="bubble-grid" id="bubbleGrid"></div>
+      <div class="game-stats" id="popCount">0 / 30 popped</div>
+      <div class="game-caption" id="bubbleCaption"></div>
+      <button class="game-reset" id="refillBtn">refill the tray</button>
+    </div>
+  </div>
+
+  <!-- ================= POND ================= -->
+  <div class="view" id="view-pond">
+    <div class="game-wrap">
+      <div class="pond" id="pond"></div>
+      <div class="game-stats" id="skipCount">0 / 10 stones skipped</div>
+      <div class="game-caption" id="pondCaption"></div>
+    </div>
+  </div>
+
+  <!-- ================= CRICKET NETS ================= -->
+  <div class="view" id="view-cricket">
+    <div class="game-wrap">
+      <div class="pitch" id="pitch">
+        <div class="bowler">🏃</div>
+        <div class="crease-line"></div>
+        <div class="sweet-zone"></div>
+        <div class="ball" id="ball" style="opacity:0;"></div>
+        <div class="batter">🏏</div>
+      </div>
+      <button class="swing-btn" id="swingBtn">bowl the over</button>
+      <div class="game-stats" id="cricketStats">0 / 6 balls faced</div>
+      <div class="game-caption" id="cricketCaption"></div>
+    </div>
+  </div>
+
+  <!-- ================= CLUTCH ================= -->
+  <div class="view" id="view-bike">
+    <div class="game-wrap">
+      <div class="clutch-scene" id="clutchScene">
+        <div class="peak p1"></div>
+        <div class="peak p2"></div>
+        <div class="peak p3"></div>
+        <div class="road"></div>
+        <div class="rider" id="rider">🏍️</div>
+      </div>
+      <div class="clutch-controls">
+        <div class="clutch-labels"><span>holding it in</span><span>let it go</span></div>
+        <input type="range" min="0" max="100" value="0" class="clutch-slider" id="clutchSlider" aria-label="Release the clutch slider">
+      </div>
+      <div class="game-caption" id="clutchCaption"></div>
+      <button class="game-reset" id="clutchReset" style="display:none;">grip it again</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  // ======================================================
+  // Formspree endpoint for the lantern note
+  // ======================================================
+  const FORM_ENDPOINT = "https://formspree.io/f/mdarjday";
+
+  // ======================================================
+  // COMPLETION TEXTS — these only show up once a game is
+  // actually finished, not on every click. The lines below
+  // are just MY DRAFTS to react to — swap in your own,
+  // one array per game, pick at random from whichever are in there.
+  // ======================================================
+  const BUBBLE_COMPLETIONS = [
+    "tray's empty. that's a clean sweep, no extras, no drama.",
+    "all thirty gone. somewhere a mountain is mildly impressed.",
+    "you cleared the whole tray. even the pond would call that a good session."
+  ];
+  const POND_COMPLETIONS = [
+    "ten skips in, zero declarations of retirement. good over.",
+    "the water's calm again. so, probably, are you. probably.",
+    "ten stones down. that's more follow-through than most Mondays get."
+  ];
+  const CRICKET_COMPLETIONS = [
+    "over's done. however it went, you stayed at the crease the whole time.",
+    "six balls faced, no LBW shouts, no drama. that counts as a session well played.",
+    "that's stumps for now. the nets will still be here tomorrow."
+  ];
+  const CLUTCH_COMPLETIONS = [
+    "clutch fully out, bike's rolling smooth. that's the whole trick — ease off slow, not sudden.",
+    "you let go gradually instead of all at once. works on a bike. works on most things, honestly.",
+    "no stalling, no jerk, just a smooth pull away. nicely ridden."
+  ];
+
+  const stage = document.getElementById('stage');
+
+  // ---------- stars ----------
+  const starCount = window.innerWidth < 600 ? 30 : 55;
+  for(let i=0;i<starCount;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2 + 1;
+    s.style.width = size+'px'; s.style.height = size+'px';
+    s.style.left = Math.random()*100 + 'vw'; s.style.top = Math.random()*45 + 'vh';
+    s.style.animationDelay = (Math.random()*4)+'s';
+    stage.appendChild(s);
+  }
+
+  // ---------- nav ----------
+  const navButtons = document.querySelectorAll('.nav button');
+  const views = {
+    window: document.getElementById('view-window'),
+    bubbles: document.getElementById('view-bubbles'),
+    pond: document.getElementById('view-pond'),
+    cricket: document.getElementById('view-cricket'),
+    bike: document.getElementById('view-bike'),
+  };
+  navButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      navButtons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      Object.values(views).forEach(v=>v.classList.remove('active'));
+      views[btn.dataset.view].classList.add('active');
+    });
+  });
+
+  // ================= FIREFLIES (funnier, lightly bike/mountain/cricket flavored) =================
+  const fireflyMessages = [
+    "congrats, you caught a bug that has its life more together than most of us.",
+    "this one's legally required to say: you're doing fine.",
+    "somewhere a mountain has been sitting still for a few million years. it can wait for you too.",
+    "you're not stalled, you're just idling. there's a difference, ask any bike.",
+    "no LBW appeals here. you're always given not out.",
+    "this bug has no opinions about your unread messages. genuinely none.",
+    "you don't need to win the day. one quiet over is enough.",
+    "the light does not do performance reviews.",
+    "this is the least demanding relationship you'll have all week.",
+    "gear down, not out. that's allowed too.",
+    "you found me. anticlimactic, but still technically a win.",
+    "you're allowed to declare the innings early today.",
+    "the summit doesn't care what time you left base camp.",
+    "9 out of 10 fireflies recommend you drink some water though.",
+    "no thoughts, just vibes, just a bug that thinks you're fine.",
+  ];
+
+  const fireflyCount = window.innerWidth < 600 ? 8 : 13;
+  let caught = 0;
+  const countNote = document.getElementById('countNote');
+  const glowRoot = document.documentElement;
+  function updateGlow(){
+    const strength = Math.min(0.55 + caught*0.03, 1.1);
+    glowRoot.style.setProperty('--glow-strength', strength.toFixed(2));
+    if(caught > 0){ countNote.textContent = caught + (caught===1 ? ' light gathered' : ' lights gathered'); }
+  }
+  const affirmationBox = document.getElementById('affirmation');
+  let affirmationTimer = null;
+  function showAffirmation(text){
+    affirmationBox.textContent = text;
+    affirmationBox.classList.add('show');
+    clearTimeout(affirmationTimer);
+    affirmationTimer = setTimeout(()=> affirmationBox.classList.remove('show'), 5200);
+  }
+  const windowView = views.window;
+  for(let i=0;i<fireflyCount;i++){
+    const f = document.createElement('button');
+    f.className = 'firefly';
+    f.setAttribute('aria-label', 'a small light — click it');
+    f.style.left = (10 + Math.random()*80) + '%';
+    f.style.top = (Math.random()*40) + '%';
+    f.style.animationDuration = (7 + Math.random()*6) + 's';
+    f.style.animationDelay = (Math.random()*4) + 's';
+    f.addEventListener('click', function(){
+      if(f.classList.contains('caught')) return;
+      f.classList.add('caught');
+      caught++; updateGlow();
+      showAffirmation(fireflyMessages[Math.floor(Math.random()*fireflyMessages.length)]);
+    });
+    windowView.querySelector('.scene').appendChild(f);
+  }
+
+  // ---------- window click ----------
+  const windowMessages = [
+    "hey. no knocking required, this door doesn't even have a handle.",
+    "still here. still zero rush. the light has nowhere better to be.",
+    "you can stare through the window without opening the door. very valid strategy.",
+    "this runs on electricity, not on you texting back. it's fine either way.",
+    "whenever you're ready, and not a second before — this window isn't going anywhere.",
+    "you showed up. the bar was on the floor and you still stepped over it."
+  ];
+  const windowEl = document.getElementById('window');
+  const presenceLabel = document.getElementById('presenceLabel');
+  windowEl.addEventListener('click', function(){
+    showAffirmation(windowMessages[Math.floor(Math.random()*windowMessages.length)]);
+    presenceLabel.innerHTML = 'still <strong>right here</strong>';
+    setTimeout(()=>{ presenceLabel.innerHTML = "someone's <strong>still here</strong>"; }, 6000);
+  });
+
+  // ---------- lantern note ----------
+  const toggle = document.getElementById('lanternToggle');
+  const panel = document.getElementById('lanternPanel');
+  const textEl = document.getElementById('lanternText');
+  const tuckBtn = document.getElementById('tuckBtn');
+  const tuckMsg = document.getElementById('tuckMsg');
+  toggle.addEventListener('click', function(){
+    const open = panel.classList.toggle('open');
+    toggle.textContent = open ? 'close this back up' : 'leave something in the light (optional)';
+  });
+  tuckBtn.addEventListener('click', function(){
+    const value = textEl.value.trim();
+    if(!value) return;
+    if(FORM_ENDPOINT && FORM_ENDPOINT.indexOf('PASTE_YOUR') === -1){
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: value, source: 'The Porch Light' })
+      }).catch(()=>{});
+    }
+    textEl.style.opacity = '0';
+    tuckMsg.classList.add('show');
+    caught++; updateGlow();
+    setTimeout(()=>{ textEl.value = ''; textEl.style.opacity = '1'; }, 550);
+    setTimeout(()=> tuckMsg.classList.remove('show'), 4200);
+  });
+
+  // ================= BUBBLE POP (text only on completion) =================
+  const bubbleGrid = document.getElementById('bubbleGrid');
+  const bubbleCaption = document.getElementById('bubbleCaption');
+  const popCountEl = document.getElementById('popCount');
+  const refillBtn = document.getElementById('refillBtn');
+  const BUBBLE_COUNT = 30;
+  let popped = 0;
+  function buildBubbles(){
+    bubbleGrid.innerHTML = ''; popped = 0;
+    popCountEl.textContent = '0 / ' + BUBBLE_COUNT + ' popped';
+    bubbleCaption.textContent = '';
+    for(let i=0;i<BUBBLE_COUNT;i++){
+      const b = document.createElement('button');
+      b.className = 'bubble';
+      b.setAttribute('aria-label', 'pop');
+      b.addEventListener('click', function(){
+        if(b.classList.contains('popped')) return;
+        b.classList.add('popped');
+        popped++;
+        popCountEl.textContent = popped + ' / ' + BUBBLE_COUNT + ' popped';
+        if(popped === BUBBLE_COUNT){
+          bubbleCaption.textContent = BUBBLE_COMPLETIONS[Math.floor(Math.random()*BUBBLE_COMPLETIONS.length)];
+        }
+      });
+      bubbleGrid.appendChild(b);
+    }
+  }
+  refillBtn.addEventListener('click', buildBubbles);
+  buildBubbles();
+
+  // ================= SKIP STONES (text only on completion) =================
+  const pond = document.getElementById('pond');
+  const pondCaption = document.getElementById('pondCaption');
+  const skipCountEl = document.getElementById('skipCount');
+  const SKIP_TARGET = 10;
+  let skips = 0;
+  pond.addEventListener('click', function(e){
+    if(skips >= SKIP_TARGET) return;
+    const rect = pond.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    const pebble = document.createElement('div');
+    pebble.className = 'pebble'; pebble.style.left = x+'px'; pebble.style.top = y+'px';
+    pond.appendChild(pebble); setTimeout(()=> pebble.remove(), 550);
+    const ripple = document.createElement('div');
+    ripple.className = 'ripple'; ripple.style.left = x+'px'; ripple.style.top = y+'px';
+    pond.appendChild(ripple); setTimeout(()=> ripple.remove(), 1900);
+    skips++;
+    skipCountEl.textContent = skips + ' / ' + SKIP_TARGET + ' stones skipped';
+    if(skips === SKIP_TARGET){
+      pondCaption.textContent = POND_COMPLETIONS[Math.floor(Math.random()*POND_COMPLETIONS.length)];
+    }
+  });
+
+  // ================= CRICKET NETS (text only after the over) =================
+  const swingBtn = document.getElementById('swingBtn');
+  const ball = document.getElementById('ball');
+  const cricketStats = document.getElementById('cricketStats');
+  const cricketCaption = document.getElementById('cricketCaption');
+  const pitch = document.getElementById('pitch');
+  const OVER_LENGTH = 6;
+  let ballsFaced = 0;
+  let ballActive = false;
+  let ballStart = 0;
+  const BALL_DURATION = 950;
+
+  function pitchWidth(){ return pitch.clientWidth; }
+
+  function bowlBall(){
+    if(ballsFaced >= OVER_LENGTH || ballActive) return;
+    ballActive = true;
+    ball.style.opacity = '1';
+    ball.style.left = '60px';
+    ball.style.transition = 'none';
+    void ball.offsetWidth;
+    const targetX = pitchWidth() - 90;
+    ball.style.transition = 'left ' + BALL_DURATION + 'ms linear';
+    ball.style.left = targetX + 'px';
+    ballStart = performance.now();
+    setTimeout(()=>{
+      if(ballActive){ finishBall(); }
+    }, BALL_DURATION + 60);
+  }
+
+  function finishBall(){
+    ballActive = false;
+    ball.style.opacity = '0';
+    ballsFaced++;
+    cricketStats.textContent = ballsFaced + ' / ' + OVER_LENGTH + ' balls faced';
+    if(ballsFaced >= OVER_LENGTH){
+      swingBtn.disabled = true;
+      swingBtn.textContent = 'over complete';
+      cricketCaption.textContent = CRICKET_COMPLETIONS[Math.floor(Math.random()*CRICKET_COMPLETIONS.length)];
+    } else {
+      setTimeout(bowlBall, 500);
+    }
+  }
+
+  swingBtn.addEventListener('click', function(){
+    if(ballsFaced >= OVER_LENGTH){
+      ballsFaced = 0; cricketStats.textContent = '0 / ' + OVER_LENGTH + ' balls faced';
+      cricketCaption.textContent = ''; swingBtn.disabled = false;
+      swingBtn.textContent = 'bowl the over';
+      return;
+    }
+    if(!ballActive){ swingBtn.textContent = 'swing!'; bowlBall(); }
+    // a click while the ball is mid-flight just counts as timing it, no fail state shown
+  });
+
+  // ================= RELEASE THE CLUTCH =================
+  const clutchSlider = document.getElementById('clutchSlider');
+  const rider = document.getElementById('rider');
+  const clutchScene = document.getElementById('clutchScene');
+  const clutchCaption = document.getElementById('clutchCaption');
+  const clutchReset = document.getElementById('clutchReset');
+  let clutchDone = false;
+
+  function positionRider(){
+    const val = Number(clutchSlider.value);
+    const maxLeft = clutchScene.clientWidth - 60;
+    const x = (val/100) * maxLeft;
+    rider.style.left = Math.max(6, x) + 'px';
+  }
+  positionRider();
+
+  clutchSlider.addEventListener('input', function(){
+    positionRider();
+    if(!clutchDone && Number(clutchSlider.value) >= 98){
+      clutchDone = true;
+      clutchCaption.textContent = CLUTCH_COMPLETIONS[Math.floor(Math.random()*CLUTCH_COMPLETIONS.length)];
+      clutchReset.style.display = 'inline-block';
+    }
+  });
+  clutchReset.addEventListener('click', function(){
+    clutchDone = false;
+    clutchSlider.value = 0;
+    positionRider();
+    clutchCaption.textContent = '';
+    clutchReset.style.display = 'none';
+  });
+
+  window.addEventListener('resize', ()=>{ positionRider(); });
+})();
+</script>
+
+</body>
+</html>
