@@ -229,155 +229,94 @@
             width: 100%;
             overflow: hidden;
             padding: 0;
-            /* Sky Gradient - structured and vivid */
-            background: linear-gradient(160deg, #122e44 0%, #2f6b79 35%, #9ec0a8 65%, #d0e1b5 85%, #fff8e0 100%);
+            /* Deep night sky fading into a dark forest meadow — galaxy + fireflies read clearly against it */
+            background: linear-gradient(180deg, #04050f 0%, #0a0e26 22%, #10173a 42%, #17222f 62%, #142722 80%, #0e1c17 100%);
         }
 
-        /* Sun Glow */
-        .sun-glow {
+        /* Galaxy band across the night sky */
+        .galaxy-band {
             position: absolute;
-            top: -5%;
-            right: -5%;
-            width: 70%;
-            height: 70%;
-            background: radial-gradient(circle at 80% 30%, rgba(255, 245, 200, 0.4) 0%, rgba(255, 200, 100, 0.1) 30%, transparent 60%);
+            top: -8%;
+            left: -15%;
+            width: 130%;
+            height: 55%;
+            background: linear-gradient(100deg,
+                transparent 0%,
+                rgba(150, 130, 220, 0.04) 15%,
+                rgba(190, 170, 240, 0.10) 32%,
+                rgba(220, 200, 255, 0.16) 45%,
+                rgba(190, 170, 240, 0.10) 58%,
+                rgba(150, 130, 220, 0.04) 75%,
+                transparent 100%);
+            transform: rotate(-16deg);
+            filter: blur(6px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .galaxy-glow {
+            position: absolute;
+            top: -10%;
+            right: 5%;
+            width: 55%;
+            height: 45%;
+            background: radial-gradient(circle at 60% 30%, rgba(180, 160, 255, 0.12) 0%, rgba(120, 100, 200, 0.05) 40%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
 
-        /* Sun Rays */
-        .sun-rays {
+        /* Rolling hills — clean layered SVG silhouettes instead of gradient blobs */
+        .hill-layer {
             position: absolute;
-            top: 0;
             left: 0;
+            bottom: 0;
             width: 100%;
-            height: 100%;
+            display: block;
             pointer-events: none;
+        }
+        .hill-far {
+            height: 40%;
             z-index: 1;
-            background: repeating-linear-gradient(
-                110deg,
-                transparent 0px,
-                transparent 35px,
-                rgba(255, 255, 230, 0.12) 35px,
-                rgba(255, 255, 230, 0.12) 55px
-            );
+            opacity: 0.9;
         }
-
-        /* Forest Canopy Domes (Left) */
-        .forest-left {
-            position: absolute;
-            bottom: 0;
-            left: -15%;
-            width: 70%;
-            height: 65%;
-            background: radial-gradient(circle at 50% 120%, #1f4736 0%, #0f261d 70%);
-            border-radius: 50% / 100% 100% 0 0;
-            pointer-events: none;
-            z-index: 1;
-            filter: drop-shadow(0 -10px 20px rgba(0,0,0,0.2));
-        }
-        .forest-left-2 {
-            position: absolute;
-            bottom: 0;
-            left: 10%;
-            width: 40%;
-            height: 50%;
-            background: radial-gradient(circle at 50% 120%, #132f22 0%, #07130d 70%);
-            border-radius: 50% / 100% 100% 0 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Forest Canopy Domes (Right) */
-        .forest-right {
-            position: absolute;
-            bottom: 0;
-            right: -20%;
-            width: 75%;
-            height: 60%;
-            background: radial-gradient(circle at 50% 120%, #1a3f2d 0%, #0b1f15 70%);
-            border-radius: 50% / 100% 100% 0 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .forest-right-2 {
-            position: absolute;
-            bottom: 0;
-            right: 20%;
-            width: 35%;
-            height: 45%;
-            background: radial-gradient(circle at 50% 120%, #0e2b1d 0%, #05110b 70%);
-            border-radius: 50% / 100% 100% 0 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Waterfall */
-        .waterfall-container {
-            position: absolute;
-            top: 5%;
-            right: 30%;
-            width: 60px;
-            height: 55%;
-            z-index: 2;
-            pointer-events: none;
-            transform: rotate(4deg);
-        }
-        .waterfall-flow {
-            position: absolute;
-            bottom: 0;
-            left: 15px;
-            width: 30px;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(180, 235, 255, 0.3) 70%, transparent 90%);
-            border-radius: 50% 50% 20% 20%;
-            filter: blur(3px);
-        }
-        .waterfall-mist {
-            position: absolute;
-            bottom: -15px;
-            right: -40px;
-            width: 150px;
-            height: 60px;
-            background: radial-gradient(ellipse, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
-            filter: blur(10px);
-        }
-
-        /* Foreground Hills */
-        .hills-back {
-            position: absolute;
-            bottom: -10%;
-            left: -10%;
-            width: 120%;
-            height: 45%;
-            background: radial-gradient(ellipse at 50% 100%, #528a3e 0%, #36602a 60%, #1a3d21 100%);
-            border-radius: 50% 50% 0 0 / 80% 80% 0 0;
-            pointer-events: none;
+        .hill-near {
+            height: 30%;
             z-index: 3;
         }
-        .hills-mid {
+
+        /* Meadow ground — sits in front of the hills */
+        .meadow-ground {
             position: absolute;
-            bottom: -20%;
-            left: -10%;
-            width: 120%;
-            height: 35%;
-            background: radial-gradient(ellipse at 30% 100%, #7cb342 0%, #558b2f 60%, #33691e 100%);
-            border-radius: 50% 50% 0 0 / 60% 60% 0 0;
-            pointer-events: none;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 13%;
+            background: linear-gradient(180deg, #10231d 0%, #081410 100%);
             z-index: 4;
-            transform: rotate(-2deg);
-        }
-        .hills-front {
-            position: absolute;
-            bottom: -25%;
-            left: -15%;
-            width: 130%;
-            height: 30%;
-            background: radial-gradient(ellipse at 40% 100%, #9ccc65 0%, #7cb342 60%, #4a7c2e 100%);
-            border-radius: 50% 50% 0 0 / 50% 50% 0 0;
             pointer-events: none;
-            z-index: 5;
         }
+        .meadow-ground::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, rgba(190, 210, 255, 0.12), transparent);
+            filter: blur(2px);
+        }
+
+        /* Boy lying on the grass, watching the fireflies */
+        .boy-figure {
+            position: absolute;
+            left: 50%;
+            bottom: 5%;
+            width: min(300px, 42vw);
+            transform: translateX(-30%);
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0.92;
+        }
+        .boy-figure svg { display: block; width: 100%; height: auto; }
 
         /* Meadow Flowers (Generated by JS) */
         .meadow-flowers {
@@ -385,32 +324,78 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 70%;
-            z-index: 6;
+            height: 34%;
+            z-index: 4;
             pointer-events: none;
             overflow: hidden;
         }
         .flower-dot {
             position: absolute;
             border-radius: 50%;
-            z-index: 6;
+            z-index: 4;
         }
 
-        /* fireflies */
+        /* orange cat — walks along the hill ridge, rolls only when clicked */
+        .cat {
+            position: absolute;
+            bottom: 24%;
+            left: 5%;
+            z-index: 6;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: left linear;
+        }
+        .cat-body {
+            display: inline-block;
+            font-size: 2.1rem;
+            filter: sepia(1) saturate(6) hue-rotate(-18deg) brightness(1.08) drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+            transform-origin: 50% 50%;
+        }
+        .cat-body.flip { transform: scaleX(-1); }
+        .cat-body.walking { animation: cat-bob 0.45s ease-in-out infinite; }
+        .cat-body.flip.walking { animation: cat-bob-flip 0.45s ease-in-out infinite; }
+        @keyframes cat-bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        @keyframes cat-bob-flip {
+            0%, 100% { transform: scaleX(-1) translateY(0); }
+            50% { transform: scaleX(-1) translateY(-4px); }
+        }
+        /* realistic on-the-back wriggle instead of a wheel-like spin */
+        .cat-body.rolling { animation: cat-roll 1.3s ease-in-out; }
+        @keyframes cat-roll {
+            0%   { transform: rotate(0deg) translateY(0) scaleX(1); }
+            10%  { transform: rotate(-8deg) translateY(1px) scaleX(1.02); }
+            22%  { transform: rotate(-32deg) translateY(3px) scaleX(1.06); }
+            35%  { transform: rotate(-14deg) translateY(2px) scaleX(0.97); }
+            48%  { transform: rotate(22deg) translateY(4px) scaleX(1.08); }
+            60%  { transform: rotate(6deg) translateY(2px) scaleX(0.96); }
+            72%  { transform: rotate(-18deg) translateY(3px) scaleX(1.05); }
+            85%  { transform: rotate(4deg) translateY(1px) scaleX(1.0); }
+            100% { transform: rotate(0deg) translateY(0) scaleX(1); }
+        }
+
+        /* fireflies — soft elongated glow that pulses like real bioluminescence */
         .firefly {
             position: fixed;
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 6px;
             border-radius: 50%;
-            background: var(--porch-amber);
-            box-shadow: 0 0 14px 5px rgba(255, 176, 102, 0.55);
+            background: radial-gradient(circle at 38% 35%, #fffce0 0%, var(--porch-amber) 55%, rgba(255,176,102,0) 100%);
+            box-shadow: 0 0 10px 3px rgba(255, 190, 120, 0.5);
             cursor: pointer;
             border: none;
-            animation: drift 12s ease-in-out infinite;
+            animation: drift 12s ease-in-out infinite, firefly-pulse 2.4s ease-in-out infinite;
             transition: transform 0.2s ease, opacity 0.4s ease;
             z-index: 7;
             pointer-events: auto;
-            will-change: transform;
+            will-change: transform, opacity;
+        }
+        @keyframes firefly-pulse {
+            0%, 100% { opacity: 0.32; box-shadow: 0 0 4px 1px rgba(255, 190, 120, 0.28); }
+            45%      { opacity: 0.55; box-shadow: 0 0 8px 2px rgba(255, 190, 120, 0.45); }
+            70%      { opacity: 1;    box-shadow: 0 0 16px 6px rgba(255, 205, 140, 0.85); }
         }
         .firefly:hover {
             transform: scale(1.8);
@@ -422,21 +407,13 @@
             transform: scale(0.2);
             pointer-events: none;
         }
-        .firefly.gold {
-            background: #f7d97e;
-            box-shadow: 0 0 14px 5px rgba(247, 217, 126, 0.5);
+        .firefly.ember {
+            background: radial-gradient(circle at 38% 35%, #fff2df 0%, var(--porch-ember) 55%, rgba(255,138,76,0) 100%);
+            box-shadow: 0 0 10px 3px rgba(255, 138, 76, 0.5);
         }
-        .firefly.rose {
-            background: #f7a8a8;
-            box-shadow: 0 0 14px 5px rgba(247, 168, 168, 0.5);
-        }
-        .firefly.mint {
-            background: #a8e6cf;
-            box-shadow: 0 0 14px 5px rgba(168, 230, 207, 0.4);
-        }
-        .firefly.blue {
-            background: #8ac4ff;
-            box-shadow: 0 0 14px 5px rgba(138, 196, 255, 0.4);
+        .firefly.deep {
+            background: radial-gradient(circle at 38% 35%, #ffe9d6 0%, #ff7a3d 55%, rgba(255,122,61,0) 100%);
+            box-shadow: 0 0 10px 3px rgba(255, 122, 61, 0.5);
         }
         @keyframes drift {
             0% {
@@ -1055,8 +1032,8 @@
                 right: 12px;
             }
             .firefly {
-                width: 7px;
-                height: 7px;
+                width: 6px;
+                height: 4px;
                 box-shadow: 0 0 8px 3px rgba(255, 176, 102, 0.5);
             }
             .pool-table {
@@ -1088,7 +1065,7 @@
             <line id="webLine3" x1="0" y1="0" x2="0" y2="0"></line>
         </svg>
         <div class="side-nav" id="nav">
-            <button class="active" data-view="window"><span class="ico">💬</span>window</button>
+            <button class="active" data-view="window"><span class="ico">🌌</span>Light in shadows</button>
             <button data-view="cricket"><span class="ico">🏏</span>the nets</button>
             <button data-view="bike"><span class="ico">🏍️</span>the clutch</button>
             <button data-view="pool"><span class="ico">🎱</span>8‑ball</button>
@@ -1100,26 +1077,35 @@
         <!-- ================= WINDOW VIEW ================= -->
         <div class="view active" id="view-window">
 
-            <!-- New Structured Background Elements -->
-            <div class="sun-glow"></div>
-            <div class="sun-rays"></div>
+            <!-- Night sky: galaxy band + ambient glow -->
+            <div class="galaxy-band"></div>
+            <div class="galaxy-glow"></div>
 
-            <div class="forest-left"></div>
-            <div class="forest-left-2"></div>
-            
-            <div class="forest-right"></div>
-            <div class="forest-right-2"></div>
+            <!-- Rolling hills -->
+            <svg class="hill-layer hill-far" viewBox="0 0 800 260" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,260 L0,150 C90,95 170,120 250,105 C330,90 400,130 480,110 C560,90 630,125 710,100 C750,88 780,105 800,95 L800,260 Z" fill="#16324a"/>
+            </svg>
+            <svg class="hill-layer hill-near" viewBox="0 0 800 200" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,200 L0,140 C70,95 140,115 210,100 C290,82 360,118 440,100 C520,82 590,112 670,95 C720,84 760,98 800,90 L800,200 Z" fill="#0c211f"/>
+            </svg>
 
-            <div class="waterfall-container">
-                <div class="waterfall-flow"></div>
-                <div class="waterfall-mist"></div>
+            <div class="meadow-ground"></div>
+            <div class="meadow-flowers" id="meadowFlowers"></div>
+
+            <!-- boy lying on the grass, watching the fireflies -->
+            <div class="boy-figure" aria-hidden="true">
+                <svg viewBox="0 0 260 100" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="120" cy="80" rx="118" ry="10" fill="#000" opacity="0.15"/>
+                    <path d="M20,82 Q45,55 78,64 Q98,70 92,82 Q75,88 50,86 Q30,86 20,82 Z" fill="#0b1626"/>
+                    <path d="M78,64 Q108,50 130,56 Q142,60 138,72 Q120,80 100,78 Q86,76 78,64 Z" fill="#0b1626"/>
+                    <ellipse cx="150" cy="70" rx="46" ry="19" fill="#0d1a2c"/>
+                    <path d="M188,54 Q210,38 232,47 Q228,58 212,56 Q200,58 190,63 Q186,58 188,54 Z" fill="#0d1a2c"/>
+                    <circle cx="210" cy="46" r="13" fill="#0d1a2c"/>
+                </svg>
             </div>
 
-            <div class="hills-back"></div>
-            <div class="hills-mid"></div>
-            <div class="hills-front"></div>
-
-            <div class="meadow-flowers" id="meadowFlowers"></div>
+            <!-- orange cat -->
+            <div class="cat" id="orangeCat"><span class="cat-body" id="catBody">🐈</span></div>
 
             <!-- fireflies -->
             <div id="fireflyContainer"></div>
@@ -1247,15 +1233,30 @@
             // STARS (Now appended to view-window so they sit on the sky)
             // ==============================================================
             const starContainer = document.getElementById('view-window');
-            const starCount = window.innerWidth < 600 ? 24 : 60;
+            const starCount = window.innerWidth < 600 ? 30 : 75;
             for (let i = 0; i < starCount; i++) {
                 const s = document.createElement('div');
                 s.className = 'star';
-                const size = Math.random() * 2 + 1;
+                const inBand = Math.random() < 0.4;
+                let size, leftVw, topVh, opacity;
+                if (inBand) {
+                    // cluster along the diagonal galaxy band for a denser starry streak
+                    const t = Math.random();
+                    leftVw = -10 + t * 120;
+                    topVh = 6 + t * 34 + (Math.random() - 0.5) * 10;
+                    size = Math.random() * 1.6 + 0.8;
+                    opacity = 0.4 + Math.random() * 0.5;
+                } else {
+                    leftVw = Math.random() * 100;
+                    topVh = Math.random() * 55;
+                    size = Math.random() * 2 + 1;
+                    opacity = 0.3 + Math.random() * 0.5;
+                }
                 s.style.width = size + 'px';
                 s.style.height = size + 'px';
-                s.style.left = Math.random() * 100 + 'vw';
-                s.style.top = Math.random() * 70 + 'vh'; // Keep them in the sky
+                s.style.left = leftVw + 'vw';
+                s.style.top = topVh + 'vh';
+                s.style.opacity = opacity;
                 s.style.animationDelay = (Math.random() * 4) + 's';
                 starContainer.appendChild(s);
             }
@@ -1265,11 +1266,11 @@
             // ==============================================================
             const meadowFlowers = document.getElementById('meadowFlowers');
             if (meadowFlowers) {
-                const colors = ['#ffb74d', '#f06292', '#ce93d8', '#ef5350', '#fff59d', '#ffcdd2', '#ffffff', '#e1bee7', '#ffcc80', '#80cbc4'];
-                for (let i = 0; i < 220; i++) {
+                const colors = ['#e8e6f5', '#cfd8ea', '#d9c9ec', '#f0e6d2', '#c9d9d0', '#e0d5e8'];
+                for (let i = 0; i < 70; i++) {
                     const dot = document.createElement('div');
                     dot.className = 'flower-dot';
-                    const size = 3 + Math.random() * 6;
+                    const size = 2 + Math.random() * 4;
                     const shape = Math.random() > 0.6 ? '50% 0 50% 50%' : '50%';
                     dot.style.cssText = `
                         position: absolute;
@@ -1278,8 +1279,8 @@
                         border-radius: ${shape};
                         background: ${colors[Math.floor(Math.random() * colors.length)]};
                         left: ${Math.random() * 100}%;
-                        top: ${20 + Math.random() * 75}%;
-                        opacity: ${0.5 + Math.random() * 0.5};
+                        top: ${30 + Math.random() * 65}%;
+                        opacity: ${0.25 + Math.random() * 0.35};
                         transform: rotate(${Math.random() * 360}deg);
                     `;
                     meadowFlowers.appendChild(dot);
@@ -1375,7 +1376,13 @@
             let caughtCount = 0;
 
             const fireflyCount = window.innerWidth < 600 ? 30 : 45;
-            const colours = ['', 'gold', 'rose', 'mint', 'blue'];
+            const colours = ['', '', 'ember', 'deep'];
+            // structured swarm clusters instead of pure scatter — feels like real firefly groups
+            // near the treeline and meadow edges rather than floating anywhere on screen
+            const clusterCenters = [
+                { x: 10, y: 62 }, { x: 24, y: 40 }, { x: 40, y: 70 },
+                { x: 58, y: 48 }, { x: 72, y: 66 }, { x: 88, y: 42 }, { x: 95, y: 74 }
+            ];
 
             function addFirefly() {
                 const f = document.createElement('button');
@@ -1383,13 +1390,18 @@
                 const colorClass = colours[Math.floor(Math.random() * colours.length)];
                 if (colorClass) f.classList.add(colorClass);
                 f.setAttribute('aria-label', 'a small light — click it');
-                f.style.left = (3 + Math.random() * 94) + 'vw';
-                f.style.top = (3 + Math.random() * 85) + 'vh';
-                f.style.animationDuration = (9 + Math.random() * 8) + 's';
-                f.style.animationDelay = (Math.random() * 6) + 's';
-                const size = 7 + Math.random() * 7;
+                const cluster = clusterCenters[Math.floor(Math.random() * clusterCenters.length)];
+                const jitterX = (Math.random() - 0.5) * 22;
+                const jitterY = (Math.random() - 0.5) * 22;
+                const leftPct = Math.max(2, Math.min(97, cluster.x + jitterX));
+                const topPct = Math.max(3, Math.min(88, cluster.y + jitterY));
+                f.style.left = leftPct + 'vw';
+                f.style.top = topPct + 'vh';
+                f.style.animationDuration = (9 + Math.random() * 8) + 's, ' + (1.8 + Math.random() * 1.6) + 's';
+                f.style.animationDelay = (Math.random() * 6) + 's, ' + (Math.random() * 2.4) + 's';
+                const size = 7 + Math.random() * 6;
                 f.style.width = size + 'px';
-                f.style.height = size + 'px';
+                f.style.height = (size * 0.62) + 'px';
 
                 f.addEventListener('click', function(e) {
                     if (f.classList.contains('caught')) return;
@@ -1421,6 +1433,46 @@
             }
 
             for (let i = 0; i < fireflyCount; i++) addFirefly();
+
+            // ==============================================================
+            // ORANGE CAT — wanders the meadow, occasionally rolls on the grass
+            // ==============================================================
+            const orangeCat = document.getElementById('orangeCat');
+            const catBody = document.getElementById('catBody');
+            const HILL_MIN = 4, HILL_MAX = 46; // percent range spanning the near hill's ridge
+            let catPos = HILL_MIN;
+            let catIsRolling = false;
+
+            function catWanderCycle() {
+                if (catIsRolling) { setTimeout(catWanderCycle, 500); return; }
+                const nextPos = HILL_MIN + Math.random() * (HILL_MAX - HILL_MIN);
+                const distance = Math.abs(nextPos - catPos);
+                const duration = Math.max(1200, distance * 140);
+                const goingLeft = nextPos < catPos;
+                catBody.classList.toggle('flip', goingLeft);
+                catBody.classList.add('walking');
+                orangeCat.style.transition = 'left ' + duration + 'ms linear';
+                orangeCat.style.left = nextPos + '%';
+                catPos = nextPos;
+
+                setTimeout(function() {
+                    catBody.classList.remove('walking');
+                    setTimeout(catWanderCycle, 900 + Math.random() * 1600);
+                }, duration);
+            }
+            setTimeout(catWanderCycle, 1800);
+
+            orangeCat.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (catIsRolling) return;
+                catIsRolling = true;
+                catBody.classList.remove('walking');
+                catBody.classList.add('rolling');
+                setTimeout(function() {
+                    catBody.classList.remove('rolling');
+                    catIsRolling = false;
+                }, 1300);
+            });
 
             // ==============================================================
             // NOTE PANEL (Text notes still go to chat)
@@ -1797,6 +1849,22 @@
             let power = 0;
             let isMoving = false;
 
+            // turn-based opponent
+            let turn = 'player';
+            let gameOverPool = false;
+            let pocketedThisTurn = 0;
+            let scratchedThisTurn = false;
+            const WIN_LINES = [
+                "nice shot. you actually beat somebody at something today.",
+                "champion of a pool table that only exists in a browser tab. still counts.",
+                "🎉 you win. mountain, bike, and now pool — not bad for tonight."
+            ];
+            const LOSE_LINES = [
+                "lost to a made-up opponent with no hands. rematch?",
+                "the house always wins, apparently, even a house that's just some code.",
+                "no shame in it, they've been practicing since before the page loaded."
+            ];
+
             function resizeCanvas() {
                 const rect = poolTable.getBoundingClientRect();
                 poolCanvas.width = rect.width;
@@ -1809,25 +1877,37 @@
             }
 
             function initBalls() {
-                const cx = W * 0.3,
+                const cx = W * 0.28,
                     cy = H / 2;
                 cueBall = { x: cx, y: cy, vx: 0, vy: 0, radius: RADIUS, color: '#fff' };
-                const ex = W * 0.7,
-                    ey = H / 2;
-                eightBall = { x: ex, y: ey, vx: 0, vy: 0, radius: RADIUS, color: '#222' };
+
+                // Standard triangle rack, apex toward the cue ball, 8-ball centered in the back row
+                const apexX = W * 0.66;
+                const rowGapX = RADIUS * 1.85;
+                const rowGapY = RADIUS * 2.05;
+
                 balls = [];
-                balls.push({ x: ex - 30, y: ey - 20, vx: 0, vy: 0, radius: RADIUS, color: '#f4a460' });
-                balls.push({ x: ex - 30, y: ey + 20, vx: 0, vy: 0, radius: RADIUS, color: '#4682b4' });
-                balls.push({ x: ex - 50, y: ey, vx: 0, vy: 0, radius: RADIUS, color: '#daa520' });
-                balls.push({ x: ex - 40, y: ey - 35, vx: 0, vy: 0, radius: RADIUS, color: '#cd5c5c' });
-                balls.push({ x: ex - 40, y: ey + 35, vx: 0, vy: 0, radius: RADIUS, color: '#2e8b57' });
+                // row 1 — apex
+                balls.push({ x: apexX, y: cy, vx: 0, vy: 0, radius: RADIUS, color: '#f4a460' });
+                // row 2
+                balls.push({ x: apexX + rowGapX, y: cy - rowGapY / 2, vx: 0, vy: 0, radius: RADIUS, color: '#4682b4' });
+                balls.push({ x: apexX + rowGapX, y: cy + rowGapY / 2, vx: 0, vy: 0, radius: RADIUS, color: '#daa520' });
+                // row 3 — outer two, 8-ball takes the centered spot
+                balls.push({ x: apexX + rowGapX * 2, y: cy - rowGapY, vx: 0, vy: 0, radius: RADIUS, color: '#cd5c5c' });
+                balls.push({ x: apexX + rowGapX * 2, y: cy + rowGapY, vx: 0, vy: 0, radius: RADIUS, color: '#2e8b57' });
+                eightBall = { x: apexX + rowGapX * 2, y: cy, vx: 0, vy: 0, radius: RADIUS, color: '#222' };
+
                 const all = [cueBall, eightBall, ...balls];
                 all.forEach((b, i) => b.id = i);
                 window.poolBalls = all;
                 isMoving = false;
                 power = 0;
+                turn = 'player';
+                gameOverPool = false;
+                pocketedThisTurn = 0;
+                scratchedThisTurn = false;
                 powerFill.style.width = '0%';
-                poolStatus.textContent = 'aim & shoot';
+                poolStatus.textContent = 'your shot — aim & shoot';
                 poolCaption.textContent = '';
             }
 
@@ -1929,19 +2009,26 @@
                                 b.y = H / 2;
                                 b.vx = 0;
                                 b.vy = 0;
-                                poolStatus.textContent = 'cue ball pocketed! reset';
-                                poolCaption.textContent = 'oh no! cue ball in pocket.';
+                                scratchedThisTurn = true;
+                                poolCaption.textContent = 'scratch — cue ball back in play.';
                             } else if (b === eightBall) {
                                 b.x = W * 0.7;
                                 b.y = H / 2;
                                 b.vx = 0;
                                 b.vy = 0;
-                                poolStatus.textContent = 'you pocketed the 8-ball! you win!';
-                                poolCaption.textContent = '🎉🏆 you’re a pool legend!';
+                                gameOverPool = true;
+                                if (turn === 'player') {
+                                    poolStatus.textContent = 'you pocketed the 8-ball — you win!';
+                                    poolCaption.textContent = WIN_LINES[Math.floor(Math.random() * WIN_LINES.length)];
+                                } else {
+                                    poolStatus.textContent = 'opponent pocketed the 8-ball — they win.';
+                                    poolCaption.textContent = LOSE_LINES[Math.floor(Math.random() * LOSE_LINES.length)];
+                                }
                                 moving = false;
                             } else {
                                 const idx = all.indexOf(b);
                                 if (idx !== -1) all.splice(idx, 1);
+                                pocketedThisTurn++;
                             }
                             break;
                         }
@@ -1973,8 +2060,61 @@
                     }
                 }
 
+                if (gameOverPool) moving = false;
                 isMoving = moving;
                 return moving;
+            }
+
+            function updateTurnUI() {
+                if (gameOverPool) return;
+                poolStatus.textContent = turn === 'player' ? 'your shot — aim & shoot' : "opponent's shot...";
+            }
+
+            function resolveTurn() {
+                if (gameOverPool) return;
+                const scratched = scratchedThisTurn;
+                const pocketed = pocketedThisTurn;
+                pocketedThisTurn = 0;
+                scratchedThisTurn = false;
+
+                if (scratched) {
+                    turn = (turn === 'player') ? 'opponent' : 'player';
+                } else if (pocketed > 0) {
+                    // whoever just shot keeps their turn
+                } else {
+                    turn = (turn === 'player') ? 'opponent' : 'player';
+                }
+
+                updateTurnUI();
+                if (!gameOverPool && turn === 'opponent') {
+                    setTimeout(opponentShoot, 1100);
+                }
+            }
+
+            function opponentShoot() {
+                if (gameOverPool || isMoving) return;
+                const all = window.poolBalls || [];
+                let candidates = all.filter(b => b !== cueBall && b !== eightBall);
+                if (candidates.length === 0) candidates = all.filter(b => b !== cueBall);
+                if (candidates.length === 0) return;
+                const target = candidates[Math.floor(Math.random() * candidates.length)];
+                const dx = target.x - cueBall.x;
+                const dy = target.y - cueBall.y;
+                const len = Math.sqrt(dx * dx + dy * dy) || 1;
+                const normX = dx / len,
+                    normY = dy / len;
+                const jitter = (Math.random() - 0.5) * 0.4;
+                const cosA = Math.cos(jitter),
+                    sinA = Math.sin(jitter);
+                const jx = normX * cosA - normY * sinA;
+                const jy = normX * sinA + normY * cosA;
+                const powerVal = (0.5 + Math.random() * 0.45) * 12;
+                cueBall.vx = jx * powerVal;
+                cueBall.vy = jy * powerVal;
+                isMoving = true;
+                poolStatus.textContent = 'opponent is shooting...';
+                poolCaption.textContent = '';
+                animate();
             }
 
             function animate() {
@@ -1984,9 +2124,7 @@
                     requestAnimationFrame(animate);
                 } else {
                     draw();
-                    if (window.poolBalls && window.poolBalls.length > 0) {
-                        poolStatus.textContent = 'aim & shoot';
-                    }
+                    resolveTurn();
                 }
             }
 
@@ -2008,7 +2146,7 @@
             }
 
             poolCanvas.addEventListener('mousedown', function(e) {
-                if (isMoving) return;
+                if (isMoving || gameOverPool || turn !== 'player') return;
                 const rect = poolCanvas.getBoundingClientRect();
                 const scaleX = poolCanvas.width / rect.width;
                 const scaleY = poolCanvas.height / rect.height;
@@ -2046,7 +2184,7 @@
 
             poolCanvas.addEventListener('touchstart', function(e) {
                 e.preventDefault();
-                if (isMoving) return;
+                if (isMoving || gameOverPool || turn !== 'player') return;
                 const rect = poolCanvas.getBoundingClientRect();
                 const scaleX = poolCanvas.width / rect.width;
                 const scaleY = poolCanvas.height / rect.height;
@@ -2085,8 +2223,6 @@
             poolResetBtn.addEventListener('click', function() {
                 initBalls();
                 draw();
-                poolStatus.textContent = 'new game';
-                poolCaption.textContent = '';
                 powerFill.style.width = '0%';
                 isMoving = false;
             });
