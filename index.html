@@ -1,2629 +1,627 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Porch Light — Puzzles & Challenges</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
-    <style>
-        /* ── reset & base ── */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        :root {
-            --night-deep: #0b1530;
-            --night-blue: #16264f;
-            --night-soft: #22366b;
-            --porch-amber: #ffb066;
-            --porch-ember: #ff8a4c;
-            --porch-core: #fff3d6;
-            --cream: #f4ecdd;
-            --cream-dim: rgba(244, 236, 221, 0.62);
-            --glow-strength: 0.55;
-            --card-bg: rgba(11, 21, 48, 0.88);
-            --border-glow: rgba(255, 176, 102, 0.25);
-        }
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100%;
-            background: radial-gradient(ellipse at 50% 15%, var(--night-blue) 0%, var(--night-deep) 60%, #060b1c 100%);
-            font-family: 'Nunito Sans', sans-serif;
-            color: var(--cream);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-        .stage {
-            position: relative;
-            min-height: 100vh;
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 4vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Porch Light</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-deep:   #0b1530;
+    --night-blue:   #16264f;
+    --night-soft:   #22366b;
+    --porch-amber:  #ffb066;
+    --porch-ember:  #ff8a4c;
+    --porch-core:   #fff3d6;
+    --cream:        #f4ecdd;
+    --cream-dim:    rgba(244,236,221,0.62);
+    --glow-strength: 0.55;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; padding:0; height:100%;
+    background: radial-gradient(ellipse at 50% 15%, var(--night-blue) 0%, var(--night-deep) 60%, #060b1c 100%);
+    font-family: 'Nunito Sans', sans-serif;
+    color: var(--cream);
+    overflow-x:hidden;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+  }
+  .stage{ position:relative; min-height:100vh; width:100vw; display:flex; flex-direction:column; align-items:center; }
 
-        /* ── stars ── */
-        .star {
-            position: fixed;
-            border-radius: 50%;
-            background: #dfe6ff;
-            opacity: 0.4;
-            animation: twinkle 4s ease-in-out infinite;
-            z-index: 0;
-            pointer-events: none;
-        }
-        @keyframes twinkle {
-            0%,
-            100% {
-                opacity: 0.12;
-            }
-            50% {
-                opacity: 0.85;
-            }
-        }
+  .star{ position:absolute; border-radius:50%; background:#dfe6ff; opacity:0.5; animation: twinkle 4s ease-in-out infinite; z-index:0; }
+  @keyframes twinkle{ 0%,100%{ opacity:0.15; } 50%{ opacity:0.9; } }
 
-        /* ── intro ── */
-        .intro {
-            text-align: center;
-            width: min(560px, 88vw);
-            z-index: 5;
-            margin-top: 3vh;
-            padding: 0 12px;
-        }
-        .intro .eyebrow {
-            font-size: 0.68rem;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: var(--cream-dim);
-            margin: 0 0 6px;
-        }
-        .intro h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin: 0 0 6px;
-            color: var(--porch-core);
-            text-shadow: 0 0 28px rgba(255, 176, 102, 0.2);
-        }
-        .intro p {
-            font-size: 0.92rem;
-            line-height: 1.5;
-            color: var(--cream-dim);
-            margin: 0;
-            max-width: 480px;
-            margin-inline: auto;
-        }
+  .intro{ text-align:center; width:min(560px, 88vw); z-index:5; margin-top:5vh; }
+  .intro .eyebrow{ font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase; color: var(--cream-dim); margin:0 0 10px; }
+  .intro h1{ font-family:'Caveat', cursive; font-size:2.6rem; font-weight:600; margin:0 0 8px; color: var(--porch-core); text-shadow: 0 0 24px rgba(255,176,102,0.25); }
+  .intro p{ font-size:0.95rem; line-height:1.55; color: var(--cream-dim); margin:0; }
 
-        /* ── nav ── */
-        .nav {
-            display: flex;
-            gap: 6px;
-            margin: 16px 0 8px;
-            z-index: 6;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 0 10px;
-        }
-        .nav button {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 176, 102, 0.2);
-            color: var(--cream-dim);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.78rem;
-            padding: 7px 14px;
-            border-radius: 999px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            white-space: nowrap;
-        }
-        .nav button.active,
-        .nav button:hover,
-        .nav button:focus-visible {
-            border-color: var(--porch-amber);
-            color: var(--porch-core);
-            background: rgba(255, 176, 102, 0.1);
-        }
-        .nav button .nav-icon {
-            margin-right: 4px;
-        }
+  .nav{ display:flex; gap:8px; margin:22px 0 8px; z-index:6; flex-wrap:wrap; justify-content:center; padding:0 12px; }
+  .nav button{ background: rgba(255,255,255,0.05); border:1px solid rgba(255,176,102,0.25); color: var(--cream-dim); font-family:'Nunito Sans',sans-serif; font-size:0.8rem; padding:8px 15px; border-radius:999px; cursor:pointer; transition: all 0.2s ease; }
+  .nav button.active, .nav button:hover, .nav button:focus-visible{ border-color: var(--porch-amber); color: var(--porch-core); background: rgba(255,176,102,0.1); }
 
-        /* ── views ── */
-        .view {
-            display: none;
-            width: 100%;
-            flex: 1;
-            flex-direction: column;
-            align-items: center;
-            animation: fadeUp 0.5s ease;
-        }
-        .view.active {
-            display: flex;
-        }
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+  .view{ display:none; width:100%; flex:1; flex-direction:column; align-items:center; }
+  .view.active{ display:flex; }
 
-        /* ── WINDOW VIEW ── */
-        .count-note {
-            position: absolute;
-            top: 10px;
-            right: 14px;
-            font-size: 0.7rem;
-            color: var(--cream-dim);
-            z-index: 5;
-            background: rgba(11, 21, 48, 0.5);
-            padding: 4px 12px;
-            border-radius: 999px;
-            backdrop-filter: blur(4px);
-        }
-        .scene {
-            position: relative;
-            width: min(680px, 92vw);
-            z-index: 4;
-            margin-top: 0;
-        }
-        .roofline {
-            width: 100%;
-            height: 56px;
-            background: var(--night-soft);
-            clip-path: polygon(50% 0%, 100% 55%, 100% 100%, 0% 100%, 0% 55%);
-            opacity: 0.85;
-        }
-        .house {
-            width: 100%;
-            height: min(30vh, 250px);
-            background: linear-gradient(180deg, var(--night-soft) 0%, #0e1a3c 100%);
-            position: relative;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 0 0 8px 8px;
-            overflow: hidden;
-        }
-        .window-wrap {
-            position: absolute;
-            left: 50%;
-            top: 38%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 5;
-        }
-        .window {
-            width: 120px;
-            height: 146px;
-            border-radius: 6px 6px 4px 4px;
-            background: radial-gradient(ellipse at 50% 45%, var(--porch-core) 0%, var(--porch-amber) 45%, var(--porch-ember) 85%);
-            border: 6px solid #0a1330;
-            box-shadow: 0 0 calc(40px * var(--glow-strength)) calc(18px * var(--glow-strength)) rgba(255, 154, 77, var(--glow-strength)), inset 0 0 20px rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            position: relative;
-            animation: breathe 4.4s ease-in-out infinite;
-            transition: transform 0.2s ease;
-        }
-        .window:hover {
-            transform: scale(1.02);
-        }
-        .window::before,
-        .window::after {
-            content: '';
-            position: absolute;
-            background: #0a1330;
-        }
-        .window::before {
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 5px;
-            transform: translateX(-50%);
-        }
-        .window::after {
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 5px;
-            transform: translateY(-50%);
-        }
-        @keyframes breathe {
-            0%,
-            100% {
-                filter: brightness(1);
-            }
-            50% {
-                filter: brightness(1.14);
-            }
-        }
-        .window:focus-visible {
-            outline: 2px solid var(--porch-core);
-            outline-offset: 6px;
-        }
-        .presence-label {
-            margin-top: 14px;
-            font-size: 0.8rem;
-            color: var(--cream-dim);
-            letter-spacing: 0.03em;
-            text-align: center;
-            min-height: 1.2em;
-        }
-        .presence-label strong {
-            color: var(--porch-amber);
-            font-weight: 600;
-        }
+  /* ============ WINDOW ============ */
+  .count-note{ position:absolute; top:14px; right:16px; font-size:0.72rem; color: var(--cream-dim); z-index:5; }
+  .scene{ position:relative; width:min(680px, 92vw); z-index:4; margin-top:auto; }
+  .roofline{ width:100%; height:64px; background: var(--night-soft); clip-path: polygon(50% 0%, 100% 62%, 100% 100%, 0% 100%, 0% 62%); opacity:0.9; }
+  .house{ width:100%; height:min(34vh, 280px); background: linear-gradient(180deg, var(--night-soft) 0%, #0e1a3c 100%); position:relative; border-top: 1px solid rgba(255,255,255,0.06); }
+  .window-wrap{ position:absolute; left:50%; top:34%; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; z-index:5; }
+  .window{ width:132px; height:158px; border-radius:6px 6px 4px 4px; background: radial-gradient(ellipse at 50% 45%, var(--porch-core) 0%, var(--porch-amber) 45%, var(--porch-ember) 85%); border: 6px solid #0a1330; box-shadow: 0 0 calc(40px * var(--glow-strength)) calc(18px * var(--glow-strength)) rgba(255,154,77, var(--glow-strength)), inset 0 0 20px rgba(255,255,255,0.25); cursor:pointer; position:relative; animation: breathe 4.4s ease-in-out infinite; }
+  .window::before, .window::after{ content:''; position:absolute; background:#0a1330; }
+  .window::before{ left:50%; top:0; bottom:0; width:5px; transform:translateX(-50%); }
+  .window::after{ top:50%; left:0; right:0; height:5px; transform:translateY(-50%); }
+  .window:focus-visible{ outline:2px solid var(--porch-core); outline-offset:6px; }
+  @keyframes breathe{ 0%,100%{ filter:brightness(1); } 50%{ filter:brightness(1.16); } }
+  .presence-label{ margin-top:16px; font-size:0.82rem; color: var(--cream-dim); letter-spacing:0.03em; text-align:center; min-height:1.2em; }
+  .presence-label strong{ color: var(--porch-amber); font-weight:600; }
+  .firefly{ position:absolute; width:9px; height:9px; border-radius:50%; background: var(--porch-amber); box-shadow: 0 0 8px 3px rgba(255,176,102,0.55); cursor:pointer; border:none; animation: drift 9s ease-in-out infinite; transition: transform 0.2s ease; z-index:6; }
+  .firefly:hover{ transform: scale(1.4); }
+  .firefly:focus-visible{ outline:2px solid var(--porch-core); outline-offset:4px; }
+  .firefly.caught{ animation: none; opacity:0; transform: scale(0.2); pointer-events:none; }
+  @keyframes drift{ 0%{ transform: translate(0,0); } 25%{ transform: translate(14px,-18px); } 50%{ transform: translate(-10px,-30px); } 75%{ transform: translate(-18px,-8px); } 100%{ transform: translate(0,0); } }
+  .affirmation{ position:absolute; bottom:calc(100% + 14px); left:50%; transform:translateX(-50%); width:max(240px, 22vw); max-width:320px; background: rgba(20,30,60,0.92); border:1px solid rgba(255,176,102,0.35); border-radius:14px; padding:14px 16px; font-family:'Caveat', cursive; font-size:1.35rem; line-height:1.3; color: var(--porch-core); text-align:center; opacity:0; pointer-events:none; transition: opacity 0.6s ease, transform 0.6s ease; }
+  .affirmation.show{ opacity:1; transform:translate(-50%, -4px); }
+  .lantern{ width:min(420px, 90vw); z-index:8; text-align:center; margin: 26px 0 5vh; }
+  .lantern-toggle{ background:none; border:1px solid rgba(244,236,221,0.28); color: var(--cream-dim); font-family:'Nunito Sans',sans-serif; font-size:0.78rem; padding:8px 16px; border-radius:999px; cursor:pointer; }
+  .lantern-toggle:hover, .lantern-toggle:focus-visible{ border-color: var(--porch-amber); color: var(--porch-core); }
+  .lantern-panel{ margin-top:12px; background:rgba(11,21,48,0.9); border:1px solid rgba(255,176,102,0.25); border-radius:14px; padding:14px; display:none; }
+  .lantern-panel.open{ display:block; }
+  .lantern-panel p{ margin:0 0 8px; font-size:0.76rem; color:var(--cream-dim); line-height:1.4; }
+  .lantern-panel textarea{ width:100%; min-height:64px; resize:vertical; background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:10px; color:var(--cream); font-family:'Nunito Sans',sans-serif; font-size:0.85rem; transition: opacity 0.5s ease; }
+  .lantern-panel textarea:focus-visible{ outline:2px solid var(--porch-amber); }
+  .lantern-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:8px; }
+  .tuck-btn{ background: var(--porch-ember); border:none; color:#20130a; font-weight:600; font-size:0.78rem; padding:7px 14px; border-radius:999px; cursor:pointer; }
+  .tuck-btn:hover{ background: var(--porch-amber); }
+  .tuck-msg{ font-size:0.78rem; color: var(--porch-amber); margin-top:8px; opacity:0; transition: opacity 0.6s ease; }
+  .tuck-msg.show{ opacity:1; }
 
-        /* fireflies */
-        .firefly {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--porch-amber);
-            box-shadow: 0 0 10px 4px rgba(255, 176, 102, 0.5);
-            cursor: pointer;
-            border: none;
-            animation: drift 9s ease-in-out infinite;
-            transition: transform 0.2s ease, opacity 0.6s ease;
-            z-index: 6;
-        }
-        .firefly:hover {
-            transform: scale(1.5);
-        }
-        .firefly:focus-visible {
-            outline: 2px solid var(--porch-core);
-            outline-offset: 4px;
-        }
-        .firefly.caught {
-            animation: none;
-            opacity: 0;
-            transform: scale(0.2);
-            pointer-events: none;
-        }
-        @keyframes drift {
-            0% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(14px, -18px);
-            }
-            50% {
-                transform: translate(-10px, -30px);
-            }
-            75% {
-                transform: translate(-18px, -8px);
-            }
-            100% {
-                transform: translate(0, 0);
-            }
-        }
+  /* ============ shared game bits ============ */
+  .game-wrap{ width:min(600px,94vw); text-align:center; padding: 10px 0 6vh; z-index:4; display:flex; flex-direction:column; align-items:center; }
+  .game-caption{ font-family:'Caveat', cursive; font-size:1.5rem; color:var(--porch-amber); min-height:2.4rem; margin:10px 0 4px; max-width:520px; }
+  .game-stats{ font-size:0.85rem; color:var(--cream-dim); margin-top:8px; letter-spacing:0.02em; }
+  .game-reset{ background:none; border:1px solid rgba(255,176,102,0.35); color:var(--cream-dim); padding:7px 16px; border-radius:999px; cursor:pointer; font-size:0.78rem; margin-top:12px; }
+  .game-reset:hover{ border-color:var(--porch-amber); color:var(--porch-core); }
+  .swing-btn{ margin-top:16px; background: var(--porch-ember); border:none; color:#20130a; font-weight:700; font-size:0.95rem; padding:14px 34px; border-radius:999px; cursor:pointer; touch-action:none; }
+  .swing-btn:hover{ background: var(--porch-amber); }
+  .swing-btn:active{ transform: scale(0.96); }
 
-        .affirmation {
-            position: absolute;
-            bottom: calc(100% + 14px);
-            left: 50%;
-            transform: translateX(-50%);
-            width: max(220px, 20vw);
-            max-width: 300px;
-            background: rgba(20, 30, 60, 0.94);
-            border: 1px solid rgba(255, 176, 102, 0.35);
-            border-radius: 14px;
-            padding: 12px 16px;
-            font-family: 'Caveat', cursive;
-            font-size: 1.3rem;
-            line-height: 1.3;
-            color: var(--porch-core);
-            text-align: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            backdrop-filter: blur(6px);
-        }
-        .affirmation.show {
-            opacity: 1;
-            transform: translate(-50%, -4px);
-        }
+  /* ============ CRICKET NETS ============ */
+  .pitch{ position:relative; width:100%; height:min(34vh,260px); background: linear-gradient(180deg, #1c3168 0%, #142450 60%, #0e1a3c 100%); border-radius:16px; border:1px solid rgba(255,176,102,0.15); overflow:hidden; }
+  .crease-line{ position:absolute; right:70px; top:0; bottom:0; width:2px; background:rgba(255,243,214,0.35); }
+  .sweet-zone{ position:absolute; right:38px; top:0; bottom:0; width:56px; background:rgba(255,176,102,0.08); border-left:1px dashed rgba(255,176,102,0.3); border-right:1px dashed rgba(255,176,102,0.3); }
+  .batter{ position:absolute; right:14px; top:50%; font-size:2.2rem; transform:translateY(-50%) rotate(0deg); transform-origin: 80% 70%; }
+  .batter.swinging{ animation: bat-swing 0.35s ease-out; }
+  @keyframes bat-swing{
+    0%   { transform: translateY(-50%) rotate(0deg); }
+    40%  { transform: translateY(-50%) rotate(-55deg); }
+    70%  { transform: translateY(-50%) rotate(15deg); }
+    100% { transform: translateY(-50%) rotate(0deg); }
+  }
+  .bowler{ position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:1.8rem; }
+  .ball{ position:absolute; top:50%; left:60px; width:14px; height:14px; margin-top:-7px; border-radius:50%; background: radial-gradient(circle at 35% 30%, #ffdede, var(--porch-ember) 60%, #8a2b12 100%); box-shadow:0 0 6px rgba(255,138,76,0.6); }
 
-        /* lantern */
-        .lantern {
-            width: min(420px, 90vw);
-            z-index: 8;
-            text-align: center;
-            margin: 18px 0 4vh;
-        }
-        .lantern-toggle {
-            background: none;
-            border: 1px solid rgba(244, 236, 221, 0.25);
-            color: var(--cream-dim);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.76rem;
-            padding: 7px 16px;
-            border-radius: 999px;
-            cursor: pointer;
-            transition: 0.25s ease;
-        }
-        .lantern-toggle:hover,
-        .lantern-toggle:focus-visible {
-            border-color: var(--porch-amber);
-            color: var(--porch-core);
-        }
-        .lantern-panel {
-            margin-top: 10px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 14px;
-            padding: 14px;
-            display: none;
-            backdrop-filter: blur(6px);
-        }
-        .lantern-panel.open {
-            display: block;
-            animation: fadeUp 0.35s ease;
-        }
-        .lantern-panel p {
-            margin: 0 0 8px;
-            font-size: 0.76rem;
-            color: var(--cream-dim);
-            line-height: 1.4;
-        }
-        .lantern-panel textarea {
-            width: 100%;
-            min-height: 60px;
-            resize: vertical;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 10px;
-            color: var(--cream);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.85rem;
-            transition: opacity 0.4s ease;
-        }
-        .lantern-panel textarea:focus-visible {
-            outline: 2px solid var(--porch-amber);
-        }
-        .lantern-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 8px;
-            margin-top: 8px;
-        }
-        .tuck-btn {
-            background: var(--porch-ember);
-            border: none;
-            color: #20130a;
-            font-weight: 700;
-            font-size: 0.78rem;
-            padding: 6px 16px;
-            border-radius: 999px;
-            cursor: pointer;
-            transition: 0.2s ease;
-        }
-        .tuck-btn:hover {
-            background: var(--porch-amber);
-            transform: scale(1.02);
-        }
-        .tuck-msg {
-            font-size: 0.76rem;
-            color: var(--porch-amber);
-            margin-top: 8px;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-        .tuck-msg.show {
-            opacity: 1;
-        }
+  /* ============ RELEASE THE CLUTCH (endless runner) ============ */
+  .clutch-scene{ position:relative; width:100%; height:min(34vh,260px); background: linear-gradient(180deg, #16264f 0%, #101f45 55%, #0b1530 100%); border-radius:16px; border:1px solid rgba(255,176,102,0.15); overflow:hidden; }
+  .peak{ position:absolute; bottom:0; width:0; height:0; opacity:0.5; }
+  .peak.p1{ left:5%; border-left:60px solid transparent; border-right:60px solid transparent; border-bottom:90px solid #22366b; }
+  .peak.p2{ left:32%; border-left:80px solid transparent; border-right:80px solid transparent; border-bottom:130px solid #1b2c5c; }
+  .peak.p3{ right:6%; border-left:70px solid transparent; border-right:70px solid transparent; border-bottom:100px solid #22366b; }
+  .road{ position:absolute; bottom:0; left:0; right:0; height:30px; background:#0a1330; border-top:2px dashed rgba(255,243,214,0.25); }
+  .rider{ position:absolute; bottom:26px; left:40px; font-size:2.3rem; transition: transform 0.12s ease; z-index:3; }
+  .rider.crouch{ transform: translateY(4px) scaleY(0.9); }
+  .rider.jumping{ animation: bike-jump 0.55s ease-out; }
+  @keyframes bike-jump{
+    0%   { transform: translateY(0); }
+    40%  { transform: translateY(-72px); }
+    68%  { transform: translateY(-72px); }
+    100% { transform: translateY(0); }
+  }
+  .obstacle{ position:absolute; bottom:26px; width:26px; height:20px; background: var(--porch-ember); border-radius:50% 50% 2px 2px / 100% 100% 2px 2px; box-shadow:0 0 8px rgba(255,138,76,0.5); z-index:2; }
 
-        /* ── shared game wrap ── */
-        .game-wrap {
-            width: min(640px, 94vw);
-            text-align: center;
-            padding: 8px 0 4vh;
-            z-index: 4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .game-caption {
-            font-family: 'Caveat', cursive;
-            font-size: 1.4rem;
-            color: var(--porch-amber);
-            min-height: 2.2rem;
-            margin: 8px 0 4px;
-            max-width: 520px;
-        }
-        .game-stats {
-            font-size: 0.78rem;
-            color: var(--cream-dim);
-            margin-top: 6px;
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .game-stats span {
-            background: rgba(255, 255, 255, 0.04);
-            padding: 2px 12px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .game-reset {
-            background: none;
-            border: 1px solid var(--border-glow);
-            color: var(--cream-dim);
-            padding: 7px 18px;
-            border-radius: 999px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            margin-top: 12px;
-            transition: 0.25s ease;
-        }
-        .game-reset:hover {
-            border-color: var(--porch-amber);
-            color: var(--porch-core);
-        }
-        .game-reset.primary {
-            background: var(--porch-ember);
-            border: none;
-            color: #20130a;
-            font-weight: 700;
-        }
-        .game-reset.primary:hover {
-            background: var(--porch-amber);
-        }
-
-        /* ── PUZZLE ── */
-        .puzzle-container {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 16px;
-            padding: 16px;
-            width: 100%;
-            max-width: 480px;
-            backdrop-filter: blur(4px);
-        }
-        .puzzle-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
-            aspect-ratio: 1;
-            width: 100%;
-            margin: 0 auto;
-        }
-        .puzzle-tile {
-            background: radial-gradient(circle at 40% 35%, #3a5290, #1a2d5a);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--porch-core);
-            cursor: pointer;
-            transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
-            user-select: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            aspect-ratio: 1;
-        }
-        .puzzle-tile:hover:not(.empty) {
-            transform: scale(1.04);
-            background: radial-gradient(circle at 40% 35%, #4a62a0, #22366b);
-            box-shadow: 0 0 16px rgba(255, 176, 102, 0.15);
-        }
-        .puzzle-tile.empty {
-            background: rgba(255, 255, 255, 0.03);
-            box-shadow: none;
-            border-color: transparent;
-            cursor: default;
-        }
-        .puzzle-tile.correct {
-            background: radial-gradient(circle at 40% 35%, #4a7a5a, #1a4a2a);
-            border-color: rgba(255, 176, 102, 0.2);
-        }
-        .puzzle-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 12px;
-            font-size: 0.8rem;
-            color: var(--cream-dim);
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .puzzle-stats .stat-group {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-        .puzzle-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .puzzle-actions button {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--border-glow);
-            color: var(--cream-dim);
-            padding: 5px 14px;
-            border-radius: 999px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            transition: 0.25s ease;
-        }
-        .puzzle-actions button:hover {
-            border-color: var(--porch-amber);
-            color: var(--porch-core);
-        }
-        .puzzle-actions button.hint-btn {
-            border-color: rgba(255, 176, 102, 0.4);
-        }
-        .puzzle-actions button.hint-btn:hover {
-            background: rgba(255, 176, 102, 0.12);
-        }
-
-        /* win overlay */
-        .puzzle-win {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 16px;
-            text-align: center;
-            animation: winPulse 1.2s ease-in-out infinite alternate;
-        }
-        .puzzle-win.show {
-            display: flex;
-        }
-        .puzzle-win .win-text {
-            font-family: 'Caveat', cursive;
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--porch-core);
-            text-shadow: 0 0 40px rgba(255, 176, 102, 0.5), 0 0 80px rgba(255, 176, 102, 0.2);
-            line-height: 1.2;
-            margin-bottom: 4px;
-        }
-        .puzzle-win .win-sub {
-            font-size: 0.9rem;
-            color: var(--cream-dim);
-        }
-        @keyframes winPulse {
-            0% {
-                filter: brightness(1);
-            }
-            100% {
-                filter: brightness(1.12);
-            }
-        }
-
-        /* confetti canvas */
-        #confettiCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        /* ── MOTORCYCLE ── */
-        .bike-scene {
-            position: relative;
-            width: 100%;
-            height: min(40vh, 320px);
-            background: linear-gradient(180deg, #0d1a3a 0%, #142450 45%, #1a2d5a 75%, #22366b 100%);
-            border-radius: 16px;
-            border: 1px solid var(--border-glow);
-            overflow: hidden;
-        }
-        .bike-scene .mountains {
-            position: absolute;
-            bottom: 60px;
-            left: 0;
-            right: 0;
-            height: 120px;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        .bike-scene .mountain {
-            position: absolute;
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            opacity: 0.5;
-        }
-        .bike-scene .mountain.m1 {
-            left: 2%;
-            border-width: 0 60px 80px 60px;
-            border-color: transparent transparent #1a2d5a transparent;
-        }
-        .bike-scene .mountain.m2 {
-            left: 28%;
-            border-width: 0 80px 120px 80px;
-            border-color: transparent transparent #142450 transparent;
-        }
-        .bike-scene .mountain.m3 {
-            right: 4%;
-            border-width: 0 70px 100px 70px;
-            border-color: transparent transparent #1a2d5a transparent;
-        }
-        .bike-scene .mountain.m4 {
-            left: 55%;
-            border-width: 0 50px 70px 50px;
-            border-color: transparent transparent #22366b transparent;
-        }
-        .bike-scene .road {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: #0a1330;
-            border-top: 2px solid rgba(255, 243, 214, 0.12);
-            overflow: hidden;
-        }
-        .bike-scene .road-line {
-            position: absolute;
-            top: 50%;
-            width: 40px;
-            height: 2px;
-            background: rgba(255, 243, 214, 0.2);
-            transform: translateY(-50%);
-            animation: roadScroll 2s linear infinite;
-        }
-        @keyframes roadScroll {
-            0% {
-                transform: translateY(-50%) translateX(100%);
-            }
-            100% {
-                transform: translateY(-50%) translateX(-100%);
-            }
-        }
-
-        .bike-scene .bike {
-            position: absolute;
-            bottom: 54px;
-            left: 8%;
-            font-size: 2.8rem;
-            transition: left 0.08s linear, bottom 0.2s ease;
-            z-index: 4;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
-            line-height: 1;
-        }
-        .bike-scene .bike .rider-emoji {
-            display: block;
-            font-size: 1.6rem;
-            margin-bottom: -4px;
-        }
-        .bike-scene .bike .bike-emoji {
-            display: block;
-            font-size: 2.4rem;
-            line-height: 1;
-        }
-        .bike-scene .bike .exhaust {
-            position: absolute;
-            bottom: 6px;
-            right: -14px;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .bike-scene .bike .exhaust.active {
-            opacity: 0.7;
-            animation: exhaustPuff 0.6s ease-out infinite alternate;
-        }
-        @keyframes exhaustPuff {
-            0% {
-                opacity: 0.3;
-                transform: scale(0.8) translateX(0);
-            }
-            100% {
-                opacity: 0.8;
-                transform: scale(1.2) translateX(6px);
-            }
-        }
-
-        .bike-scene .obstacle {
-            position: absolute;
-            bottom: 60px;
-            font-size: 2rem;
-            z-index: 3;
-            animation: obstacleMove 4s linear forwards;
-            pointer-events: none;
-        }
-        @keyframes obstacleMove {
-            0% {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(-120%);
-                opacity: 0;
-            }
-        }
-
-        .bike-controls {
-            width: 100%;
-            max-width: 480px;
-            margin-top: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .bike-controls .clutch-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .bike-controls .clutch-row label {
-            font-size: 0.7rem;
-            color: var(--cream-dim);
-            min-width: 48px;
-            text-align: right;
-        }
-        .bike-controls .clutch-row input[type="range"] {
-            flex: 1;
-            accent-color: var(--porch-amber);
-            cursor: pointer;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-        .bike-controls .clutch-row input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--porch-amber);
-            cursor: pointer;
-            border: 2px solid var(--porch-core);
-        }
-        .bike-controls .clutch-row input[type="range"]::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--porch-amber);
-            cursor: pointer;
-            border: 2px solid var(--porch-core);
-        }
-        .bike-controls .clutch-row .clutch-status {
-            font-size: 0.7rem;
-            color: var(--cream-dim);
-            min-width: 60px;
-            text-align: center;
-        }
-        .bike-controls .button-row {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .bike-controls .button-row button {
-            padding: 8px 20px;
-            border-radius: 999px;
-            border: 1px solid var(--border-glow);
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--cream-dim);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.2s ease;
-            min-width: 80px;
-        }
-        .bike-controls .button-row button:hover:not(:disabled) {
-            border-color: var(--porch-amber);
-            color: var(--porch-core);
-        }
-        .bike-controls .button-row button.brake-btn {
-            border-color: rgba(255, 80, 80, 0.4);
-            color: #ff8a8a;
-        }
-        .bike-controls .button-row button.brake-btn:hover:not(:disabled) {
-            border-color: #ff5555;
-            background: rgba(255, 80, 80, 0.1);
-        }
-        .bike-controls .button-row button:disabled {
-            opacity: 0.3;
-            cursor: default;
-        }
-        .bike-controls .button-row button.throttle-btn {
-            border-color: rgba(80, 200, 80, 0.3);
-            color: #8aff8a;
-        }
-        .bike-controls .button-row button.throttle-btn:hover:not(:disabled) {
-            border-color: #55ff55;
-            background: rgba(80, 200, 80, 0.08);
-        }
-        .bike-controls .button-row button.brake-btn.active {
-            background: rgba(255, 80, 80, 0.2);
-            border-color: #ff5555;
-        }
-        .bike-controls .button-row button.throttle-btn.active {
-            background: rgba(80, 200, 80, 0.15);
-            border-color: #55ff55;
-        }
-        .bike-score {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            justify-content: center;
-            font-size: 0.75rem;
-            color: var(--cream-dim);
-            margin-top: 6px;
-        }
-        .bike-score span {
-            background: rgba(255, 255, 255, 0.04);
-            padding: 2px 12px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .bike-score .highlight {
-            color: var(--porch-amber);
-        }
-        .bike-gameover {
-            display: none;
-            margin-top: 10px;
-            padding: 12px 20px;
-            background: rgba(255, 80, 80, 0.12);
-            border: 1px solid rgba(255, 80, 80, 0.3);
-            border-radius: 12px;
-            color: #ff8a8a;
-            font-size: 0.9rem;
-            animation: fadeUp 0.5s ease;
-        }
-        .bike-gameover.show {
-            display: block;
-        }
-        .bike-gameover .final-score {
-            color: var(--porch-core);
-            font-weight: 700;
-        }
-
-        /* ── CRICKET ── */
-        .cricket-pitch {
-            position: relative;
-            width: 100%;
-            height: min(34vh, 280px);
-            background: linear-gradient(180deg, #0d1a3a 0%, #142450 40%, #1a2d5a 70%, #22366b 100%);
-            border-radius: 16px;
-            border: 1px solid var(--border-glow);
-            overflow: hidden;
-        }
-        .cricket-pitch .pitch-strip {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: rgba(255, 243, 214, 0.06);
-            transform: translateX(-50%);
-        }
-        .cricket-pitch .crease {
-            position: absolute;
-            right: 60px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: rgba(255, 243, 214, 0.2);
-        }
-        .cricket-pitch .crease::after {
-            content: '';
-            position: absolute;
-            left: -18px;
-            top: 50%;
-            width: 38px;
-            height: 2px;
-            background: rgba(255, 243, 214, 0.15);
-            transform: translateY(-50%);
-        }
-        .cricket-pitch .batter {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2.4rem;
-            z-index: 3;
-            transition: transform 0.08s ease;
-            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
-        }
-        .cricket-pitch .batter.swing {
-            transform: translateY(-50%) rotate(-25deg) scale(1.1);
-        }
-        .cricket-pitch .bowler {
-            position: absolute;
-            left: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-            z-index: 2;
-            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
-        }
-        .cricket-pitch .cricket-ball {
-            position: absolute;
-            top: 50%;
-            left: 50px;
-            width: 14px;
-            height: 14px;
-            margin-top: -7px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, #ffdede, #cc5533 60%, #8a2b12 100%);
-            box-shadow: 0 0 8px rgba(255, 138, 76, 0.4);
-            z-index: 4;
-            opacity: 0;
-            transition: none;
-        }
-        .cricket-pitch .cricket-ball.travelling {
-            transition: left 0.55s cubic-bezier(0.2, 0.8, 0.3, 1), top 0.55s cubic-bezier(0.2, 0.8, 0.3, 1);
-        }
-        .cricket-pitch .cricket-ball .ball-shadow {
-            position: absolute;
-            bottom: -6px;
-            left: 50%;
-            width: 20px;
-            height: 4px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 50%;
-            transform: translateX(-50%);
-            filter: blur(2px);
-        }
-        .cricket-scoreboard {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-            font-size: 0.78rem;
-            color: var(--cream-dim);
-            margin-top: 8px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 12px;
-            padding: 8px 14px;
-            backdrop-filter: blur(4px);
-            width: 100%;
-            max-width: 480px;
-        }
-        .cricket-scoreboard .score-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .cricket-scoreboard .score-item .label {
-            opacity: 0.6;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
-        .cricket-scoreboard .score-item .value {
-            font-weight: 700;
-            color: var(--porch-core);
-            font-size: 0.9rem;
-        }
-        .cricket-scoreboard .score-item .value.runs {
-            color: var(--porch-amber);
-            font-size: 1.1rem;
-        }
-        .cricket-result {
-            margin-top: 8px;
-            font-size: 0.9rem;
-            color: var(--cream-dim);
-            min-height: 1.4em;
-            text-align: center;
-        }
-        .cricket-result .big {
-            font-size: 1.4rem;
-            font-family: 'Caveat', cursive;
-            color: var(--porch-core);
-        }
-        .cricket-result .out {
-            color: #ff6b6b;
-        }
-        .cricket-result .boundary {
-            color: #6bff6b;
-        }
-
-        /* ── responsive ── */
-        @media (max-width: 480px) {
-            .intro h1 {
-                font-size: 2.2rem;
-            }
-            .window {
-                width: 96px;
-                height: 118px;
-            }
-            .puzzle-tile {
-                font-size: 1.2rem;
-            }
-            .bike-scene .bike {
-                font-size: 2rem;
-            }
-            .bike-scene .bike .bike-emoji {
-                font-size: 1.8rem;
-            }
-            .bike-scene .bike .rider-emoji {
-                font-size: 1.2rem;
-            }
-            .cricket-pitch .batter {
-                font-size: 1.8rem;
-            }
-            .cricket-pitch .bowler {
-                font-size: 1.6rem;
-            }
-            .nav button {
-                font-size: 0.7rem;
-                padding: 5px 10px;
-            }
-            .puzzle-win .win-text {
-                font-size: 2rem;
-            }
-            .bike-score {
-                font-size: 0.65rem;
-                gap: 6px;
-            }
-            .bike-score span {
-                padding: 1px 8px;
-            }
-            .cricket-scoreboard {
-                font-size: 0.7rem;
-                padding: 6px 10px;
-                gap: 6px;
-            }
-            .cricket-scoreboard .score-item .value {
-                font-size: 0.8rem;
-            }
-            .cricket-scoreboard .score-item .value.runs {
-                font-size: 0.95rem;
-            }
-            .game-stats {
-                font-size: 0.7rem;
-                gap: 6px;
-            }
-            .game-stats span {
-                padding: 1px 8px;
-            }
-        }
-        @media (max-width: 380px) {
-            .puzzle-tile {
-                font-size: 1rem;
-            }
-            .bike-scene .bike {
-                font-size: 1.6rem;
-            }
-            .bike-scene .bike .bike-emoji {
-                font-size: 1.4rem;
-            }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .firefly,
-            .window,
-            .star,
-            .puzzle-win,
-            .bike-scene .road-line,
-            .bike-scene .obstacle,
-            .cricket-pitch .cricket-ball {
-                animation: none !important;
-            }
-            .firefly.caught {
-                opacity: 0.2;
-                transform: none;
-            }
-            .bike-scene .obstacle {
-                animation-duration: 6s !important;
-            }
-        }
-
-        /* scrollbar */
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--porch-amber);
-            border-radius: 4px;
-        }
-    </style>
+  @media (prefers-reduced-motion: reduce){ .firefly, .window, .star{ animation:none !important; } }
+  @media (max-width: 480px){ .intro h1{ font-size:2.1rem; } .window{ width:104px; height:124px; } }
+</style>
 </head>
 <body>
 
-    <div class="stage" id="stage">
-        <!-- stars injected by JS -->
+<div class="stage" id="stage">
 
-        <!-- intro -->
-        <div class="intro">
-            <p class="eyebrow">✦ a window · three challenges · zero pressure ✦</p>
-            <h1>The Porch Light</h1>
-            <p>You don't have to say anything. You don't have to stay. Someone left the light on anyway — sharpen your mind, master the ride, or own the crease. Or just sit here. That's allowed too.</p>
+  <div class="intro">
+    <p class="eyebrow">a window, an over, a clutch</p>
+    <h1>The Porch Light</h1>
+    <p>You don't have to say anything. You don't have to stay. Someone left the light on anyway — poke around, face a few balls, or just idle here for a bit.</p>
+  </div>
+
+  <div class="nav" id="nav">
+    <button class="active" data-view="window">the window</button>
+    <button data-view="cricket">the nets</button>
+    <button data-view="bike">release the clutch</button>
+  </div>
+
+  <!-- ================= WINDOW ================= -->
+  <div class="view active" id="view-window">
+    <div class="count-note" id="countNote"></div>
+    <div class="scene">
+      <div class="roofline"></div>
+      <div class="house">
+        <div class="window-wrap">
+          <div class="affirmation" id="affirmation"></div>
+          <button class="window" id="window" aria-label="The lit window. Click it."></button>
+          <div class="presence-label" id="presenceLabel">someone's <strong>still here</strong></div>
         </div>
-
-        <!-- nav -->
-        <div class="nav" id="nav">
-            <button class="active" data-view="window"><span class="nav-icon">🪟</span> the window</button>
-            <button data-view="puzzle"><span class="nav-icon">🧩</span> sharpen the mind</button>
-            <button data-view="bike"><span class="nav-icon">🏍️</span> master the ride</button>
-            <button data-view="cricket"><span class="nav-icon">🏏</span> own the crease</button>
-        </div>
-
-        <!-- ============ VIEW: WINDOW ============ -->
-        <div class="view active" id="view-window">
-            <div class="count-note" id="countNote"></div>
-            <div class="scene">
-                <div class="roofline"></div>
-                <div class="house">
-                    <div class="window-wrap">
-                        <div class="affirmation" id="affirmation"></div>
-                        <button class="window" id="window" aria-label="The lit window. Click it."></button>
-                        <div class="presence-label" id="presenceLabel">someone's <strong>still here</strong></div>
-                    </div>
-                </div>
-            </div>
-            <div class="lantern">
-                <button class="lantern-toggle" id="lanternToggle">✉️ leave something in the light</button>
-                <div class="lantern-panel" id="lanternPanel">
-                    <p>Whatever you write here goes quietly to the person who lit this window — no read receipt, no pressure. Close it and never open it again — also fine.</p>
-                    <textarea id="lanternText" placeholder="only if you want to…" aria-label="A private note"></textarea>
-                    <div class="lantern-actions">
-                        <button class="tuck-btn" id="tuckBtn">tuck it into the light</button>
-                    </div>
-                    <div class="tuck-msg" id="tuckMsg">kept safe. no reply needed. ✦</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============ VIEW: PUZZLE ============ -->
-        <div class="view" id="view-puzzle">
-            <div class="game-wrap">
-                <div class="puzzle-container">
-                    <div class="puzzle-grid" id="puzzleGrid"></div>
-                    <div class="puzzle-stats">
-                        <div class="stat-group">
-                            <span id="puzzleMoves">Moves: 0</span>
-                            <span id="puzzleTimer">⏱ 0:00</span>
-                        </div>
-                        <span id="puzzleStatus" style="font-size:0.7rem;color:var(--cream-dim);"></span>
-                    </div>
-                    <div class="puzzle-actions">
-                        <button class="hint-btn" id="puzzleHint">💡 hint</button>
-                        <button id="puzzleRestart">🔄 new puzzle</button>
-                    </div>
-                    <div class="puzzle-win" id="puzzleWin">
-                        <div class="win-text">🎉 I AM UNSTOPPABLE</div>
-                        <div class="win-sub">you solved it. the porch light burns a little brighter now.</div>
-                        <button class="game-reset primary" id="puzzleWinRestart" style="margin-top:10px;">play again</button>
-                    </div>
-                </div>
-                <div class="game-caption" id="puzzleCaption"></div>
-            </div>
-        </div>
-
-        <!-- ============ VIEW: BIKE ============ -->
-        <div class="view" id="view-bike">
-            <div class="game-wrap">
-                <div class="bike-scene" id="bikeScene">
-                    <div class="mountains">
-                        <div class="mountain m1"></div>
-                        <div class="mountain m2"></div>
-                        <div class="mountain m3"></div>
-                        <div class="mountain m4"></div>
-                    </div>
-                    <div class="road" id="bikeRoad">
-                        <div class="road-line" style="left:10%;"></div>
-                        <div class="road-line" style="left:30%;animation-delay:0.4s;"></div>
-                        <div class="road-line" style="left:50%;animation-delay:0.8s;"></div>
-                        <div class="road-line" style="left:70%;animation-delay:1.2s;"></div>
-                        <div class="road-line" style="left:90%;animation-delay:1.6s;"></div>
-                    </div>
-                    <div class="bike" id="bike">
-                        <span class="rider-emoji">🧑</span>
-                        <span class="bike-emoji">🏍️</span>
-                        <span class="exhaust" id="exhaust">💨</span>
-                    </div>
-                    <div id="obstacleContainer"></div>
-                </div>
-
-                <div class="bike-controls">
-                    <div class="clutch-row">
-                        <label>clutch</label>
-                        <input type="range" min="0" max="100" value="0" id="clutchSlider" aria-label="Clutch control">
-                        <span class="clutch-status" id="clutchStatus">released</span>
-                    </div>
-                    <div class="button-row">
-                        <button class="brake-btn" id="brakeBtn">🛑 brake</button>
-                        <button class="throttle-btn" id="throttleBtn">⏫ throttle</button>
-                        <button class="game-reset" id="bikeReset" style="font-size:0.7rem;padding:6px 14px;">↺ restart</button>
-                    </div>
-                </div>
-
-                <div class="bike-score" id="bikeScore">
-                    <span>🏁 <span id="bikeDistance">0</span>m</span>
-                    <span>🧱 <span id="bikeObstacles">0</span></span>
-                    <span>🐔 <span id="bikeAnimals">0</span> saved</span>
-                    <span class="highlight">🏆 <span id="bikeHighScore">0</span></span>
-                </div>
-                <div class="bike-gameover" id="bikeGameover">
-                    💥 <span id="bikeFailMsg">You crashed!</span>
-                    <div style="margin-top:4px;font-size:0.8rem;">Final distance: <span class="final-score" id="bikeFinalDist">0</span>m &nbsp;·&nbsp; Best: <span class="final-score" id="bikeFinalHigh">0</span></div>
-                </div>
-                <div class="game-caption" id="bikeCaption"></div>
-            </div>
-        </div>
-
-        <!-- ============ VIEW: CRICKET ============ -->
-        <div class="view" id="view-cricket">
-            <div class="game-wrap">
-                <div class="cricket-pitch" id="cricketPitch">
-                    <div class="pitch-strip"></div>
-                    <div class="crease"></div>
-                    <div class="bowler" id="bowlerEmoji">🏃</div>
-                    <div class="batter" id="batterEmoji">🏏</div>
-                    <div class="cricket-ball" id="cricketBall">
-                        <div class="ball-shadow"></div>
-                    </div>
-                </div>
-
-                <div class="cricket-scoreboard" id="cricketScoreboard">
-                    <div class="score-item"><span class="label">runs</span><span class="value runs" id="cricketRuns">0</span></div>
-                    <div class="score-item"><span class="label">balls</span><span class="value" id="cricketBalls">0</span></div>
-                    <div class="score-item"><span class="label">overs</span><span class="value" id="cricketOvers">0.0</span></div>
-                    <div class="score-item"><span class="label">S/R</span><span class="value" id="cricketSR">0.0</span></div>
-                    <div class="score-item"><span class="label">wickets</span><span class="value" id="cricketWickets">0</span></div>
-                </div>
-
-                <div class="cricket-result" id="cricketResult">tap <strong>SWING</strong> to time your shot</div>
-
-                <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
-                    <button class="game-reset primary" id="cricketSwingBtn" style="font-size:1rem;padding:10px 32px;">🏏 SWING</button>
-                    <button class="game-reset" id="cricketReset">↺ new innings</button>
-                </div>
-                <div class="game-caption" id="cricketCaption"></div>
-            </div>
-        </div>
-
-        <!-- confetti canvas -->
-        <canvas id="confettiCanvas"></canvas>
+      </div>
     </div>
-
-    <script>
-        (function() {
-            'use strict';
-
-            // ─── config ────────────────────────────────────────────
-            const FORM_ENDPOINT = 'https://formspree.io/f/mdarjday';
-
-            const FIREFLY_MSGS = [
-                "congrats, you caught a bug that has its life together.",
-                "this one's legally required to say: you're doing fine.",
-                "somewhere a mountain has been sitting still for millions of years. it can wait.",
-                "you're not stalled, you're just idling. ask any bike.",
-                "no LBW appeals here. you're always given not out.",
-                "this bug has no opinions about your unread messages.",
-                "you don't need to win the day. one quiet over is enough.",
-                "the light does not do performance reviews.",
-                "gear down, not out. that's allowed too.",
-                "you found me. anticlimactic, but still a win.",
-                "you're allowed to declare the innings early today.",
-                "the summit doesn't care what time you left base camp.",
-                "9/10 fireflies recommend you drink some water.",
-                "no thoughts, just vibes, a bug that thinks you're fine.",
-                "you showed up. the bar was on the floor and you stepped over."
-            ];
-
-            const WINDOW_MSGS = [
-                "hey. no knocking required, this door doesn't even have a handle.",
-                "still here. still zero rush. the light has nowhere better to be.",
-                "you can stare through the window without opening the door. valid strategy.",
-                "this runs on electricity, not on you texting back. it's fine either way.",
-                "whenever you're ready, and not a second before — this window isn't going anywhere.",
-                "you showed up. the bar was on the floor and you still stepped over it."
-            ];
-
-            // ─── stars ─────────────────────────────────────────────
-            const starCount = window.innerWidth < 600 ? 30 : 55;
-            const stage = document.getElementById('stage');
-            for (let i = 0; i < starCount; i++) {
-                const s = document.createElement('div');
-                s.className = 'star';
-                const size = Math.random() * 2 + 1;
-                s.style.width = size + 'px';
-                s.style.height = size + 'px';
-                s.style.left = Math.random() * 100 + 'vw';
-                s.style.top = Math.random() * 50 + 'vh';
-                s.style.animationDelay = (Math.random() * 4) + 's';
-                s.style.animationDuration = (3 + Math.random() * 3) + 's';
-                stage.appendChild(s);
-            }
-
-            // ─── nav ──────────────────────────────────────────────
-            const navButtons = document.querySelectorAll('.nav button');
-            const views = {
-                window: document.getElementById('view-window'),
-                puzzle: document.getElementById('view-puzzle'),
-                bike: document.getElementById('view-bike'),
-                cricket: document.getElementById('view-cricket'),
-            };
-            navButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    navButtons.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    Object.values(views).forEach(v => v.classList.remove('active'));
-                    const target = views[this.dataset.view];
-                    if (target) target.classList.add('active');
-                    // stop bike game if switching away
-                    if (this.dataset.view !== 'bike' && bikeInterval) {
-                        clearInterval(bikeInterval);
-                        bikeInterval = null;
-                    }
-                    if (this.dataset.view === 'bike' && !bikeGameOver) {
-                        startBikeLoop();
-                    }
-                    // resize puzzle
-                    if (this.dataset.view === 'puzzle') {
-                        setTimeout(renderPuzzle, 50);
-                    }
-                });
-            });
-
-            // ─── fireflies ─────────────────────────────────────────
-            const fireflyCount = window.innerWidth < 600 ? 8 : 13;
-            let caught = 0;
-            const countNote = document.getElementById('countNote');
-            const glowRoot = document.documentElement;
-
-            function updateGlow() {
-                const strength = Math.min(0.55 + caught * 0.025, 1.0);
-                glowRoot.style.setProperty('--glow-strength', strength.toFixed(2));
-                if (caught > 0) {
-                    countNote.textContent = caught + (caught === 1 ? ' light gathered' : ' lights gathered');
-                }
-            }
-
-            const affirmationBox = document.getElementById('affirmation');
-            let affirmationTimer = null;
-
-            function showAffirmation(text) {
-                affirmationBox.textContent = text;
-                affirmationBox.classList.add('show');
-                clearTimeout(affirmationTimer);
-                affirmationTimer = setTimeout(() => affirmationBox.classList.remove('show'), 5000);
-            }
-
-            const windowView = views.window;
-            for (let i = 0; i < fireflyCount; i++) {
-                const f = document.createElement('button');
-                f.className = 'firefly';
-                f.setAttribute('aria-label', 'a small light — click it');
-                f.style.left = (8 + Math.random() * 84) + '%';
-                f.style.top = (Math.random() * 42 + 4) + '%';
-                f.style.animationDuration = (7 + Math.random() * 6) + 's';
-                f.style.animationDelay = (Math.random() * 4) + 's';
-                f.addEventListener('click', function() {
-                    if (f.classList.contains('caught')) return;
-                    f.classList.add('caught');
-                    caught++;
-                    updateGlow();
-                    showAffirmation(FIREFLY_MSGS[Math.floor(Math.random() * FIREFLY_MSGS.length)]);
-                });
-                windowView.querySelector('.scene').appendChild(f);
-            }
-
-            // ─── window click ──────────────────────────────────────
-            const windowEl = document.getElementById('window');
-            const presenceLabel = document.getElementById('presenceLabel');
-            windowEl.addEventListener('click', function() {
-                showAffirmation(WINDOW_MSGS[Math.floor(Math.random() * WINDOW_MSGS.length)]);
-                presenceLabel.innerHTML = 'still <strong>right here</strong>';
-                setTimeout(() => {
-                    presenceLabel.innerHTML = "someone's <strong>still here</strong>";
-                }, 5500);
-            });
-
-            // ─── lantern ───────────────────────────────────────────
-            const toggle = document.getElementById('lanternToggle');
-            const panel = document.getElementById('lanternPanel');
-            const textEl = document.getElementById('lanternText');
-            const tuckBtn = document.getElementById('tuckBtn');
-            const tuckMsg = document.getElementById('tuckMsg');
-            toggle.addEventListener('click', function() {
-                const open = panel.classList.toggle('open');
-                this.textContent = open ? '✉️ close it up' : '✉️ leave something in the light';
-            });
-            tuckBtn.addEventListener('click', function() {
-                const value = textEl.value.trim();
-                if (!value) return;
-                if (FORM_ENDPOINT && FORM_ENDPOINT.indexOf('PASTE_YOUR') === -1) {
-                    fetch(FORM_ENDPOINT, {
-                        method: 'POST',
-                        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ message: value, source: 'The Porch Light' })
-                    }).catch(() => {});
-                }
-                textEl.style.opacity = '0';
-                tuckMsg.classList.add('show');
-                caught++;
-                updateGlow();
-                setTimeout(() => { textEl.value = '';
-                    textEl.style.opacity = '1'; }, 550);
-                setTimeout(() => tuckMsg.classList.remove('show'), 4200);
-            });
-
-            // ═══════════════════════════════════════════════════════
-            //  PUZZLE (4×4 sliding)
-            // ═══════════════════════════════════════════════════════
-
-            const puzzleGrid = document.getElementById('puzzleGrid');
-            const puzzleMoves = document.getElementById('puzzleMoves');
-            const puzzleTimer = document.getElementById('puzzleTimer');
-            const puzzleStatus = document.getElementById('puzzleStatus');
-            const puzzleWin = document.getElementById('puzzleWin');
-            const puzzleCaption = document.getElementById('puzzleCaption');
-            const hintBtn = document.getElementById('puzzleHint');
-            const restartBtn = document.getElementById('puzzleRestart');
-            const winRestartBtn = document.getElementById('puzzleWinRestart');
-
-            const PUZZLE_SIZE = 4;
-            const TOTAL_TILES = PUZZLE_SIZE * PUZZLE_SIZE;
-            let puzzleState = [];
-            let puzzleEmptyIndex = TOTAL_TILES - 1;
-            let puzzleMovesCount = 0;
-            let puzzleTimerSeconds = 0;
-            let puzzleTimerInterval = null;
-            let puzzleSolved = false;
-            let puzzleHintCount = 0;
-
-            function isSolvable(arr) {
-                // count inversions
-                let inv = 0;
-                const flat = arr.filter(v => v !== 0);
-                for (let i = 0; i < flat.length; i++) {
-                    for (let j = i + 1; j < flat.length; j++) {
-                        if (flat[i] > flat[j]) inv++;
-                    }
-                }
-                // for 4x4, blank row from bottom (0-indexed)
-                const blankRow = Math.floor(arr.indexOf(0) / PUZZLE_SIZE);
-                const blankRowFromBottom = PUZZLE_SIZE - blankRow;
-                if (PUZZLE_SIZE % 2 === 0) {
-                    return (inv + blankRowFromBottom) % 2 === 0;
-                }
-                return inv % 2 === 0;
-            }
-
-            function generatePuzzle() {
-                let arr = [];
-                for (let i = 1; i < TOTAL_TILES; i++) arr.push(i);
-                arr.push(0);
-                // shuffle until solvable
-                for (let attempt = 0; attempt < 200; attempt++) {
-                    for (let i = arr.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [arr[i], arr[j]] = [arr[j], arr[i]];
-                    }
-                    if (isSolvable(arr)) {
-                        return arr;
-                    }
-                }
-                // fallback: build a known solvable state
-                return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-            }
-
-            function renderPuzzle() {
-                const grid = puzzleGrid;
-                grid.innerHTML = '';
-                for (let i = 0; i < puzzleState.length; i++) {
-                    const val = puzzleState[i];
-                    const tile = document.createElement('div');
-                    tile.className = 'puzzle-tile';
-                    if (val === 0) {
-                        tile.classList.add('empty');
-                        tile.textContent = '';
-                    } else {
-                        tile.textContent = val;
-                        if (val === i + 1) tile.classList.add('correct');
-                    }
-                    tile.dataset.index = i;
-                    tile.addEventListener('click', () => onTileClick(i));
-                    grid.appendChild(tile);
-                }
-                puzzleStatus.textContent = puzzleSolved ? '✨ solved!' : '';
-                if (puzzleSolved) {
-                    puzzleWin.classList.add('show');
-                    launchConfetti();
-                } else {
-                    puzzleWin.classList.remove('show');
-                }
-            }
-
-            function onTileClick(index) {
-                if (puzzleSolved) return;
-                const empty = puzzleEmptyIndex;
-                const row = Math.floor(index / PUZZLE_SIZE);
-                const col = index % PUZZLE_SIZE;
-                const erow = Math.floor(empty / PUZZLE_SIZE);
-                const ecol = empty % PUZZLE_SIZE;
-                if ((Math.abs(row - erow) === 1 && col === ecol) || (Math.abs(col - ecol) === 1 && row === erow)) {
-                    // swap
-                    puzzleState[empty] = puzzleState[index];
-                    puzzleState[index] = 0;
-                    puzzleEmptyIndex = index;
-                    puzzleMovesCount++;
-                    puzzleMoves.textContent = 'Moves: ' + puzzleMovesCount;
-                    renderPuzzle();
-                    checkWin();
-                }
-            }
-
-            function checkWin() {
-                let solved = true;
-                for (let i = 0; i < puzzleState.length - 1; i++) {
-                    if (puzzleState[i] !== i + 1) { solved = false; break; }
-                }
-                if (solved && puzzleState[puzzleState.length - 1] === 0) {
-                    puzzleSolved = true;
-                    puzzleStatus.textContent = '✨ solved!';
-                    puzzleWin.classList.add('show');
-                    if (puzzleTimerInterval) {
-                        clearInterval(puzzleTimerInterval);
-                        puzzleTimerInterval = null;
-                    }
-                    launchConfetti();
-                    puzzleCaption.textContent = '🎉 I AM UNSTOPPABLE — you did it.';
-                }
-            }
-
-            function startPuzzleTimer() {
-                if (puzzleTimerInterval) clearInterval(puzzleTimerInterval);
-                puzzleTimerSeconds = 0;
-                puzzleTimerInterval = setInterval(() => {
-                    puzzleTimerSeconds++;
-                    const m = Math.floor(puzzleTimerSeconds / 60);
-                    const s = puzzleTimerSeconds % 60;
-                    puzzleTimer.textContent = '⏱ ' + m + ':' + (s < 10 ? '0' : '') + s;
-                }, 1000);
-            }
-
-            function resetPuzzle() {
-                if (puzzleTimerInterval) {
-                    clearInterval(puzzleTimerInterval);
-                    puzzleTimerInterval = null;
-                }
-                puzzleState = generatePuzzle();
-                puzzleEmptyIndex = puzzleState.indexOf(0);
-                puzzleMovesCount = 0;
-                puzzleSolved = false;
-                puzzleHintCount = 0;
-                puzzleTimerSeconds = 0;
-                puzzleTimer.textContent = '⏱ 0:00';
-                puzzleMoves.textContent = 'Moves: 0';
-                puzzleWin.classList.remove('show');
-                puzzleCaption.textContent = '';
-                puzzleStatus.textContent = '';
-                renderPuzzle();
-                startPuzzleTimer();
-                // clear confetti
-                const canvas = document.getElementById('confettiCanvas');
-                const ctx = canvas.getContext('2d');
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                confettiPieces = [];
-            }
-
-            // ── hint ──
-            function giveHint() {
-                if (puzzleSolved) return;
-                // find a tile adjacent to empty that's in the wrong position
-                const empty = puzzleEmptyIndex;
-                const erow = Math.floor(empty / PUZZLE_SIZE);
-                const ecol = empty % PUZZLE_SIZE;
-                const neighbors = [];
-                const dirs = [
-                    [-1, 0],
-                    [1, 0],
-                    [0, -1],
-                    [0, 1]
-                ];
-                for (const d of dirs) {
-                    const nr = erow + d[0],
-                        nc = ecol + d[1];
-                    if (nr >= 0 && nr < PUZZLE_SIZE && nc >= 0 && nc < PUZZLE_SIZE) {
-                        const idx = nr * PUZZLE_SIZE + nc;
-                        neighbors.push(idx);
-                    }
-                }
-                // pick one that's not in correct position
-                let candidates = neighbors.filter(idx => puzzleState[idx] !== idx + 1);
-                if (candidates.length === 0) candidates = neighbors;
-                const pick = candidates[Math.floor(Math.random() * candidates.length)];
-                // highlight it
-                const tiles = puzzleGrid.querySelectorAll('.puzzle-tile');
-                if (tiles[pick]) {
-                    tiles[pick].style.boxShadow = '0 0 20px rgba(255,176,102,0.7)';
-                    tiles[pick].style.transform = 'scale(1.08)';
-                    setTimeout(() => {
-                        tiles[pick].style.boxShadow = '';
-                        tiles[pick].style.transform = '';
-                    }, 800);
-                }
-                puzzleHintCount++;
-                puzzleStatus.textContent = '💡 hint #' + puzzleHintCount;
-            }
-
-            // ── confetti ──
-            const canvas = document.getElementById('confettiCanvas');
-            const ctx = canvas.getContext('2d');
-            let confettiPieces = [];
-            let confettiRunning = false;
-
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            class ConfettiPiece {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height - canvas.height;
-                    this.w = Math.random() * 8 + 4;
-                    this.h = Math.random() * 6 + 3;
-                    this.color = ['#ffb066', '#ff8a4c', '#fff3d6', '#ff6b6b', '#6bff6b', '#6bb5ff', '#ffd93d'][Math.floor(Math
-                    .random() * 7)];
-                    this.vx = (Math.random() - 0.5) * 2;
-                    this.vy = Math.random() * 3 + 2;
-                    this.rot = Math.random() * 360;
-                    this.rv = (Math.random() - 0.5) * 6;
-                    this.life = 1;
-                    this.decay = 0.002 + Math.random() * 0.003;
-                }
-                update() {
-                    this.x += this.vx + Math.sin(this.y * 0.01) * 0.5;
-                    this.y += this.vy;
-                    this.rot += this.rv;
-                    this.life -= this.decay;
-                    this.vy += 0.02;
-                }
-                draw() {
-                    ctx.save();
-                    ctx.translate(this.x, this.y);
-                    ctx.rotate(this.rot * Math.PI / 180);
-                    ctx.globalAlpha = Math.max(0, this.life);
-                    ctx.fillStyle = this.color;
-                    ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
-                    ctx.restore();
-                }
-                get alive() { return this.life > 0 && this.y < canvas.height + 20; }
-            }
-
-            function launchConfetti() {
-                for (let i = 0; i < 180; i++) {
-                    confettiPieces.push(new ConfettiPiece());
-                }
-                if (!confettiRunning) {
-                    confettiRunning = true;
-                    animateConfetti();
-                }
-            }
-
-            function animateConfetti() {
-                if (confettiPieces.length === 0) {
-                    confettiRunning = false;
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    return;
-                }
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                confettiPieces = confettiPieces.filter(p => p.alive);
-                for (const p of confettiPieces) {
-                    p.update();
-                    p.draw();
-                }
-                requestAnimationFrame(animateConfetti);
-            }
-
-            // ── puzzle init ──
-            puzzleState = generatePuzzle();
-            puzzleEmptyIndex = puzzleState.indexOf(0);
-            renderPuzzle();
-            startPuzzleTimer();
-
-            restartBtn.addEventListener('click', resetPuzzle);
-            winRestartBtn.addEventListener('click', resetPuzzle);
-            hintBtn.addEventListener('click', giveHint);
-
-            // ═══════════════════════════════════════════════════════
-            //  BIKE (Motorcycle Simulator)
-            // ═══════════════════════════════════════════════════════
-
-            const bikeScene = document.getElementById('bikeScene');
-            const bike = document.getElementById('bike');
-            const clutchSlider = document.getElementById('clutchSlider');
-            const clutchStatus = document.getElementById('clutchStatus');
-            const brakeBtn = document.getElementById('brakeBtn');
-            const throttleBtn = document.getElementById('throttleBtn');
-            const bikeReset = document.getElementById('bikeReset');
-            const bikeDistance = document.getElementById('bikeDistance');
-            const bikeObstacles = document.getElementById('bikeObstacles');
-            const bikeAnimals = document.getElementById('bikeAnimals');
-            const bikeHighScore = document.getElementById('bikeHighScore');
-            const bikeGameover = document.getElementById('bikeGameover');
-            const bikeFailMsg = document.getElementById('bikeFailMsg');
-            const bikeFinalDist = document.getElementById('bikeFinalDist');
-            const bikeFinalHigh = document.getElementById('bikeFinalHigh');
-            const bikeCaption = document.getElementById('bikeCaption');
-            const obstacleContainer = document.getElementById('obstacleContainer');
-            const exhaust = document.getElementById('exhaust');
-
-            let bikeState = {
-                distance: 0,
-                obstaclesPassed: 0,
-                animalsSaved: 0,
-                highScore: parseInt(localStorage.getItem('porchBikeHigh') || '0'),
-                speed: 0,
-                clutch: 0, // 0 = released, 100 = held
-                brake: false,
-                throttle: false,
-                gameOver: false,
-                obstacleTimer: 0,
-                obstacleInterval: 80, // frames between obstacles
-                frame: 0,
-                bikeX: 8, // percent
-                bikeY: 54, // bottom px offset
-                jerking: false,
-                jerkTimer: 0,
-                stalled: false,
-                stallTimer: 0,
-                speedBreakerActive: false,
-                mountainActive: false,
-                chickensActive: false,
-                chickenTimer: 0,
-                perfectClutchReleases: 0,
-                clutchWasHeld: false,
-            };
-
-            let bikeInterval = null;
-            let bikeGameOver = false;
-            let bikeFrameCount = 0;
-
-            bikeHighScore.textContent = bikeState.highScore;
-
-            function updateBikeUI() {
-                bikeDistance.textContent = Math.floor(bikeState.distance);
-                bikeObstacles.textContent = bikeState.obstaclesPassed;
-                bikeAnimals.textContent = bikeState.animalsSaved;
-                bikeHighScore.textContent = bikeState.highScore;
-                const pct = bikeState.clutch;
-                clutchSlider.value = pct;
-                if (pct > 80) clutchStatus.textContent = 'engaged';
-                else if (pct > 30) clutchStatus.textContent = 'slipping';
-                else clutchStatus.textContent = 'released';
-                // move bike
-                const maxLeft = bikeScene.clientWidth - 60;
-                const x = (bikeState.bikeX / 100) * maxLeft;
-                bike.style.left = Math.max(4, Math.min(maxLeft - 4, x)) + 'px';
-                bike.style.bottom = bikeState.bikeY + 'px';
-                // exhaust
-                if (bikeState.throttle && bikeState.clutch > 50 && !bikeState.gameOver) {
-                    exhaust.classList.add('active');
-                } else {
-                    exhaust.classList.remove('active');
-                }
-                // brake button style
-                brakeBtn.classList.toggle('active', bikeState.brake);
-                throttleBtn.classList.toggle('active', bikeState.throttle);
-            }
-
-            function spawnObstacle() {
-                if (bikeState.gameOver) return;
-                const types = ['speedbreaker', 'mountain', 'chicken'];
-                // weighted: more chickens as distance increases
-                let weights = [30, 25, 45];
-                if (bikeState.distance > 200) weights = [25, 25, 50];
-                if (bikeState.distance > 500) weights = [20, 25, 55];
-                const total = weights.reduce((a, b) => a + b, 0);
-                let r = Math.random() * total;
-                let type = 'speedbreaker';
-                for (let i = 0; i < weights.length; i++) {
-                    r -= weights[i];
-                    if (r <= 0) { type = types[i]; break; }
-                }
-
-                const el = document.createElement('div');
-                el.className = 'obstacle';
-                const emojis = { speedbreaker: '🛑', mountain: '⛰️', chicken: '🐔' };
-                el.textContent = emojis[type] || '⬛';
-                el.dataset.type = type;
-                const speed = 3 + Math.min(bikeState.distance / 300, 2.5);
-                el.style.animationDuration = (4.5 - speed * 0.15) + 's';
-                el.style.right = '0';
-                el.style.left = 'auto';
-                el.style.fontSize = (1.8 + Math.random() * 0.6) + 'rem';
-                const yOff = 10 + Math.random() * 20;
-                el.style.bottom = (50 + yOff) + 'px';
-                obstacleContainer.appendChild(el);
-
-                // auto remove after animation
-                setTimeout(() => {
-                    if (el.parentNode) {
-                        // check if it passed safely
-                        if (!bikeState.gameOver && el.dataset.passed !== 'true') {
-                            const rect = el.getBoundingClientRect();
-                            const sceneRect = bikeScene.getBoundingClientRect();
-                            if (rect.right < sceneRect.left + 20) {
-                                el.dataset.passed = 'true';
-                                bikeState.obstaclesPassed++;
-                                if (type === 'chicken') bikeState.animalsSaved++;
-                            }
-                        }
-                        el.remove();
-                    }
-                }, 5000);
-            }
-
-            function checkCollisions() {
-                if (bikeState.gameOver) return;
-                const bikeRect = bike.getBoundingClientRect();
-                const obstacles = obstacleContainer.querySelectorAll('.obstacle');
-                for (const ob of obstacles) {
-                    const oRect = ob.getBoundingClientRect();
-                    const overlap = !(bikeRect.right < oRect.left + 10 ||
-                        bikeRect.left > oRect.right - 10 ||
-                        bikeRect.bottom < oRect.top + 10 ||
-                        bikeRect.top > oRect.bottom - 10);
-                    if (overlap && ob.dataset.passed !== 'true') {
-                        // collision!
-                        const type = ob.dataset.type;
-                        handleObstacleCollision(type, ob);
-                        ob.dataset.passed = 'true';
-                        break;
-                    }
-                }
-            }
-
-            function handleObstacleCollision(type, el) {
-                if (bikeState.gameOver) return;
-                const clutchHeld = bikeState.clutch > 70;
-                const brakeOn = bikeState.brake;
-                const throttleOn = bikeState.throttle;
-
-                if (type === 'speedbreaker') {
-                    if (!clutchHeld) {
-                        // bike jerks
-                        bikeState.jerking = true;
-                        bikeState.jerkTimer = 15;
-                        bikeState.speed = Math.max(0, bikeState.speed - 0.5);
-                        if (bikeState.speed < 0.3 && bikeState.distance > 10) {
-                            // stall
-                            bikeState.stalled = true;
-                            bikeState.stallTimer = 30;
-                            failBike('💥 You hit the speed breaker without clutch — bike stalled!');
-                            return;
-                        }
-                        // lose control
-                        bikeState.bikeX += (Math.random() - 0.5) * 6;
-                        bikeState.bikeX = Math.max(2, Math.min(92, bikeState.bikeX));
-                        showBikeMsg('⚠️ jerky! hold clutch over speed breakers');
-                    } else {
-                        // smooth
-                        showBikeMsg('✅ smooth over speed breaker');
-                    }
-                } else if (type === 'mountain') {
-                    if (!clutchHeld || !throttleOn) {
-                        bikeState.stalled = true;
-                        bikeState.stallTimer = 35;
-                        failBike('⛰️ You didn\'t clutch + throttle up the mountain — bike stalled!');
-                        return;
-                    } else {
-                        showBikeMsg('🏔️ climbed the mountain!');
-                        bikeState.distance += 15;
-                    }
-                } else if (type === 'chicken') {
-                    if (!clutchHeld || !brakeOn) {
-                        failBike('🐔 You hit the chickens! Brake + clutch to save them.');
-                        return;
-                    } else {
-                        // saved!
-                        bikeState.animalsSaved++;
-                        showBikeMsg('🐔 chickens saved!');
-                        el.textContent = '❤️';
-                        setTimeout(() => { if (el.parentNode) el.remove(); }, 300);
-                        return;
-                    }
-                }
-
-                // remove obstacle
-                if (el && el.parentNode) {
-                    el.textContent = '✅';
-                    setTimeout(() => { if (el.parentNode) el.remove(); }, 400);
-                }
-            }
-
-            function failBike(msg) {
-                if (bikeState.gameOver) return;
-                bikeState.gameOver = true;
-                bikeGameOver = true;
-                if (bikeInterval) {
-                    clearInterval(bikeInterval);
-                    bikeInterval = null;
-                }
-                bikeFailMsg.textContent = msg;
-                bikeFinalDist.textContent = Math.floor(bikeState.distance);
-                if (bikeState.distance > bikeState.highScore) {
-                    bikeState.highScore = Math.floor(bikeState.distance);
-                    localStorage.setItem('porchBikeHigh', String(bikeState.highScore));
-                    bikeHighScore.textContent = bikeState.highScore;
-                }
-                bikeFinalHigh.textContent = bikeState.highScore;
-                bikeGameover.classList.add('show');
-                bikeCaption.textContent = '💥 game over — try again?';
-                // stop throttle/brake effects
-                bikeState.throttle = false;
-                bikeState.brake = false;
-                updateBikeUI();
-            }
-
-            function showBikeMsg(msg) {
-                bikeCaption.textContent = msg;
-                clearTimeout(bikeCaption._timer);
-                bikeCaption._timer = setTimeout(() => {
-                    if (!bikeState.gameOver) bikeCaption.textContent = '';
-                }, 1800);
-            }
-
-            function resetBike() {
-                if (bikeInterval) {
-                    clearInterval(bikeInterval);
-                    bikeInterval = null;
-                }
-                bikeState = {
-                    distance: 0,
-                    obstaclesPassed: 0,
-                    animalsSaved: 0,
-                    highScore: parseInt(localStorage.getItem('porchBikeHigh') || '0'),
-                    speed: 0,
-                    clutch: 0,
-                    brake: false,
-                    throttle: false,
-                    gameOver: false,
-                    obstacleTimer: 0,
-                    obstacleInterval: 80,
-                    frame: 0,
-                    bikeX: 8,
-                    bikeY: 54,
-                    jerking: false,
-                    jerkTimer: 0,
-                    stalled: false,
-                    stallTimer: 0,
-                    speedBreakerActive: false,
-                    mountainActive: false,
-                    chickensActive: false,
-                    chickenTimer: 0,
-                    perfectClutchReleases: 0,
-                    clutchWasHeld: false,
-                };
-                bikeGameOver = false;
-                bikeFrameCount = 0;
-                obstacleContainer.innerHTML = '';
-                bikeGameover.classList.remove('show');
-                bikeCaption.textContent = '';
-                bikeHighScore.textContent = bikeState.highScore;
-                clutchSlider.value = 0;
-                brakeBtn.classList.remove('active');
-                throttleBtn.classList.remove('active');
-                updateBikeUI();
-                startBikeLoop();
-            }
-
-            function bikeLoop() {
-                if (bikeState.gameOver) return;
-                bikeFrameCount++;
-
-                // speed
-                const clutchFactor = bikeState.clutch / 100;
-                const throttleFactor = bikeState.throttle ? 1 : 0.3;
-                const brakeFactor = bikeState.brake ? 0.7 : 1;
-                const targetSpeed = 0.8 + throttleFactor * 1.2 * (0.4 + 0.6 * clutchFactor);
-                bikeState.speed += (targetSpeed - bikeState.speed) * 0.04;
-                bikeState.speed = Math.max(0.1, Math.min(2.2, bikeState.speed));
-
-                // distance
-                bikeState.distance += bikeState.speed * 0.08;
-
-                // jerking
-                if (bikeState.jerking) {
-                    bikeState.jerkTimer--;
-                    if (bikeState.jerkTimer <= 0) bikeState.jerking = false;
-                    // random wobble
-                    bikeState.bikeX += (Math.random() - 0.5) * 1.2;
-                    bikeState.bikeX = Math.max(2, Math.min(92, bikeState.bikeX));
-                }
-
-                // stall recovery
-                if (bikeState.stalled) {
-                    bikeState.stallTimer--;
-                    if (bikeState.stallTimer <= 0) {
-                        bikeState.stalled = false;
-                        showBikeMsg('✅ bike recovered');
-                    }
-                    updateBikeUI();
-                    return;
-                }
-
-                // obstacle spawning
-                const baseInterval = Math.max(30, 80 - Math.floor(bikeState.distance / 20));
-                bikeState.obstacleTimer++;
-                if (bikeState.obstacleTimer > baseInterval + Math.random() * 30) {
-                    spawnObstacle();
-                    bikeState.obstacleTimer = 0;
-                }
-
-                // chicken timer
-                if (bikeState.chickenTimer > 0) bikeState.chickenTimer--;
-
-                // check collisions
-                checkCollisions();
-
-                // gentle bike movement
-                if (!bikeState.jerking) {
-                    bikeState.bikeX += (Math.random() - 0.5) * 0.15;
-                    bikeState.bikeX = Math.max(4, Math.min(90, bikeState.bikeX));
-                }
-
-                // visual feedback
-                if (bikeState.clutch > 70 && bikeState.throttle) {
-                    // slight rear lift
-                    bikeState.bikeY = 52 + Math.sin(bikeFrameCount * 0.05) * 0.5;
-                } else {
-                    bikeState.bikeY = 54 + Math.sin(bikeFrameCount * 0.03) * 0.3;
-                }
-
-                updateBikeUI();
-
-                // perfect clutch release detection
-                if (bikeState.clutch > 80 && !bikeState.clutchWasHeld) {
-                    bikeState.clutchWasHeld = true;
-                }
-                if (bikeState.clutch < 20 && bikeState.clutchWasHeld && bikeState.speed > 0.5) {
-                    bikeState.perfectClutchReleases++;
-                    bikeState.clutchWasHeld = false;
-                    showBikeMsg('✨ perfect clutch release!');
-                }
-                if (bikeState.clutch < 20) bikeState.clutchWasHeld = false;
-
-                // obstacle interval increases with distance
-                bikeState.obstacleInterval = Math.max(40, 80 - Math.floor(bikeState.distance / 25));
-            }
-
-            function startBikeLoop() {
-                if (bikeInterval) clearInterval(bikeInterval);
-                bikeInterval = setInterval(bikeLoop, 30);
-            }
-
-            // ── bike controls ──
-            clutchSlider.addEventListener('input', function() {
-                if (bikeState.gameOver) return;
-                bikeState.clutch = parseFloat(this.value);
-                // when slider is released (mouse up), clutch releases
-            });
-
-            clutchSlider.addEventListener('mouseup', function() {
-                if (bikeState.gameOver) return;
-                if (bikeState.clutch > 30) {
-                    // only release if it was being held
-                    bikeState.clutch = Math.max(0, bikeState.clutch - 40);
-                    this.value = bikeState.clutch;
-                    updateBikeUI();
-                }
-            });
-
-            clutchSlider.addEventListener('touchend', function(e) {
-                if (bikeState.gameOver) return;
-                // for mobile: release clutch when finger leaves
-                bikeState.clutch = Math.max(0, bikeState.clutch - 50);
-                this.value = bikeState.clutch;
-                updateBikeUI();
-            });
-
-            brakeBtn.addEventListener('mousedown', function() {
-                if (bikeState.gameOver) return;
-                bikeState.brake = true;
-                updateBikeUI();
-            });
-            brakeBtn.addEventListener('mouseup', function() {
-                bikeState.brake = false;
-                updateBikeUI();
-            });
-            brakeBtn.addEventListener('mouseleave', function() {
-                bikeState.brake = false;
-                updateBikeUI();
-            });
-            brakeBtn.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                if (bikeState.gameOver) return;
-                bikeState.brake = true;
-                updateBikeUI();
-            });
-            brakeBtn.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                bikeState.brake = false;
-                updateBikeUI();
-            });
-
-            // space bar for brake
-            document.addEventListener('keydown', function(e) {
-                if (e.code === 'Space') {
-                    const active = document.querySelector('.view.active');
-                    if (active && active.id === 'view-bike' && !bikeState.gameOver) {
-                        e.preventDefault();
-                        bikeState.brake = true;
-                        updateBikeUI();
-                    }
-                }
-            });
-            document.addEventListener('keyup', function(e) {
-                if (e.code === 'Space') {
-                    const active = document.querySelector('.view.active');
-                    if (active && active.id === 'view-bike') {
-                        e.preventDefault();
-                        bikeState.brake = false;
-                        updateBikeUI();
-                    }
-                }
-            });
-
-            throttleBtn.addEventListener('mousedown', function() {
-                if (bikeState.gameOver) return;
-                bikeState.throttle = true;
-                updateBikeUI();
-            });
-            throttleBtn.addEventListener('mouseup', function() {
-                bikeState.throttle = false;
-                updateBikeUI();
-            });
-            throttleBtn.addEventListener('mouseleave', function() {
-                bikeState.throttle = false;
-                updateBikeUI();
-            });
-            throttleBtn.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                if (bikeState.gameOver) return;
-                bikeState.throttle = true;
-                updateBikeUI();
-            });
-            throttleBtn.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                bikeState.throttle = false;
-                updateBikeUI();
-            });
-
-            bikeReset.addEventListener('click', resetBike);
-
-            // ── init bike ──
-            bikeState.highScore = parseInt(localStorage.getItem('porchBikeHigh') || '0');
-            bikeHighScore.textContent = bikeState.highScore;
-            updateBikeUI();
-            // start loop when view becomes active
-            // check initial view
-            if (document.getElementById('view-bike').classList.contains('active')) {
-                startBikeLoop();
-            }
-
-            // ═══════════════════════════════════════════════════════
-            //  CRICKET
-            // ═══════════════════════════════════════════════════════
-
-            const cricketBall = document.getElementById('cricketBall');
-            const bowlerEmoji = document.getElementById('bowlerEmoji');
-            const batterEmoji = document.getElementById('batterEmoji');
-            const cricketRuns = document.getElementById('cricketRuns');
-            const cricketBalls = document.getElementById('cricketBalls');
-            const cricketOvers = document.getElementById('cricketOvers');
-            const cricketSR = document.getElementById('cricketSR');
-            const cricketWickets = document.getElementById('cricketWickets');
-            const cricketResult = document.getElementById('cricketResult');
-            const cricketSwingBtn = document.getElementById('cricketSwingBtn');
-            const cricketResetBtn = document.getElementById('cricketReset');
-            const cricketCaption = document.getElementById('cricketCaption');
-            const cricketPitch = document.getElementById('cricketPitch');
-
-            const DELIVERIES = ['yorker', 'full toss', 'bouncer', 'slow ball', 'good length', 'cutter'];
-            const DELIVERY_EMOJIS = {
-                yorker: '🎯',
-                'full toss': '☀️',
-                bouncer: '💥',
-                'slow ball': '🐢',
-                'good length': '📏',
-                cutter: '🌀'
-            };
-            const DELIVERY_SPEEDS = {
-                yorker: 0.45,
-                'full toss': 0.50,
-                bouncer: 0.55,
-                'slow ball': 0.70,
-                'good length': 0.50,
-                cutter: 0.48
-            };
-            const DELIVERY_TRAJECTORIES = {
-                yorker: 0.15,
-                'full toss': -0.05,
-                bouncer: -0.25,
-                'slow ball': 0.05,
-                'good length': 0.0,
-                cutter: 0.10
-            };
-
-            let cricketState = {
-                runs: 0,
-                balls: 0,
-                wickets: 0,
-                totalOvers: 2,
-                maxBalls: 12,
-                ballInFlight: false,
-                delivery: 'good length',
-                result: '',
-                swingTiming: 0, // 0 = not swung, 1 = perfect, -1 = early, -2 = late
-                ballStartTime: 0,
-                ballDuration: 600,
-                inningsDone: false,
-                batterSwinging: false,
-                currentDelivery: 'good length',
-                deliveriesBowled: [],
-                strikeRate: 0,
-                ballX: 50,
-                ballY: 50,
-            };
-
-            function getPitchWidth() { return cricketPitch.clientWidth; }
-
-            function getPitchHeight() { return cricketPitch.clientHeight; }
-
-            function bowlDelivery() {
-                if (cricketState.ballInFlight || cricketState.inningsDone) return;
-                if (cricketState.balls >= cricketState.maxBalls) {
-                    endInnings();
-                    return;
-                }
-
-                const delivery = DELIVERIES[Math.floor(Math.random() * DELIVERIES.length)];
-                cricketState.currentDelivery = delivery;
-                const speed = DELIVERY_SPEEDS[delivery] || 0.5;
-                const trajectory = DELIVERY_TRAJECTORIES[delivery] || 0;
-                const duration = 400 + speed * 400;
-
-                // reset ball
-                cricketBall.style.opacity = '1';
-                cricketBall.style.left = '40px';
-                cricketBall.style.top = '50%';
-                cricketBall.style.transition = 'none';
-                void cricketBall.offsetWidth;
-
-                const targetX = getPitchWidth() - 80;
-                const targetY = 30 + (50 + trajectory * 30) + (Math.random() - 0.5) * 20;
-
-                cricketBall.style.transition = 'left ' + duration + 'ms cubic-bezier(0.2,0.8,0.3,1), top ' + duration +
-                    'ms cubic-bezier(0.2,0.8,0.3,1)';
-                cricketBall.style.left = targetX + 'px';
-                cricketBall.style.top = targetY + '%';
-
-                cricketState.ballInFlight = true;
-                cricketState.ballStartTime = performance.now();
-                cricketState.ballDuration = duration;
-                cricketState.swingTiming = 0;
-                cricketState.result = '';
-
-                // update bowler emoji
-                bowlerEmoji.textContent = '🏃 ' + (DELIVERY_EMOJIS[delivery] || '');
-                cricketResult.textContent = '⏳ ' + delivery + ' coming in…';
-
-                // auto swing if player doesn't
-                const swingTimeout = duration + 80;
-                setTimeout(() => {
-                    if (cricketState.ballInFlight && cricketState.swingTiming === 0) {
-                        // missed / dot ball
-                        cricketState.swingTiming = -3;
-                        finishBall();
-                    }
-                }, swingTimeout);
-
-                // reset batter swing
-                batterEmoji.style.transform = 'translateY(-50%)';
-                batterEmoji.classList.remove('swing');
-            }
-
-            function playerSwing() {
-                if (cricketState.ballInFlight && cricketState.swingTiming === 0) {
-                    const elapsed = performance.now() - cricketState.ballStartTime;
-                    const pct = elapsed / cricketState.ballDuration;
-                    // perfect timing: 0.55 - 0.85 of the ball's travel
-                    if (pct > 0.5 && pct < 0.9) {
-                        cricketState.swingTiming = 1; // perfect
-                    } else if (pct < 0.5) {
-                        cricketState.swingTiming = -1; // early
-                    } else {
-                        cricketState.swingTiming = -2; // late
-                    }
-                    // swing animation
-                    batterEmoji.style.transform = 'translateY(-50%) rotate(-30deg) scale(1.15)';
-                    batterEmoji.classList.add('swing');
-                    setTimeout(() => {
-                        batterEmoji.style.transform = 'translateY(-50%)';
-                        batterEmoji.classList.remove('swing');
-                    }, 200);
-                    finishBall();
-                } else if (!cricketState.ballInFlight && !cricketState.inningsDone) {
-                    cricketResult.textContent = '⏳ wait for the ball…';
-                }
-            }
-
-            function finishBall() {
-                if (!cricketState.ballInFlight) return;
-                cricketState.ballInFlight = false;
-                cricketState.balls++;
-
-                const timing = cricketState.swingTiming;
-                const delivery = cricketState.currentDelivery;
-                let runs = 0;
-                let wicket = false;
-                let resultText = '';
-
-                if (timing === 1) {
-                    // perfect timing — good result
-                    const outcomes = [1, 2, 3, 4, 6, 6, 4, 1, 2, 0];
-                    runs = outcomes[Math.floor(Math.random() * outcomes.length)];
-                    if (runs === 6) resultText = '💥 SIX!';
-                    else if (runs === 4) resultText = '🏏 FOUR!';
-                    else if (runs === 0) resultText = 'dot ball (well timed but straight to fielder)';
-                    else resultText = runs + ' runs';
-                    if (Math.random() < 0.08) { wicket = true;
-                        resultText = '❌ caught! (unlucky)'; }
-                } else if (timing === -1) {
-                    // early
-                    const outcomes = [0, 1, 0, 0, 2, 0, 0, 0, 4, 0];
-                    runs = outcomes[Math.floor(Math.random() * outcomes.length)];
-                    if (Math.random() < 0.2) { wicket = true;
-                        resultText = '❌ bowled! (too early)'; } else if (runs === 4) resultText = '4 runs (edged)';
-                    else if (runs === 0) resultText = 'dot ball (misplayed)';
-                    else resultText = runs + ' runs (inside edge)';
-                } else if (timing === -2) {
-                    // late
-                    const outcomes = [0, 0, 1, 0, 0, 2, 0, 0, 0, 0];
-                    runs = outcomes[Math.floor(Math.random() * outcomes.length)];
-                    if (Math.random() < 0.25) { wicket = true;
-                        resultText = '❌ LBW! (too late)'; } else if (runs === 0) resultText = 'dot ball (defensive)';
-                    else resultText = runs + ' runs (late cut)';
-                } else {
-                    // missed
-                    if (Math.random() < 0.15) { wicket = true;
-                        resultText = '❌ bowled! (missed)'; } else {
-                        resultText = 'dot ball (missed)';
-                        runs = 0;
-                    }
-                }
-
-                if (wicket) {
-                    cricketState.wickets++;
-                    resultText = '❌ OUT — ' + resultText.replace('❌ ', '');
-                    cricketCaption.textContent = '💔 ' + resultText;
-                } else {
-                    cricketState.runs += runs;
-                    cricketCaption.textContent = '🎯 ' + resultText;
-                }
-
-                cricketState.result = resultText;
-                cricketState.deliveriesBowled.push({ delivery, runs, wicket, timing });
-                updateCricketScoreboard();
-
-                // hide ball
-                cricketBall.style.opacity = '0';
-
-                // next ball or end
-                if (cricketState.balls >= cricketState.maxBalls) {
-                    endInnings();
-                } else {
-                    // wait before next delivery
-                    setTimeout(() => {
-                        if (!cricketState.inningsDone) bowlDelivery();
-                    }, 600);
-                }
-            }
-
-            function updateCricketScoreboard() {
-                cricketRuns.textContent = cricketState.runs;
-                cricketBalls.textContent = cricketState.balls;
-                const overs = cricketState.balls / 6;
-                cricketOvers.textContent = overs.toFixed(1);
-                const sr = cricketState.balls > 0 ? (cricketState.runs / cricketState.balls) * 100 : 0;
-                cricketState.strikeRate = sr;
-                cricketSR.textContent = sr.toFixed(1);
-                cricketWickets.textContent = cricketState.wickets;
-            }
-
-            function endInnings() {
-                cricketState.inningsDone = true;
-                cricketState.ballInFlight = false;
-                cricketBall.style.opacity = '0';
-                cricketSwingBtn.textContent = '🏏 innings over';
-                cricketSwingBtn.disabled = true;
-                const total = cricketState.runs;
-                const balls = cricketState.balls;
-                const sr = balls > 0 ? (total / balls) * 100 : 0;
-                let msg = '🏏 Innings over! ' + total + ' runs, ' + cricketState.wickets + ' wickets, S/R ' + sr.toFixed(
-                1) + '. ';
-                if (total > 50) msg += '🔥 Stellar batting!';
-                else if (total > 30) msg += '💪 Solid innings!';
-                else if (total > 15) msg += '👌 Decent effort.';
-                else msg += '😅 Tough day at the crease.';
-                cricketResult.textContent = msg;
-                cricketCaption.textContent = '🏏 ' + total + ' runs · ' + cricketState.wickets + ' wickets · ' + balls +
-                    ' balls';
-                // check if high score
-                const high = parseInt(localStorage.getItem('porchCricketHigh') || '0');
-                if (total > high) {
-                    localStorage.setItem('porchCricketHigh', String(total));
-                    cricketCaption.textContent += ' 🏆 NEW HIGH SCORE!';
-                }
-            }
-
-            function resetCricket() {
-                cricketState = {
-                    runs: 0,
-                    balls: 0,
-                    wickets: 0,
-                    totalOvers: 2,
-                    maxBalls: 12,
-                    ballInFlight: false,
-                    delivery: 'good length',
-                    result: '',
-                    swingTiming: 0,
-                    ballStartTime: 0,
-                    ballDuration: 600,
-                    inningsDone: false,
-                    batterSwinging: false,
-                    currentDelivery: 'good length',
-                    deliveriesBowled: [],
-                    strikeRate: 0,
-                    ballX: 50,
-                    ballY: 50,
-                };
-                cricketBall.style.opacity = '0';
-                cricketBall.style.left = '40px';
-                cricketBall.style.top = '50%';
-                bowlerEmoji.textContent = '🏃';
-                batterEmoji.style.transform = 'translateY(-50%)';
-                batterEmoji.classList.remove('swing');
-                cricketSwingBtn.textContent = '🏏 SWING';
-                cricketSwingBtn.disabled = false;
-                cricketCaption.textContent = '';
-                cricketResult.textContent = 'tap SWING to time your shot';
-                updateCricketScoreboard();
-                // start first delivery after short delay
-                setTimeout(() => {
-                    if (!cricketState.inningsDone) bowlDelivery();
-                }, 400);
-            }
-
-            cricketSwingBtn.addEventListener('click', playerSwing);
-
-            // keyboard support for cricket
-            document.addEventListener('keydown', function(e) {
-                if (e.code === 'Space' || e.key === 's' || e.key === 'S') {
-                    const active = document.querySelector('.view.active');
-                    if (active && active.id === 'view-cricket') {
-                        e.preventDefault();
-                        playerSwing();
-                    }
-                }
-            });
-
-            cricketResetBtn.addEventListener('click', resetCricket);
-
-            // ── init cricket ──
-            updateCricketScoreboard();
-            setTimeout(() => {
-                if (document.getElementById('view-cricket').classList.contains('active')) {
-                    resetCricket();
-                }
-            }, 300);
-
-            // ── view switching: start/stop bike ──
-            const origNavClick = navButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (this.dataset.view === 'bike') {
-                        // already handled above
-                    }
-                });
-            });
-
-            // ── resize handlers ──
-            window.addEventListener('resize', () => {
-                if (document.getElementById('view-bike').classList.contains('active')) {
-                    updateBikeUI();
-                }
-            });
-
-            // ── handle view visibility for bike ──
-            // override nav click to manage bike loop
-            const bikeNavBtn = document.querySelector('[data-view="bike"]');
-            const puzzleNavBtn = document.querySelector('[data-view="puzzle"]');
-            const cricketNavBtn = document.querySelector('[data-view="cricket"]');
-            const windowNavBtn = document.querySelector('[data-view="window"]');
-
-            // store original handlers and add bike management
-            const allNavBtns = document.querySelectorAll('.nav button');
-            allNavBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const view = this.dataset.view;
-                    if (view !== 'bike' && bikeInterval) {
-                        clearInterval(bikeInterval);
-                        bikeInterval = null;
-                    }
-                    if (view === 'bike' && !bikeState.gameOver) {
-                        setTimeout(startBikeLoop, 100);
-                    }
-                    if (view === 'puzzle') {
-                        setTimeout(renderPuzzle, 80);
-                    }
-                    if (view === 'cricket') {
-                        // if innings not done and no ball in flight, start
-                        if (!cricketState.inningsDone && !cricketState.ballInFlight && cricketState.balls > 0) {
-                            setTimeout(() => {
-                                if (!cricketState.inningsDone) bowlDelivery();
-                            }, 300);
-                        }
-                        if (cricketState.balls === 0 && !cricketState.inningsDone) {
-                            setTimeout(resetCricket, 200);
-                        }
-                    }
-                });
-            });
-
-            // ── start bike if active on load ──
-            if (document.getElementById('view-bike').classList.contains('active')) {
-                setTimeout(startBikeLoop, 200);
-            }
-
-            // ── start cricket if active on load ──
-            if (document.getElementById('view-cricket').classList.contains('active')) {
-                setTimeout(() => {
-                    if (cricketState.balls === 0 && !cricketState.inningsDone) {
-                        resetCricket();
-                    }
-                }, 300);
-            }
-
-            // ── clean up bike interval on page unload ──
-            window.addEventListener('beforeunload', function() {
-                if (bikeInterval) clearInterval(bikeInterval);
-            });
-
-            // ── extra: handle bike clutch release on mouse leave ──
-            clutchSlider.addEventListener('mouseleave', function() {
-                if (bikeState.gameOver) return;
-                // gradual release
-                if (bikeState.clutch > 30) {
-                    bikeState.clutch = Math.max(0, bikeState.clutch - 35);
-                    this.value = bikeState.clutch;
-                    updateBikeUI();
-                }
-            });
-
-            console.log('🏍️ The Porch Light — all systems go.');
-            console.log('🧩 Puzzle, 🏍️ Motorcycle, 🏏 Cricket — enjoy the challenges.');
-        })();
-    </script>
+    <div class="lantern">
+      <button class="lantern-toggle" id="lanternToggle">leave something in the light (optional)</button>
+      <div class="lantern-panel" id="lanternPanel">
+        <p>Whatever you write here goes quietly to the person who lit this window — nothing pops up on your phone, no read receipt, no pressure to keep talking. Close it and never open it — also fine.</p>
+        <textarea id="lanternText" placeholder="only if you want to..." aria-label="A private note"></textarea>
+        <div class="lantern-actions">
+          <button class="tuck-btn" id="tuckBtn">tuck it into the light</button>
+        </div>
+        <div class="tuck-msg" id="tuckMsg">kept safe. no reply needed. ✦</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CRICKET NETS ================= -->
+  <div class="view" id="view-cricket">
+    <div class="game-wrap">
+      <div class="pitch" id="pitch">
+        <div class="bowler">🏃</div>
+        <div class="crease-line"></div>
+        <div class="sweet-zone"></div>
+        <div class="ball" id="ball" style="opacity:0;"></div>
+        <div class="batter" id="batter">🏏</div>
+      </div>
+      <button class="swing-btn" id="swingBtn">SWING</button>
+      <div class="game-stats" id="cricketStats">0 runs off 0 balls</div>
+      <div class="game-caption" id="cricketCaption">tap swing once to bring the first ball in, then time your shot as each one arrives.</div>
+      <button class="game-reset" id="cricketReset">reset innings</button>
+    </div>
+  </div>
+
+  <!-- ================= CLUTCH (endless runner) ================= -->
+  <div class="view" id="view-bike">
+    <div class="game-wrap">
+      <div class="clutch-scene" id="clutchScene">
+        <div class="peak p1"></div>
+        <div class="peak p2"></div>
+        <div class="peak p3"></div>
+        <div class="road"></div>
+        <div class="rider" id="rider">🏍️</div>
+      </div>
+      <div class="game-stats" id="bikeStats">score: 0 · best: 0</div>
+      <div class="game-caption" id="bikeCaption">press and hold to grip the clutch, let go to jump the bump.</div>
+      <button class="swing-btn" id="bikeBtn">start riding</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  // ======================================================
+  // Formspree endpoint for the lantern note
+  // ======================================================
+  const FORM_ENDPOINT = "https://formspree.io/f/mdarjday";
+
+  // ======================================================
+  // FLAVOR TEXT — MY DRAFTS to react to, swap in your own.
+  // ======================================================
+  const CRASH_LINES = [
+    "clipped that one. still, nicely ridden up to there.",
+    "every ride ends somewhere. this is just where this one did.",
+    "that bump won this round. there's always another road."
+  ];
+  const RECORD_LINES = [
+    "and that's a new personal best. not bad for a quiet night in.",
+    "new record. somewhere a mountain is mildly impressed.",
+    "beat your own number. that's the only competition that ever mattered anyway."
+  ];
+
+  const stage = document.getElementById('stage');
+
+  // ---------- stars ----------
+  const starCount = window.innerWidth < 600 ? 30 : 55;
+  for(let i=0;i<starCount;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2 + 1;
+    s.style.width = size+'px'; s.style.height = size+'px';
+    s.style.left = Math.random()*100 + 'vw'; s.style.top = Math.random()*45 + 'vh';
+    s.style.animationDelay = (Math.random()*4)+'s';
+    stage.appendChild(s);
+  }
+
+  // ---------- nav ----------
+  const navButtons = document.querySelectorAll('.nav button');
+  const views = {
+    window: document.getElementById('view-window'),
+    cricket: document.getElementById('view-cricket'),
+    bike: document.getElementById('view-bike'),
+  };
+  navButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      navButtons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      Object.values(views).forEach(v=>v.classList.remove('active'));
+      views[btn.dataset.view].classList.add('active');
+    });
+  });
+
+  // ================= FIREFLIES =================
+  const fireflyMessages = [
+    "congrats, you caught a bug that has its life more together than most of us.",
+    "this one's legally required to say: you're doing fine.",
+    "somewhere a mountain has been sitting still for a few million years. it can wait for you too.",
+    "you're not stalled, you're just idling. there's a difference, ask any bike.",
+    "no LBW appeals here. you're always given not out.",
+    "this bug has no opinions about your unread messages. genuinely none.",
+    "you don't need to win the day. one quiet over is enough.",
+    "the light does not do performance reviews.",
+    "this is the least demanding relationship you'll have all week.",
+    "gear down, not out. that's allowed too.",
+    "you found me. anticlimactic, but still technically a win.",
+    "you're allowed to declare the innings early today.",
+    "the summit doesn't care what time you left base camp.",
+    "9 out of 10 fireflies recommend you drink some water though.",
+    "no thoughts, just vibes, just a bug that thinks you're fine.",
+  ];
+
+  const fireflyCount = window.innerWidth < 600 ? 8 : 13;
+  let caught = 0;
+  const countNote = document.getElementById('countNote');
+  const glowRoot = document.documentElement;
+  function updateGlow(){
+    const strength = Math.min(0.55 + caught*0.03, 1.1);
+    glowRoot.style.setProperty('--glow-strength', strength.toFixed(2));
+    if(caught > 0){ countNote.textContent = caught + (caught===1 ? ' light gathered' : ' lights gathered'); }
+  }
+  const affirmationBox = document.getElementById('affirmation');
+  let affirmationTimer = null;
+  function showAffirmation(text){
+    affirmationBox.textContent = text;
+    affirmationBox.classList.add('show');
+    clearTimeout(affirmationTimer);
+    affirmationTimer = setTimeout(()=> affirmationBox.classList.remove('show'), 5200);
+  }
+  const windowView = views.window;
+  for(let i=0;i<fireflyCount;i++){
+    const f = document.createElement('button');
+    f.className = 'firefly';
+    f.setAttribute('aria-label', 'a small light — click it');
+    f.style.left = (10 + Math.random()*80) + '%';
+    f.style.top = (Math.random()*40) + '%';
+    f.style.animationDuration = (7 + Math.random()*6) + 's';
+    f.style.animationDelay = (Math.random()*4) + 's';
+    f.addEventListener('click', function(){
+      if(f.classList.contains('caught')) return;
+      f.classList.add('caught');
+      caught++; updateGlow();
+      showAffirmation(fireflyMessages[Math.floor(Math.random()*fireflyMessages.length)]);
+    });
+    windowView.querySelector('.scene').appendChild(f);
+  }
+
+  // ---------- window click ----------
+  const windowMessages = [
+    "hey. no knocking required, this door doesn't even have a handle.",
+    "still here. still zero rush. the light has nowhere better to be.",
+    "you can stare through the window without opening the door. very valid strategy.",
+    "this runs on electricity, not on you texting back. it's fine either way.",
+    "whenever you're ready, and not a second before — this window isn't going anywhere.",
+    "you showed up. the bar was on the floor and you still stepped over it."
+  ];
+  const windowEl = document.getElementById('window');
+  const presenceLabel = document.getElementById('presenceLabel');
+  windowEl.addEventListener('click', function(){
+    showAffirmation(windowMessages[Math.floor(Math.random()*windowMessages.length)]);
+    presenceLabel.innerHTML = 'still <strong>right here</strong>';
+    setTimeout(()=>{ presenceLabel.innerHTML = "someone's <strong>still here</strong>"; }, 6000);
+  });
+
+  // ---------- lantern note ----------
+  const toggle = document.getElementById('lanternToggle');
+  const panel = document.getElementById('lanternPanel');
+  const textEl = document.getElementById('lanternText');
+  const tuckBtn = document.getElementById('tuckBtn');
+  const tuckMsg = document.getElementById('tuckMsg');
+  toggle.addEventListener('click', function(){
+    const open = panel.classList.toggle('open');
+    toggle.textContent = open ? 'close this back up' : 'leave something in the light (optional)';
+  });
+  tuckBtn.addEventListener('click', function(){
+    const value = textEl.value.trim();
+    if(!value) return;
+    if(FORM_ENDPOINT && FORM_ENDPOINT.indexOf('PASTE_YOUR') === -1){
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: value, source: 'The Porch Light' })
+      }).catch(()=>{});
+    }
+    textEl.style.opacity = '0';
+    tuckMsg.classList.add('show');
+    caught++; updateGlow();
+    setTimeout(()=>{ textEl.value = ''; textEl.style.opacity = '1'; }, 550);
+    setTimeout(()=> tuckMsg.classList.remove('show'), 4200);
+  });
+
+  // ================= CRICKET: timed hits for runs =================
+  const swingBtn = document.getElementById('swingBtn');
+  const ball = document.getElementById('ball');
+  const batter = document.getElementById('batter');
+  const cricketStats = document.getElementById('cricketStats');
+  const cricketCaption = document.getElementById('cricketCaption');
+  const cricketReset = document.getElementById('cricketReset');
+  const pitch = document.getElementById('pitch');
+
+  let totalRuns = 0;
+  let ballsFaced = 0;
+  let ballActive = false;
+  let ballStartTime = 0;
+  let ballHandled = false;
+  const BALL_DURATION = 950;
+  let autoBowlTimer = null;
+
+  function pitchWidth(){ return pitch.clientWidth || 500; }
+
+  function playSwing(){
+    batter.classList.remove('swinging');
+    void batter.offsetWidth;
+    batter.classList.add('swinging');
+  }
+
+  function bowlBall(){
+    if(ballActive) return;
+    ballActive = true;
+    ballHandled = false;
+    ball.style.transition = 'none';
+    ball.style.left = '60px';
+    ball.style.opacity = '1';
+    void ball.offsetWidth;
+    const targetX = pitchWidth() - 90;
+    ball.style.transition = 'left ' + BALL_DURATION + 'ms linear';
+    ball.style.left = targetX + 'px';
+    ballStartTime = performance.now();
+    autoBowlTimer = setTimeout(function(){
+      if(!ballHandled){ registerBall(0, 'left it.'); }
+    }, BALL_DURATION + 60);
+  }
+
+  function runsForProgress(p){
+    if(p >= 0.80 && p <= 0.87) return { runs:6, label:'SIX!' };
+    if((p >= 0.74 && p < 0.80) || (p > 0.87 && p <= 0.91)) return { runs:4, label:'FOUR!' };
+    if((p >= 0.66 && p < 0.74) || (p > 0.91 && p <= 0.95)) return { runs:2, label:'two runs.' };
+    if((p >= 0.55 && p < 0.66) || (p > 0.95)) return { runs:1, label:'one run.' };
+    return { runs:0, label: p < 0.55 ? 'bit early, dot ball.' : 'dot ball.' };
+  }
+
+  function registerBall(runs, label){
+    ballHandled = true;
+    ballActive = false;
+    ball.style.opacity = '0';
+    clearTimeout(autoBowlTimer);
+    ballsFaced++;
+    totalRuns += runs;
+    cricketStats.textContent = totalRuns + ' runs off ' + ballsFaced + ' balls';
+    cricketCaption.textContent = label;
+    autoBowlTimer = setTimeout(bowlBall, 700);
+  }
+
+  function attemptHit(){
+    if(!ballActive || ballHandled) return;
+    playSwing();
+    const elapsed = performance.now() - ballStartTime;
+    const progress = elapsed / BALL_DURATION;
+    const result = runsForProgress(progress);
+    registerBall(result.runs, result.label);
+  }
+
+  swingBtn.addEventListener('click', function(){
+    if(!ballActive && ballsFaced === 0 && totalRuns === 0){
+      cricketCaption.textContent = '';
+      bowlBall();
+      return;
+    }
+    if(ballActive){ attemptHit(); }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.code === 'Space' && views.cricket.classList.contains('active')){
+      e.preventDefault();
+      swingBtn.click();
+    }
+  });
+
+  cricketReset.addEventListener('click', function(){
+    clearTimeout(autoBowlTimer);
+    ballActive = false; ballHandled = true;
+    ball.style.opacity = '0';
+    totalRuns = 0; ballsFaced = 0;
+    cricketStats.textContent = '0 runs off 0 balls';
+    cricketCaption.textContent = 'tap swing once to bring the first ball in, then time your shot as each one arrives.';
+  });
+
+  // ================= CLUTCH: endless runner =================
+  const clutchScene = document.getElementById('clutchScene');
+  const rider = document.getElementById('rider');
+  const bikeBtn = document.getElementById('bikeBtn');
+  const bikeStats = document.getElementById('bikeStats');
+  const bikeCaption = document.getElementById('bikeCaption');
+
+  function loadHighScore(){
+    try{
+      const v = localStorage.getItem('porchlight_bike_highscore');
+      return v ? parseInt(v, 10) : 0;
+    }catch(e){ return memoryHighScore; }
+  }
+  function saveHighScore(v){
+    try{ localStorage.setItem('porchlight_bike_highscore', String(v)); }
+    catch(e){ memoryHighScore = v; }
+  }
+  let memoryHighScore = 0;
+  let highScore = loadHighScore();
+
+  let gameState = 'idle'; // idle | running | over
+  let holding = false;
+  let isAirborne = false;
+  let score = 0;
+  let speed = 140; // px per second
+  let obstacles = [];
+  let lastFrameTime = 0;
+  let nextSpawnAt = 0;
+  let rafId = null;
+
+  function riderLeft(){ return 40; }
+  function riderWidth(){ return 42; }
+
+  function updateStats(){
+    bikeStats.textContent = 'score: ' + score + ' · best: ' + highScore;
+  }
+
+  function spawnObstacle(){
+    const el = document.createElement('div');
+    el.className = 'obstacle';
+    const sceneWidth = clutchScene.clientWidth || 500;
+    el.style.left = sceneWidth + 'px';
+    clutchScene.appendChild(el);
+    obstacles.push({ el: el, x: sceneWidth, width: 26, scored: false });
+  }
+
+  function clearObstacles(){
+    obstacles.forEach(o => o.el.remove());
+    obstacles = [];
+  }
+
+  function triggerJump(){
+    if(isAirborne || gameState !== 'running') return;
+    isAirborne = true;
+    rider.classList.remove('crouch');
+    rider.classList.add('jumping');
+    setTimeout(function(){
+      rider.classList.remove('jumping');
+      isAirborne = false;
+    }, 550);
+  }
+
+  function gameOver(){
+    gameState = 'over';
+    if(rafId) cancelAnimationFrame(rafId);
+    clearObstacles();
+    let newRecord = false;
+    if(score > highScore){ highScore = score; saveHighScore(highScore); newRecord = true; }
+    updateStats();
+    const line = newRecord
+      ? RECORD_LINES[Math.floor(Math.random()*RECORD_LINES.length)]
+      : CRASH_LINES[Math.floor(Math.random()*CRASH_LINES.length)];
+    bikeCaption.textContent = (newRecord ? 'new record — ' : '') + line;
+    bikeBtn.textContent = 'ride again';
+  }
+
+  function gameLoop(timestamp){
+    if(gameState !== 'running'){ return; }
+    if(!lastFrameTime) lastFrameTime = timestamp;
+    const dt = (timestamp - lastFrameTime) / 1000;
+    lastFrameTime = timestamp;
+
+    const sceneWidth = clutchScene.clientWidth || 500;
+    const rLeft = riderLeft();
+    const rRight = rLeft + riderWidth();
+
+    for(let i = obstacles.length - 1; i >= 0; i--){
+      const o = obstacles[i];
+      o.x -= speed * dt;
+      o.el.style.left = o.x + 'px';
+
+      const oLeft = o.x;
+      const oRight = o.x + o.width;
+
+      if(!isAirborne && oLeft < rRight && oRight > rLeft){
+        gameOver();
+        return;
+      }
+      if(!o.scored && oRight < rLeft){
+        o.scored = true;
+        score++;
+        speed = Math.min(320, 140 + score * 6);
+        updateStats();
+      }
+      if(o.x < -40){
+        o.el.remove();
+        obstacles.splice(i, 1);
+      }
+    }
+
+    if(timestamp >= nextSpawnAt){
+      spawnObstacle();
+      const gap = Math.max(900, 1900 - score * 30);
+      nextSpawnAt = timestamp + gap + Math.random()*400;
+    }
+
+    rafId = requestAnimationFrame(gameLoop);
+  }
+
+  function startGame(){
+    clearObstacles();
+    score = 0;
+    speed = 140;
+    isAirborne = false;
+    holding = false;
+    rider.classList.remove('crouch','jumping');
+    updateStats();
+    bikeCaption.textContent = '';
+    bikeBtn.textContent = 'hold to grip · release to jump';
+    gameState = 'running';
+    lastFrameTime = 0;
+    nextSpawnAt = performance.now() + 1200;
+    rafId = requestAnimationFrame(gameLoop);
+  }
+
+  function onPressStart(e){
+    e.preventDefault();
+    if(gameState === 'idle' || gameState === 'over'){ startGame(); return; }
+    if(gameState === 'running' && !holding){
+      holding = true;
+      if(!isAirborne) rider.classList.add('crouch');
+    }
+  }
+  function onPressEnd(e){
+    if(gameState === 'running' && holding){
+      holding = false;
+      triggerJump();
+    }
+  }
+
+  bikeBtn.addEventListener('mousedown', onPressStart);
+  bikeBtn.addEventListener('touchstart', onPressStart, { passive:false });
+  bikeBtn.addEventListener('mouseup', onPressEnd);
+  bikeBtn.addEventListener('mouseleave', onPressEnd);
+  bikeBtn.addEventListener('touchend', onPressEnd);
+  bikeBtn.addEventListener('touchcancel', onPressEnd);
+
+  document.addEventListener('keydown', function(e){
+    if(e.code === 'Space' && views.bike.classList.contains('active') && !e.repeat){
+      e.preventDefault();
+      onPressStart(e);
+    }
+  });
+  document.addEventListener('keyup', function(e){
+    if(e.code === 'Space' && views.bike.classList.contains('active')){
+      e.preventDefault();
+      onPressEnd(e);
+    }
+  });
+
+  updateStats();
+})();
+</script>
 
 </body>
 </html>
