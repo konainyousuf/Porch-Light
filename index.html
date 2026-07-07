@@ -82,7 +82,7 @@
 
   /* ============ shared game bits ============ */
   .game-wrap{ width:min(600px,94vw); text-align:center; padding: 10px 0 6vh; z-index:4; display:flex; flex-direction:column; align-items:center; }
-  .game-caption{ font-family:'Caveat', cursive; font-size:1.5rem; color:var(--porch-amber); min-height:2.4rem; margin:10px 0 4px; max-width:520px; }
+  .game-caption{ font-family:'Caveat', cursive; font-size:1.45rem; color:var(--porch-amber); min-height:2.4rem; margin:10px 0 4px; max-width:520px; }
   .game-stats{ font-size:0.85rem; color:var(--cream-dim); margin-top:8px; letter-spacing:0.02em; }
   .game-reset{ background:none; border:1px solid rgba(255,176,102,0.35); color:var(--cream-dim); padding:7px 16px; border-radius:999px; cursor:pointer; font-size:0.78rem; margin-top:12px; }
   .game-reset:hover{ border-color:var(--porch-amber); color:var(--porch-core); }
@@ -91,19 +91,19 @@
   .swing-btn:active{ transform: scale(0.96); }
 
   /* ============ CRICKET NETS ============ */
-  .pitch{ position:relative; width:100%; height:min(34vh,260px); background: linear-gradient(180deg, #1c3168 0%, #142450 60%, #0e1a3c 100%); border-radius:16px; border:1px solid rgba(255,176,102,0.15); overflow:hidden; }
-  .crease-line{ position:absolute; right:70px; top:0; bottom:0; width:2px; background:rgba(255,243,214,0.35); }
-  .sweet-zone{ position:absolute; right:38px; top:0; bottom:0; width:56px; background:rgba(255,176,102,0.08); border-left:1px dashed rgba(255,176,102,0.3); border-right:1px dashed rgba(255,176,102,0.3); }
-  .batter{ position:absolute; right:14px; top:50%; font-size:2.2rem; transform:translateY(-50%) rotate(0deg); transform-origin: 80% 70%; }
+  .pitch{ position:relative; width:100%; height:min(38vh,300px); background: linear-gradient(180deg, #1c3168 0%, #142450 60%, #0e1a3c 100%); border-radius:16px; border:1px solid rgba(255,176,102,0.15); overflow:hidden; cursor: ns-resize; }
+  .sweet-zone{ position:absolute; right:64px; top:0; bottom:0; width:50px; background:rgba(255,176,102,0.08); border-left:1px dashed rgba(255,176,102,0.3); border-right:1px dashed rgba(255,176,102,0.3); }
+  .batter{ position:absolute; right:20px; top:50%; font-size:2rem; transform: translateY(-50%) scaleX(-1) rotate(0deg); transform-origin:50% 50%; }
   .batter.swinging{ animation: bat-swing 0.35s ease-out; }
   @keyframes bat-swing{
-    0%   { transform: translateY(-50%) rotate(0deg); }
-    40%  { transform: translateY(-50%) rotate(-55deg); }
-    70%  { transform: translateY(-50%) rotate(15deg); }
-    100% { transform: translateY(-50%) rotate(0deg); }
+    0%   { transform: translateY(-50%) scaleX(-1) rotate(0deg); }
+    40%  { transform: translateY(-50%) scaleX(-1) rotate(-55deg); }
+    70%  { transform: translateY(-50%) scaleX(-1) rotate(15deg); }
+    100% { transform: translateY(-50%) scaleX(-1) rotate(0deg); }
   }
-  .bowler{ position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:1.8rem; }
-  .ball{ position:absolute; top:50%; left:60px; width:14px; height:14px; margin-top:-7px; border-radius:50%; background: radial-gradient(circle at 35% 30%, #ffdede, var(--porch-ember) 60%, #8a2b12 100%); box-shadow:0 0 6px rgba(255,138,76,0.6); }
+  .bowler{ position:absolute; left:16px; top:50%; font-size:1.8rem; transform: translateY(-50%) scaleX(-1); }
+  .ball{ position:absolute; left:66px; top:50%; width:13px; height:13px; border-radius:50%; background: radial-gradient(circle at 35% 30%, #ffdede, var(--porch-ember) 60%, #8a2b12 100%); box-shadow:0 0 6px rgba(255,138,76,0.6); transform: translateY(-50%); }
+  .line-hint{ position:absolute; left:66px; right:74px; height:2px; background:rgba(255,243,214,0.12); }
 
   /* ============ RELEASE THE CLUTCH (endless runner) ============ */
   .clutch-scene{ position:relative; width:100%; height:min(34vh,260px); background: linear-gradient(180deg, #16264f 0%, #101f45 55%, #0b1530 100%); border-radius:16px; border:1px solid rgba(255,176,102,0.15); overflow:hidden; }
@@ -112,16 +112,17 @@
   .peak.p2{ left:32%; border-left:80px solid transparent; border-right:80px solid transparent; border-bottom:130px solid #1b2c5c; }
   .peak.p3{ right:6%; border-left:70px solid transparent; border-right:70px solid transparent; border-bottom:100px solid #22366b; }
   .road{ position:absolute; bottom:0; left:0; right:0; height:30px; background:#0a1330; border-top:2px dashed rgba(255,243,214,0.25); }
-  .rider{ position:absolute; bottom:26px; left:40px; font-size:2.3rem; transition: transform 0.12s ease; z-index:3; }
-  .rider.crouch{ transform: translateY(4px) scaleY(0.9); }
+  .rider{ position:absolute; bottom:26px; left:40px; font-size:2.3rem; transition: transform 0.12s ease; z-index:3; transform: scaleX(-1); }
+  .rider.crouch{ transform: scaleX(-1) translateY(4px) scaleY(0.9); }
   .rider.jumping{ animation: bike-jump 0.55s ease-out; }
   @keyframes bike-jump{
-    0%   { transform: translateY(0); }
-    40%  { transform: translateY(-72px); }
-    68%  { transform: translateY(-72px); }
-    100% { transform: translateY(0); }
+    0%   { transform: scaleX(-1) translateY(0); }
+    40%  { transform: scaleX(-1) translateY(-72px); }
+    68%  { transform: scaleX(-1) translateY(-72px); }
+    100% { transform: scaleX(-1) translateY(0); }
   }
   .obstacle{ position:absolute; bottom:26px; width:26px; height:20px; background: var(--porch-ember); border-radius:50% 50% 2px 2px / 100% 100% 2px 2px; box-shadow:0 0 8px rgba(255,138,76,0.5); z-index:2; }
+  .obstacle.chicken{ background:transparent; box-shadow:none; width:62px; height:24px; display:flex; align-items:flex-end; justify-content:space-between; font-size:1.15rem; padding:0 2px; }
 
   @media (prefers-reduced-motion: reduce){ .firefly, .window, .star{ animation:none !important; } }
   @media (max-width: 480px){ .intro h1{ font-size:2.1rem; } .window{ width:104px; height:124px; } }
@@ -174,14 +175,14 @@
     <div class="game-wrap">
       <div class="pitch" id="pitch">
         <div class="bowler">🏃</div>
-        <div class="crease-line"></div>
         <div class="sweet-zone"></div>
+        <div class="line-hint" id="lineHint"></div>
         <div class="ball" id="ball" style="opacity:0;"></div>
         <div class="batter" id="batter">🏏</div>
       </div>
       <button class="swing-btn" id="swingBtn">SWING</button>
       <div class="game-stats" id="cricketStats">0 runs off 0 balls</div>
-      <div class="game-caption" id="cricketCaption">tap swing once to bring the first ball in, then time your shot as each one arrives.</div>
+      <div class="game-caption" id="cricketCaption">move your mouse (or arrow keys) up/down over the pitch to slide the bat onto the ball's line, then tap swing once to start, and again as each ball arrives.</div>
       <button class="game-reset" id="cricketReset">reset innings</button>
     </div>
   </div>
@@ -197,7 +198,7 @@
         <div class="rider" id="rider">🏍️</div>
       </div>
       <div class="game-stats" id="bikeStats">score: 0 · best: 0</div>
-      <div class="game-caption" id="bikeCaption">press and hold to grip the clutch, let go to jump the bump.</div>
+      <div class="game-caption" id="bikeCaption">hold to grip the clutch and brake for the chickens, let go to jump the speed bumps.</div>
       <button class="swing-btn" id="bikeBtn">start riding</button>
     </div>
   </div>
@@ -353,7 +354,7 @@
     setTimeout(()=> tuckMsg.classList.remove('show'), 4200);
   });
 
-  // ================= CRICKET: timed hits for runs =================
+  // ================= CRICKET: sliding bat + timed hits =================
   const swingBtn = document.getElementById('swingBtn');
   const ball = document.getElementById('ball');
   const batter = document.getElementById('batter');
@@ -367,10 +368,40 @@
   let ballActive = false;
   let ballStartTime = 0;
   let ballHandled = false;
+  let ballLineY = 50;   // percent
+  let batY = 50;        // percent, player-controlled
   const BALL_DURATION = 950;
   let autoBowlTimer = null;
 
   function pitchWidth(){ return pitch.clientWidth || 500; }
+  function pitchHeight(){ return pitch.clientHeight || 200; }
+
+  function setBatY(percent){
+    batY = Math.max(10, Math.min(90, percent));
+    batter.style.top = batY + '%';
+  }
+  setBatY(50);
+
+  pitch.addEventListener('mousemove', function(e){
+    const rect = pitch.getBoundingClientRect();
+    const relY = e.clientY - rect.top;
+    setBatY((relY / rect.height) * 100);
+  });
+  pitch.addEventListener('touchmove', function(e){
+    if(e.touches && e.touches[0]){
+      const rect = pitch.getBoundingClientRect();
+      const relY = e.touches[0].clientY - rect.top;
+      setBatY((relY / rect.height) * 100);
+      e.preventDefault();
+    }
+  }, { passive:false });
+
+  document.addEventListener('keydown', function(e){
+    if(!views.cricket.classList.contains('active')) return;
+    if(e.code === 'ArrowUp'){ e.preventDefault(); setBatY(batY - 7); }
+    else if(e.code === 'ArrowDown'){ e.preventDefault(); setBatY(batY + 7); }
+    else if(e.code === 'Space'){ e.preventDefault(); swingBtn.click(); }
+  });
 
   function playSwing(){
     batter.classList.remove('swinging');
@@ -382,16 +413,18 @@
     if(ballActive) return;
     ballActive = true;
     ballHandled = false;
+    ballLineY = 20 + Math.random()*60;
+    ball.style.top = ballLineY + '%';
     ball.style.transition = 'none';
-    ball.style.left = '60px';
+    ball.style.left = '66px';
     ball.style.opacity = '1';
     void ball.offsetWidth;
-    const targetX = pitchWidth() - 90;
+    const targetX = pitchWidth() - 78;
     ball.style.transition = 'left ' + BALL_DURATION + 'ms linear';
     ball.style.left = targetX + 'px';
     ballStartTime = performance.now();
     autoBowlTimer = setTimeout(function(){
-      if(!ballHandled){ registerBall(0, 'left it.'); }
+      if(!ballHandled){ registerBall(0, "left it, didn't move in time."); }
     }, BALL_DURATION + 60);
   }
 
@@ -401,6 +434,13 @@
     if((p >= 0.66 && p < 0.74) || (p > 0.91 && p <= 0.95)) return { runs:2, label:'two runs.' };
     if((p >= 0.55 && p < 0.66) || (p > 0.95)) return { runs:1, label:'one run.' };
     return { runs:0, label: p < 0.55 ? 'bit early, dot ball.' : 'dot ball.' };
+  }
+
+  function stepDown(runs){
+    const tiers = [0,1,2,4,6];
+    let idx = tiers.indexOf(runs);
+    if(idx > 0) idx--;
+    return tiers[idx];
   }
 
   function registerBall(runs, label){
@@ -420,8 +460,20 @@
     playSwing();
     const elapsed = performance.now() - ballStartTime;
     const progress = elapsed / BALL_DURATION;
-    const result = runsForProgress(progress);
-    registerBall(result.runs, result.label);
+    const timing = runsForProgress(progress);
+    const alignDiff = Math.abs(batY - ballLineY);
+
+    let runs = timing.runs;
+    let label = timing.label;
+
+    if(alignDiff > 25){
+      runs = 0;
+      label = 'wrong line entirely, dot ball.';
+    } else if(alignDiff > 12){
+      runs = stepDown(runs);
+      label = runs === 0 ? 'edged it, no run.' : (runs + (runs===1?' run':' runs') + ', bat wasn\u2019t quite on the line.');
+    }
+    registerBall(runs, label);
   }
 
   swingBtn.addEventListener('click', function(){
@@ -433,20 +485,13 @@
     if(ballActive){ attemptHit(); }
   });
 
-  document.addEventListener('keydown', function(e){
-    if(e.code === 'Space' && views.cricket.classList.contains('active')){
-      e.preventDefault();
-      swingBtn.click();
-    }
-  });
-
   cricketReset.addEventListener('click', function(){
     clearTimeout(autoBowlTimer);
     ballActive = false; ballHandled = true;
     ball.style.opacity = '0';
     totalRuns = 0; ballsFaced = 0;
     cricketStats.textContent = '0 runs off 0 balls';
-    cricketCaption.textContent = 'tap swing once to bring the first ball in, then time your shot as each one arrives.';
+    cricketCaption.textContent = "move your mouse (or arrow keys) up/down over the pitch to slide the bat onto the ball's line, then tap swing once to start, and again as each ball arrives.";
   });
 
   // ================= CLUTCH: endless runner =================
@@ -473,7 +518,7 @@
   let holding = false;
   let isAirborne = false;
   let score = 0;
-  let speed = 140; // px per second
+  let baseSpeed = 140; // px per second
   let obstacles = [];
   let lastFrameTime = 0;
   let nextSpawnAt = 0;
@@ -487,12 +532,21 @@
   }
 
   function spawnObstacle(){
+    const isChicken = Math.random() < 0.3;
     const el = document.createElement('div');
-    el.className = 'obstacle';
     const sceneWidth = clutchScene.clientWidth || 500;
-    el.style.left = sceneWidth + 'px';
-    clutchScene.appendChild(el);
-    obstacles.push({ el: el, x: sceneWidth, width: 26, scored: false });
+    if(isChicken){
+      el.className = 'obstacle chicken';
+      el.innerHTML = '🐔🐣🐔';
+      el.style.left = sceneWidth + 'px';
+      clutchScene.appendChild(el);
+      obstacles.push({ el:el, x:sceneWidth, width:62, type:'chicken', scored:false });
+    } else {
+      el.className = 'obstacle';
+      el.style.left = sceneWidth + 'px';
+      clutchScene.appendChild(el);
+      obstacles.push({ el:el, x:sceneWidth, width:26, type:'bump', scored:false });
+    }
   }
 
   function clearObstacles(){
@@ -531,9 +585,9 @@
     const dt = (timestamp - lastFrameTime) / 1000;
     lastFrameTime = timestamp;
 
-    const sceneWidth = clutchScene.clientWidth || 500;
     const rLeft = riderLeft();
     const rRight = rLeft + riderWidth();
+    const speed = baseSpeed * (holding ? 0.45 : 1);
 
     for(let i = obstacles.length - 1; i >= 0; i--){
       const o = obstacles[i];
@@ -542,18 +596,20 @@
 
       const oLeft = o.x;
       const oRight = o.x + o.width;
+      const overlapping = oLeft < rRight && oRight > rLeft;
 
-      if(!isAirborne && oLeft < rRight && oRight > rLeft){
-        gameOver();
-        return;
+      if(overlapping){
+        if(o.type === 'bump' && !isAirborne){ gameOver(); return; }
+        if(o.type === 'chicken' && !holding){ gameOver(); return; }
       }
+
       if(!o.scored && oRight < rLeft){
         o.scored = true;
-        score++;
-        speed = Math.min(320, 140 + score * 6);
+        score += (o.type === 'chicken' ? 3 : 1);
+        baseSpeed = Math.min(300, 140 + score * 5);
         updateStats();
       }
-      if(o.x < -40){
+      if(o.x < -70){
         o.el.remove();
         obstacles.splice(i, 1);
       }
@@ -561,7 +617,7 @@
 
     if(timestamp >= nextSpawnAt){
       spawnObstacle();
-      const gap = Math.max(900, 1900 - score * 30);
+      const gap = Math.max(950, 1900 - score * 25);
       nextSpawnAt = timestamp + gap + Math.random()*400;
     }
 
@@ -571,7 +627,7 @@
   function startGame(){
     clearObstacles();
     score = 0;
-    speed = 140;
+    baseSpeed = 140;
     isAirborne = false;
     holding = false;
     rider.classList.remove('crouch','jumping');
@@ -585,7 +641,7 @@
   }
 
   function onPressStart(e){
-    e.preventDefault();
+    if(e.cancelable) e.preventDefault();
     if(gameState === 'idle' || gameState === 'over'){ startGame(); return; }
     if(gameState === 'running' && !holding){
       holding = true;
@@ -595,6 +651,7 @@
   function onPressEnd(e){
     if(gameState === 'running' && holding){
       holding = false;
+      rider.classList.remove('crouch');
       triggerJump();
     }
   }
