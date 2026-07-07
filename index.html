@@ -156,16 +156,14 @@
   .road{ position:absolute; bottom:0; left:0; right:0; height:30px; background:#0a1330; border-top:2px dashed rgba(255,243,214,0.25); }
   .rider{ position:absolute; bottom:26px; left:40px; font-size:2.3rem; transition: transform 0.12s ease; z-index:3; transform: scaleX(-1); }
   .rider.crouch{ transform: scaleX(-1) translateY(4px) scaleY(0.9); }
-  .rider.jumping{ animation: bike-jump 0.55s ease-out; }
+  .rider.jumping{ animation: bike-jump 0.75s ease-out; }
   @keyframes bike-jump{
     0%   { transform: scaleX(-1) translateY(0); }
-    40%  { transform: scaleX(-1) translateY(-72px); }
-    68%  { transform: scaleX(-1) translateY(-72px); }
+    35%  { transform: scaleX(-1) translateY(-112px); }
+    65%  { transform: scaleX(-1) translateY(-112px); }
     100% { transform: scaleX(-1) translateY(0); }
   }
   .obstacle{ position:absolute; bottom:26px; width:26px; height:20px; background: var(--porch-ember); border-radius:50% 50% 2px 2px / 100% 100% 2px 2px; box-shadow:0 0 8px rgba(255,138,76,0.5); z-index:2; }
-  .obstacle.chicken{ background:transparent; box-shadow:none; width:28px; height:24px; display:flex; align-items:flex-end; justify-content:center; }
-  .obstacle.chicken svg{ width:100%; height:100%; overflow:visible; }
 
   @media (prefers-reduced-motion: reduce){ .firefly, .window, .star{ animation:none !important; } }
 
@@ -637,17 +635,6 @@
   const bikeStats = document.getElementById('bikeStats');
   const bikeCaption = document.getElementById('bikeCaption');
 
-  // single, simple chicken silhouette drawn as SVG (avoids emoji font
-  // rendering differences that can make 🐔 look like a hen-with-chicks)
-  const CHICKEN_SVG = '<svg viewBox="0 0 32 28" xmlns="http://www.w3.org/2000/svg">' +
-    '<ellipse cx="15" cy="18" rx="11" ry="9" fill="#f4ecdd"/>' +
-    '<circle cx="24" cy="10" r="6" fill="#f4ecdd"/>' +
-    '<polygon points="21,4 23,0 25,4" fill="#e0453f"/>' +
-    '<polygon points="30,9 34,10 30,12" fill="#ff8a4c"/>' +
-    '<circle cx="25.5" cy="8.5" r="1.1" fill="#20130a"/>' +
-    '<path d="M10 27 L8 22 M14 27 L14 22 M18 27 L20 22" stroke="#ff8a4c" stroke-width="1.6" fill="none" stroke-linecap="round"/>' +
-    '</svg>';
-
   function loadHighScore(){
     try{
       const v = localStorage.getItem('porchlight_bike_highscore');
@@ -679,21 +666,12 @@
   }
 
   function spawnObstacle(){
-    const isChicken = Math.random() < 0.3;
     const el = document.createElement('div');
     const sceneWidth = clutchScene.clientWidth || 500;
-    if(isChicken){
-      el.className = 'obstacle chicken';
-      el.innerHTML = CHICKEN_SVG;
-      el.style.left = sceneWidth + 'px';
-      clutchScene.appendChild(el);
-      obstacles.push({ el:el, x:sceneWidth, width:28, type:'chicken', scored:false });
-    } else {
-      el.className = 'obstacle';
-      el.style.left = sceneWidth + 'px';
-      clutchScene.appendChild(el);
-      obstacles.push({ el:el, x:sceneWidth, width:26, type:'bump', scored:false });
-    }
+    el.className = 'obstacle';
+    el.style.left = sceneWidth + 'px';
+    clutchScene.appendChild(el);
+    obstacles.push({ el:el, x:sceneWidth, width:26, type:'bump', scored:false });
   }
 
   function clearObstacles(){
@@ -709,7 +687,7 @@
     setTimeout(function(){
       rider.classList.remove('jumping');
       isAirborne = false;
-    }, 550);
+    }, 750);
   }
 
   function gameOver(){
@@ -747,12 +725,11 @@
 
       if(overlapping){
         if(o.type === 'bump' && !isAirborne){ gameOver(); return; }
-        if(o.type === 'chicken' && !holding){ gameOver(); return; }
       }
 
       if(!o.scored && oRight < rLeft){
         o.scored = true;
-        score += (o.type === 'chicken' ? 3 : 1);
+        score += 1;
         baseSpeed = Math.min(300, 140 + score * 5);
         updateStats();
       }
