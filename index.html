@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Porch Light</title>
+<title>Only For Saad</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
 <style>
@@ -17,6 +17,7 @@
     --cream:        #f4ecdd;
     --cream-dim:    rgba(244,236,221,0.62);
     --glow-strength: 0.55;
+    --sidebar-w: 128px;
   }
   *{ box-sizing:border-box; }
   html,body{
@@ -28,26 +29,68 @@
     -webkit-font-smoothing: antialiased;
     user-select: none;
   }
-  .stage{ position:relative; min-height:100vh; width:100vw; display:flex; flex-direction:column; align-items:center; }
+  .stage{ position:relative; min-height:100vh; width:100vw; display:flex; flex-direction:column; align-items:center; padding-left: var(--sidebar-w); }
 
   .star{ position:absolute; border-radius:50%; background:#dfe6ff; opacity:0.5; animation: twinkle 4s ease-in-out infinite; z-index:0; }
   @keyframes twinkle{ 0%,100%{ opacity:0.15; } 50%{ opacity:0.9; } }
 
-  .intro{ text-align:center; width:min(560px, 88vw); z-index:5; margin-top:5vh; }
-  .intro .eyebrow{ font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase; color: var(--cream-dim); margin:0 0 10px; }
-  .intro h1{ font-family:'Caveat', cursive; font-size:2.6rem; font-weight:600; margin:0 0 8px; color: var(--porch-core); text-shadow: 0 0 24px rgba(255,176,102,0.25); }
-  .intro p{ font-size:0.95rem; line-height:1.55; color: var(--cream-dim); margin:0; }
+  /* ============ GREETING POPUP ============ */
+  .greeting-overlay{
+    position:fixed; inset:0; background:rgba(6,10,24,0.72); z-index:100;
+    display:flex; align-items:center; justify-content:center;
+    opacity:1; transition: opacity 0.4s ease;
+  }
+  .greeting-overlay.hidden{ opacity:0; pointer-events:none; }
+  .greeting-card{
+    background: linear-gradient(180deg, rgba(24,36,72,0.97), rgba(11,21,48,0.97));
+    border:1px solid rgba(255,176,102,0.3);
+    border-radius:18px; padding:30px 34px; max-width:min(420px,86vw); text-align:center;
+    box-shadow: 0 0 50px rgba(255,154,77,0.15);
+  }
+  .greeting-card p{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--porch-core); margin:0 0 18px; line-height:1.3; }
+  .greeting-card button{
+    background: var(--porch-ember); border:none; color:#20130a; font-weight:700;
+    padding:9px 26px; border-radius:999px; cursor:pointer; font-size:0.85rem;
+  }
+  .greeting-card button:hover{ background: var(--porch-amber); }
 
-  .nav{ display:flex; gap:8px; margin:22px 0 8px; z-index:6; flex-wrap:wrap; justify-content:center; padding:0 12px; }
-  .nav button{ background: rgba(255,255,255,0.05); border:1px solid rgba(255,176,102,0.25); color: var(--cream-dim); font-family:'Nunito Sans',sans-serif; font-size:0.8rem; padding:8px 15px; border-radius:999px; cursor:pointer; transition: all 0.2s ease; }
-  .nav button.active, .nav button:hover, .nav button:focus-visible{ border-color: var(--porch-amber); color: var(--porch-core); background: rgba(255,176,102,0.1); }
+  /* ============ SIDEBAR ============ */
+  .sidebar{
+    position:fixed; left:0; top:0; bottom:0; width:var(--sidebar-w);
+    display:flex; flex-direction:column; align-items:center;
+    padding-top:26px; z-index:20;
+    background: linear-gradient(180deg, rgba(11,21,48,0.4), rgba(6,10,24,0.15));
+    border-right:1px solid rgba(255,176,102,0.1);
+  }
+  .tree{ font-size:2.6rem; line-height:1; filter: drop-shadow(0 0 10px rgba(34,54,107,0.6)); }
+  .spider-wrap{ position:relative; height:34px; display:flex; justify-content:center; margin-bottom:4px; }
+  .thread{ position:absolute; top:0; left:50%; width:1px; height:22px; background:rgba(244,236,221,0.35); }
+  .spider{ position:absolute; top:18px; font-size:1.1rem; cursor:default; }
+  .web-svg{ position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+  .web-svg line{ stroke:rgba(244,236,221,0.55); stroke-width:1; opacity:0; transition: opacity 0.3s ease; }
+  .web-svg.show line{ opacity:0.8; }
+
+  .side-nav{ display:flex; flex-direction:column; gap:10px; margin-top:8px; width:100%; padding:0 10px; position:relative; z-index:2; }
+  .side-nav button{
+    background: rgba(255,255,255,0.05); border:1px solid rgba(255,176,102,0.22);
+    color: var(--cream-dim); font-family:'Nunito Sans',sans-serif; font-size:0.72rem;
+    padding:10px 4px; border-radius:12px; cursor:pointer; transition: all 0.2s ease;
+    display:flex; flex-direction:column; align-items:center; gap:4px; line-height:1.15;
+  }
+  .side-nav button .ico{ font-size:1.3rem; }
+  .side-nav button.active, .side-nav button:hover, .side-nav button:focus-visible{
+    border-color: var(--porch-amber); color: var(--porch-core); background: rgba(255,176,102,0.12);
+  }
 
   .view{ display:none; width:100%; flex:1; flex-direction:column; align-items:center; }
   .view.active{ display:flex; }
 
   /* ============ WINDOW ============ */
   .count-note{ position:absolute; top:14px; right:16px; font-size:0.72rem; color: var(--cream-dim); z-index:5; }
-  .scene{ position:relative; width:min(680px, 92vw); z-index:4; margin-top:auto; }
+  .intro{ text-align:center; width:min(560px, 80vw); z-index:5; margin-top:6vh; }
+  .intro h1{ font-family:'Caveat', cursive; font-size:2.7rem; font-weight:600; margin:0; color: var(--porch-core); text-shadow: 0 0 24px rgba(255,176,102,0.25); letter-spacing:0.02em; }
+  .game-heading{ font-family:'Caveat', cursive; font-size:2.1rem; font-weight:600; color: var(--porch-core); text-shadow: 0 0 20px rgba(255,176,102,0.22); letter-spacing:0.02em; text-align:center; margin: 5vh 0 0; width:min(560px,86vw); }
+  .scene{ position:relative; width:min(680px, 86vw); z-index:4; margin-top:auto; }
   .roofline{ width:100%; height:64px; background: var(--night-soft); clip-path: polygon(50% 0%, 100% 62%, 100% 100%, 0% 100%, 0% 62%); opacity:0.9; }
   .house{ width:100%; height:min(34vh, 280px); background: linear-gradient(180deg, var(--night-soft) 0%, #0e1a3c 100%); position:relative; border-top: 1px solid rgba(255,255,255,0.06); }
   .window-wrap{ position:absolute; left:50%; top:34%; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; z-index:5; }
@@ -66,7 +109,7 @@
   @keyframes drift{ 0%{ transform: translate(0,0); } 25%{ transform: translate(14px,-18px); } 50%{ transform: translate(-10px,-30px); } 75%{ transform: translate(-18px,-8px); } 100%{ transform: translate(0,0); } }
   .affirmation{ position:absolute; bottom:calc(100% + 14px); left:50%; transform:translateX(-50%); width:max(240px, 22vw); max-width:320px; background: rgba(20,30,60,0.92); border:1px solid rgba(255,176,102,0.35); border-radius:14px; padding:14px 16px; font-family:'Caveat', cursive; font-size:1.35rem; line-height:1.3; color: var(--porch-core); text-align:center; opacity:0; pointer-events:none; transition: opacity 0.6s ease, transform 0.6s ease; }
   .affirmation.show{ opacity:1; transform:translate(-50%, -4px); }
-  .lantern{ width:min(420px, 90vw); z-index:8; text-align:center; margin: 26px 0 5vh; }
+  .lantern{ width:min(420px, 86vw); z-index:8; text-align:center; margin: 26px 0 5vh; }
   .lantern-toggle{ background:none; border:1px solid rgba(244,236,221,0.28); color: var(--cream-dim); font-family:'Nunito Sans',sans-serif; font-size:0.78rem; padding:8px 16px; border-radius:999px; cursor:pointer; }
   .lantern-toggle:hover, .lantern-toggle:focus-visible{ border-color: var(--porch-amber); color: var(--porch-core); }
   .lantern-panel{ margin-top:12px; background:rgba(11,21,48,0.9); border:1px solid rgba(255,176,102,0.25); border-radius:14px; padding:14px; display:none; }
@@ -81,7 +124,7 @@
   .tuck-msg.show{ opacity:1; }
 
   /* ============ shared game bits ============ */
-  .game-wrap{ width:min(600px,94vw); text-align:center; padding: 10px 0 6vh; z-index:4; display:flex; flex-direction:column; align-items:center; }
+  .game-wrap{ width:min(600px,90vw); text-align:center; padding: 10px 0 6vh; z-index:4; display:flex; flex-direction:column; align-items:center; margin-top:2vh; }
   .game-caption{ font-family:'Caveat', cursive; font-size:1.45rem; color:var(--porch-amber); min-height:2.4rem; margin:10px 0 4px; max-width:520px; }
   .game-stats{ font-size:0.85rem; color:var(--cream-dim); margin-top:8px; letter-spacing:0.02em; }
   .game-reset{ background:none; border:1px solid rgba(255,176,102,0.35); color:var(--cream-dim); padding:7px 16px; border-radius:999px; cursor:pointer; font-size:0.78rem; margin-top:12px; }
@@ -103,7 +146,6 @@
   }
   .bowler{ position:absolute; left:16px; top:50%; font-size:1.8rem; transform: translateY(-50%) scaleX(-1); }
   .ball{ position:absolute; left:66px; top:50%; width:13px; height:13px; border-radius:50%; background: radial-gradient(circle at 35% 30%, #ffdede, var(--porch-ember) 60%, #8a2b12 100%); box-shadow:0 0 6px rgba(255,138,76,0.6); transform: translateY(-50%); }
-  .line-hint{ position:absolute; left:66px; right:74px; height:2px; background:rgba(255,243,214,0.12); }
 
   /* ============ RELEASE THE CLUTCH (endless runner) ============ */
   .clutch-scene{ position:relative; width:100%; height:min(34vh,260px); background: linear-gradient(180deg, #16264f 0%, #101f45 55%, #0b1530 100%); border-radius:16px; border:1px solid rgba(255,176,102,0.15); overflow:hidden; }
@@ -122,30 +164,55 @@
     100% { transform: scaleX(-1) translateY(0); }
   }
   .obstacle{ position:absolute; bottom:26px; width:26px; height:20px; background: var(--porch-ember); border-radius:50% 50% 2px 2px / 100% 100% 2px 2px; box-shadow:0 0 8px rgba(255,138,76,0.5); z-index:2; }
-  .obstacle.chicken{ background:transparent; box-shadow:none; width:62px; height:24px; display:flex; align-items:flex-end; justify-content:space-between; font-size:1.15rem; padding:0 2px; }
+  .obstacle.chicken{ background:transparent; box-shadow:none; width:28px; height:24px; display:flex; align-items:flex-end; justify-content:center; }
+  .obstacle.chicken svg{ width:100%; height:100%; overflow:visible; }
 
   @media (prefers-reduced-motion: reduce){ .firefly, .window, .star{ animation:none !important; } }
-  @media (max-width: 480px){ .intro h1{ font-size:2.1rem; } .window{ width:104px; height:124px; } }
+
+  @media (max-width: 640px){
+    :root{ --sidebar-w: 76px; }
+    .tree{ font-size:1.8rem; }
+    .side-nav button{ font-size:0.62rem; padding:8px 2px; }
+    .side-nav button .ico{ font-size:1.1rem; }
+    .intro h1{ font-size:2.1rem; }
+    .window{ width:104px; height:124px; }
+  }
 </style>
 </head>
 <body>
 
+<div class="greeting-overlay" id="greetingOverlay">
+  <div class="greeting-card">
+    <p id="greetingText">Hi, Saad.</p>
+    <button id="greetingClose">okay</button>
+  </div>
+</div>
+
+<div class="sidebar" id="sidebar">
+  <div class="tree" aria-hidden="true">🌳</div>
+  <div class="spider-wrap">
+    <div class="thread"></div>
+    <div class="spider" id="spiderIcon" aria-hidden="true">🕷️</div>
+  </div>
+  <svg class="web-svg" id="webSvg">
+    <line id="webLine1" x1="0" y1="0" x2="0" y2="0"></line>
+    <line id="webLine2" x1="0" y1="0" x2="0" y2="0"></line>
+    <line id="webLine3" x1="0" y1="0" x2="0" y2="0"></line>
+  </svg>
+  <div class="side-nav" id="nav">
+    <button class="active" data-view="window"><span class="ico">🏠</span>window</button>
+    <button data-view="cricket"><span class="ico">🏏</span>the nets</button>
+    <button data-view="bike"><span class="ico">🏍️</span>the clutch</button>
+  </div>
+</div>
+
 <div class="stage" id="stage">
-
-  <div class="intro">
-    <p class="eyebrow">a window, an over, a clutch</p>
-    <h1>The Porch Light</h1>
-    <p>You don't have to say anything. You don't have to stay. Someone left the light on anyway — poke around, face a few balls, or just idle here for a bit.</p>
-  </div>
-
-  <div class="nav" id="nav">
-    <button class="active" data-view="window">the window</button>
-    <button data-view="cricket">the nets</button>
-    <button data-view="bike">release the clutch</button>
-  </div>
 
   <!-- ================= WINDOW ================= -->
   <div class="view active" id="view-window">
+    <div class="intro">
+      <h1>ONLY FOR SAAD</h1>
+    </div>
     <div class="count-note" id="countNote"></div>
     <div class="scene">
       <div class="roofline"></div>
@@ -172,23 +239,24 @@
 
   <!-- ================= CRICKET NETS ================= -->
   <div class="view" id="view-cricket">
+    <div class="game-heading">the love of my life</div>
     <div class="game-wrap">
       <div class="pitch" id="pitch">
         <div class="bowler">🏃</div>
         <div class="sweet-zone"></div>
-        <div class="line-hint" id="lineHint"></div>
         <div class="ball" id="ball" style="opacity:0;"></div>
         <div class="batter" id="batter">🏏</div>
       </div>
       <button class="swing-btn" id="swingBtn">SWING</button>
       <div class="game-stats" id="cricketStats">0 runs off 0 balls</div>
-      <div class="game-caption" id="cricketCaption">move your mouse (or arrow keys) up/down over the pitch to slide the bat onto the ball's line, then tap swing once to start, and again as each ball arrives.</div>
+      <div class="game-caption" id="cricketCaption"></div>
       <button class="game-reset" id="cricketReset">reset innings</button>
     </div>
   </div>
 
   <!-- ================= CLUTCH (endless runner) ================= -->
   <div class="view" id="view-bike">
+    <div class="game-heading">Razorcrest and I are unstoppable.</div>
     <div class="game-wrap">
       <div class="clutch-scene" id="clutchScene">
         <div class="peak p1"></div>
@@ -198,7 +266,7 @@
         <div class="rider" id="rider">🏍️</div>
       </div>
       <div class="game-stats" id="bikeStats">score: 0 · best: 0</div>
-      <div class="game-caption" id="bikeCaption">hold to grip the clutch and brake for the chickens, let go to jump the speed bumps.</div>
+      <div class="game-caption" id="bikeCaption"></div>
       <button class="swing-btn" id="bikeBtn">start riding</button>
     </div>
   </div>
@@ -226,10 +294,38 @@
     "beat your own number. that's the only competition that ever mattered anyway."
   ];
 
+  // ---------- time-based greeting ----------
+  const greetingOverlay = document.getElementById('greetingOverlay');
+  const greetingText = document.getElementById('greetingText');
+  const greetingClose = document.getElementById('greetingClose');
+  const hour = new Date().getHours();
+  let greetWord = 'Hello';
+  if(hour < 5) greetWord = 'Still up';
+  else if(hour < 12) greetWord = 'Good morning';
+  else if(hour < 17) greetWord = 'Good afternoon';
+  else if(hour < 21) greetWord = 'Good evening';
+  else greetWord = 'Good night';
+  const greetLines = {
+    morning: ["a good day to start slow.", "no rush, the day's got time."],
+    afternoon: ["hope it's being kind to you so far.", "however it's going, this is still here."],
+    evening: ["the light's been on all day, waiting for this bit.", "come sit for a while."],
+    night: ["everyone else is asleep, this porch light isn't.", "still here, whatever hour it is."]
+  };
+  let pool = greetLines.afternoon;
+  if(hour < 5 || hour >= 21) pool = greetLines.night;
+  else if(hour < 12) pool = greetLines.morning;
+  else if(hour >= 17) pool = greetLines.evening;
+  const sub = pool[Math.floor(Math.random()*pool.length)];
+  greetingText.textContent = greetWord + ', Saad. ' + sub;
+  greetingClose.addEventListener('click', ()=> greetingOverlay.classList.add('hidden'));
+  greetingOverlay.addEventListener('click', function(e){
+    if(e.target === greetingOverlay) greetingOverlay.classList.add('hidden');
+  });
+
   const stage = document.getElementById('stage');
 
   // ---------- stars ----------
-  const starCount = window.innerWidth < 600 ? 30 : 55;
+  const starCount = window.innerWidth < 600 ? 24 : 50;
   for(let i=0;i<starCount;i++){
     const s = document.createElement('div');
     s.className = 'star';
@@ -240,39 +336,81 @@
     stage.appendChild(s);
   }
 
-  // ---------- nav ----------
-  const navButtons = document.querySelectorAll('.nav button');
+  // ---------- sidebar nav + spider web ----------
+  const navButtons = document.querySelectorAll('.side-nav button');
+  const sidebar = document.getElementById('sidebar');
+  const spiderIcon = document.getElementById('spiderIcon');
+  const webSvg = document.getElementById('webSvg');
+  const webLine1 = document.getElementById('webLine1');
+  const webLine2 = document.getElementById('webLine2');
+  const webLine3 = document.getElementById('webLine3');
   const views = {
     window: document.getElementById('view-window'),
     cricket: document.getElementById('view-cricket'),
     bike: document.getElementById('view-bike'),
   };
+
+  function spinWebTo(btn){
+    const sbRect = sidebar.getBoundingClientRect();
+    const spRect = spiderIcon.getBoundingClientRect();
+    const btRect = btn.getBoundingClientRect();
+    const sx = spRect.left + spRect.width/2 - sbRect.left;
+    const sy = spRect.top + spRect.height/2 - sbRect.top;
+    const bx = btRect.left + btRect.width/2 - sbRect.left;
+    const by = btRect.top + btRect.height/2 - sbRect.top;
+    webLine1.setAttribute('x1', sx); webLine1.setAttribute('y1', sy);
+    webLine1.setAttribute('x2', bx - 8); webLine1.setAttribute('y2', by);
+    webLine2.setAttribute('x1', sx); webLine2.setAttribute('y1', sy);
+    webLine2.setAttribute('x2', bx); webLine2.setAttribute('y2', by - 5);
+    webLine3.setAttribute('x1', sx); webLine3.setAttribute('y1', sy);
+    webLine3.setAttribute('x2', bx + 8); webLine3.setAttribute('y2', by);
+    webSvg.classList.add('show');
+  }
+
   navButtons.forEach(btn=>{
     btn.addEventListener('click', ()=>{
       navButtons.forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       Object.values(views).forEach(v=>v.classList.remove('active'));
       views[btn.dataset.view].classList.add('active');
+      spinWebTo(btn);
     });
+  });
+
+  window.addEventListener('load', function(){
+    const activeBtn = document.querySelector('.side-nav button.active');
+    if(activeBtn) spinWebTo(activeBtn);
+  });
+  window.addEventListener('resize', function(){
+    const activeBtn = document.querySelector('.side-nav button.active');
+    if(activeBtn) spinWebTo(activeBtn);
   });
 
   // ================= FIREFLIES =================
   const fireflyMessages = [
+    "keep going.",
+    "you're doing great.",
+    "i'm proud of you.",
+    "uncs can be cool too.",
+    "daredevil also needs a shoulder.",
+    "it's okay.",
+    "punch more bugs if you're having a bad day.",
     "congrats, you caught a bug that has its life more together than most of us.",
-    "this one's legally required to say: you're doing fine.",
     "somewhere a mountain has been sitting still for a few million years. it can wait for you too.",
     "you're not stalled, you're just idling. there's a difference, ask any bike.",
     "no LBW appeals here. you're always given not out.",
-    "this bug has no opinions about your unread messages. genuinely none.",
     "you don't need to win the day. one quiet over is enough.",
     "the light does not do performance reviews.",
-    "this is the least demanding relationship you'll have all week.",
     "gear down, not out. that's allowed too.",
-    "you found me. anticlimactic, but still technically a win.",
     "you're allowed to declare the innings early today.",
     "the summit doesn't care what time you left base camp.",
     "9 out of 10 fireflies recommend you drink some water though.",
     "no thoughts, just vibes, just a bug that thinks you're fine.",
+    "small win: you caught a bug. big win: you're still here.",
+    "this one's got nothing smart to say. just glad you clicked it.",
+    "consider this bug a tiny, glowing high-five.",
+    "even the porch light needed to be plugged in by someone once. asking for help isn't weakness.",
+    "you don't have to have it figured out tonight."
   ];
 
   const fireflyCount = window.innerWidth < 600 ? 8 : 13;
@@ -315,7 +453,6 @@
     "hey. no knocking required, this door doesn't even have a handle.",
     "still here. still zero rush. the light has nowhere better to be.",
     "you can stare through the window without opening the door. very valid strategy.",
-    "this runs on electricity, not on you texting back. it's fine either way.",
     "whenever you're ready, and not a second before — this window isn't going anywhere.",
     "you showed up. the bar was on the floor and you still stepped over it."
   ];
@@ -344,7 +481,7 @@
       fetch(FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: value, source: 'The Porch Light' })
+        body: JSON.stringify({ message: value, source: 'Only For Saad' })
       }).catch(()=>{});
     }
     textEl.style.opacity = '0';
@@ -368,13 +505,12 @@
   let ballActive = false;
   let ballStartTime = 0;
   let ballHandled = false;
-  let ballLineY = 50;   // percent
-  let batY = 50;        // percent, player-controlled
+  let ballLineY = 50;
+  let batY = 50;
   const BALL_DURATION = 950;
   let autoBowlTimer = null;
 
   function pitchWidth(){ return pitch.clientWidth || 500; }
-  function pitchHeight(){ return pitch.clientHeight || 200; }
 
   function setBatY(percent){
     batY = Math.max(10, Math.min(90, percent));
@@ -491,7 +627,7 @@
     ball.style.opacity = '0';
     totalRuns = 0; ballsFaced = 0;
     cricketStats.textContent = '0 runs off 0 balls';
-    cricketCaption.textContent = "move your mouse (or arrow keys) up/down over the pitch to slide the bat onto the ball's line, then tap swing once to start, and again as each ball arrives.";
+    cricketCaption.textContent = '';
   });
 
   // ================= CLUTCH: endless runner =================
@@ -500,6 +636,17 @@
   const bikeBtn = document.getElementById('bikeBtn');
   const bikeStats = document.getElementById('bikeStats');
   const bikeCaption = document.getElementById('bikeCaption');
+
+  // single, simple chicken silhouette drawn as SVG (avoids emoji font
+  // rendering differences that can make 🐔 look like a hen-with-chicks)
+  const CHICKEN_SVG = '<svg viewBox="0 0 32 28" xmlns="http://www.w3.org/2000/svg">' +
+    '<ellipse cx="15" cy="18" rx="11" ry="9" fill="#f4ecdd"/>' +
+    '<circle cx="24" cy="10" r="6" fill="#f4ecdd"/>' +
+    '<polygon points="21,4 23,0 25,4" fill="#e0453f"/>' +
+    '<polygon points="30,9 34,10 30,12" fill="#ff8a4c"/>' +
+    '<circle cx="25.5" cy="8.5" r="1.1" fill="#20130a"/>' +
+    '<path d="M10 27 L8 22 M14 27 L14 22 M18 27 L20 22" stroke="#ff8a4c" stroke-width="1.6" fill="none" stroke-linecap="round"/>' +
+    '</svg>';
 
   function loadHighScore(){
     try{
@@ -514,11 +661,11 @@
   let memoryHighScore = 0;
   let highScore = loadHighScore();
 
-  let gameState = 'idle'; // idle | running | over
+  let gameState = 'idle';
   let holding = false;
   let isAirborne = false;
   let score = 0;
-  let baseSpeed = 140; // px per second
+  let baseSpeed = 140;
   let obstacles = [];
   let lastFrameTime = 0;
   let nextSpawnAt = 0;
@@ -537,10 +684,10 @@
     const sceneWidth = clutchScene.clientWidth || 500;
     if(isChicken){
       el.className = 'obstacle chicken';
-      el.innerHTML = '🐔🐣🐔';
+      el.innerHTML = CHICKEN_SVG;
       el.style.left = sceneWidth + 'px';
       clutchScene.appendChild(el);
-      obstacles.push({ el:el, x:sceneWidth, width:62, type:'chicken', scored:false });
+      obstacles.push({ el:el, x:sceneWidth, width:28, type:'chicken', scored:false });
     } else {
       el.className = 'obstacle';
       el.style.left = sceneWidth + 'px';
