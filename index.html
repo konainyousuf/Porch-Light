@@ -220,102 +220,24 @@
         }
 
         /* ==========================================================
-                   WINDOW VIEW — GALAXY FOREST + NOTE PANEL
-                   ========================================================== */
+           WINDOW VIEW — GHIBLI FOREST BACKGROUND
+           ========================================================== */
         #view-window {
             position: relative;
             min-height: 100vh;
             width: 100%;
             overflow: hidden;
             padding: 0;
-            background: radial-gradient(ellipse at 50% 20%, #1a2a4a, #0a0e1a 80%);
+            /* CHANGE: Set your saved image as the background here */
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            /* Keep a fallback color in case the image fails to load */
+            background-color: #1a2a4a;
         }
 
-        /* galaxy overlay */
-        .galaxy {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            background:
-                radial-gradient(circle at 30% 40%, rgba(120, 80, 200, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 70% 60%, rgba(200, 120, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 10%, rgba(255, 200, 150, 0.05) 0%, transparent 30%);
-        }
-        .galaxy::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 80%, rgba(10, 20, 50, 0.6) 0%, transparent 70%);
-        }
-
-        /* large trees silhouettes */
-        .huge-trees {
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        .huge-tree {
-            position: absolute;
-            bottom: 0;
-            width: 300px;
-            height: 600px;
-            background: radial-gradient(ellipse at 50% 100%, #0a1a1a, #0d1f1f 60%, transparent 70%);
-            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-            opacity: 0.4;
-            transform-origin: bottom center;
-        }
-        .huge-tree:nth-child(1) {
-            left: -10%;
-            width: 400px;
-            height: 700px;
-            transform: rotate(8deg);
-            opacity: 0.3;
-        }
-        .huge-tree:nth-child(2) {
-            right: -8%;
-            width: 350px;
-            height: 650px;
-            transform: rotate(-5deg);
-            opacity: 0.25;
-        }
-        .huge-tree:nth-child(3) {
-            left: 15%;
-            width: 250px;
-            height: 500px;
-            transform: rotate(2deg);
-            opacity: 0.35;
-        }
-        .huge-tree:nth-child(4) {
-            right: 20%;
-            width: 280px;
-            height: 550px;
-            transform: rotate(-3deg);
-            opacity: 0.3;
-        }
-
-        /* ground layer */
-        .ground-ghibli {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 18%;
-            background: linear-gradient(180deg, #0a1a1a 0%, #061010 100%);
-            z-index: 2;
-            pointer-events: none;
-            border-top: 2px solid rgba(255, 200, 150, 0.05);
-        }
-        .ground-ghibli::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 0;
-            right: 0;
-            height: 20px;
-            background: radial-gradient(ellipse at 50% 0%, rgba(255, 200, 150, 0.1) 0%, transparent 70%);
+        /* CHANGE: Hide the old dark overlays so your new background shows */
+        .galaxy, .huge-trees, .ground-ghibli {
+            display: none !important;
         }
 
         /* fireflies */
@@ -1006,17 +928,15 @@
         <!-- ================= WINDOW VIEW ================= -->
         <div class="view active" id="view-window">
 
-            <!-- galaxy background -->
-            <div class="galaxy" id="galaxy"></div>
-
-            <!-- huge trees -->
-            <div class="huge-trees">
+            <!-- Hidden old background overlays to prevent blocking the new image -->
+            <div class="galaxy" id="galaxy" style="display:none !important;"></div>
+            <div class="huge-trees" style="display:none !important;">
                 <div class="huge-tree"></div>
                 <div class="huge-tree"></div>
                 <div class="huge-tree"></div>
                 <div class="huge-tree"></div>
             </div>
-            <div class="ground-ghibli"></div>
+            <div class="ground-ghibli" style="display:none !important;"></div>
 
             <!-- fireflies -->
             <div id="fireflyContainer"></div>
