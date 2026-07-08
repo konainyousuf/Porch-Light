@@ -2183,21 +2183,34 @@ document.getElementById("powerFill").style.width = percent + "%";
             }
 
             function shoot() {
-                if (isMoving) return;
-                const dx = startX - currentX,
-                    dy = startY - currentY;
-                const len = Math.sqrt(dx * dx + dy * dy);
-                if (len < 5) return;
-                const normX = dx / len,
-                    normY = dy / len;
-                const powerVal = Math.min(1, len / 200) * 12;
-                cueBall.vx = normX * powerVal;
-                cueBall.vy = normY * powerVal;
-                isMoving = true;
-                poolStatus.textContent = 'shooting...';
-                poolCaption.textContent = '';
-                animate();
-            }
+
+    if (isMoving) return;
+
+    const dx = startX - currentX;
+    const dy = startY - currentY;
+
+    const len = Math.sqrt(dx * dx + dy * dy);
+
+    if (len < 5) return;
+
+    const normX = dx / len;
+    const normY = dy / len;
+
+    const maxPower = 260;
+    const powerVal = Math.min(len, maxPower) / maxPower * 18;
+
+    cueBall.vx = normX * powerVal;
+    cueBall.vy = normY * powerVal;
+
+    document.getElementById("powerFill").style.width = "0%";
+
+    isMoving = true;
+
+    poolStatus.textContent = "Shooting...";
+    poolCaption.textContent = "";
+
+    animate();
+}
 
             poolCanvas.addEventListener('mousedown', function(e) {
                 if (isMoving || gameOverPool || turn !== 'player') return;
@@ -2231,16 +2244,8 @@ document.getElementById("powerFill").style.width = percent + "%";
     draw();
 
 });
-        move', function(e) {
-                if (!isDragging) return;
-                const rect = poolCanvas.getBoundingClientRect();
-                const scaleX = poolCanvas.width / rect.width;
-                const scaleY = poolCanvas.height / rect.height;
-                currentX = (e.clientX - rect.left) * scaleX;
-                currentY = (e.clientY - rect.top) * scaleY;
-                draw();
-            });
-            document.addEventListener('mouseup', function() {
+       
+    document.addEventListener('mouseup', function() {
 
     if (!isDragging) return;
 
