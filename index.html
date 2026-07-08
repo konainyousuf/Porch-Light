@@ -2016,8 +2016,10 @@ Combo
                         ctx.strokeStyle = 'rgba(255,255,200,0.5)';
                         ctx.lineWidth = 2;
                         ctx.stroke();
-                        power = Math.min(1, len / 200);
-                        powerFill.style.width = (power * 100) + '%';
+                       const power = Math.min(len, 220);
+                        const percent = (power / 220) * 100;
+
+document.getElementById("powerFill").style.width = percent + "%";
                     }
                 }
             }
@@ -2214,7 +2216,22 @@ Combo
                     currentY = my;
                 }
             });
-            poolCanvas.addEventListener('mousemove', function(e) {
+            poolCanvas.addEventListener('mousedocument.addEventListener('mousemove', function(e) {
+
+    if (!isDragging) return;
+
+    const rect = poolCanvas.getBoundingClientRect();
+
+    const scaleX = poolCanvas.width / rect.width;
+    const scaleY = poolCanvas.height / rect.height;
+
+    currentX = (e.clientX - rect.left) * scaleX;
+    currentY = (e.clientY - rect.top) * scaleY;
+
+    draw();
+
+});
+        move', function(e) {
                 if (!isDragging) return;
                 const rect = poolCanvas.getBoundingClientRect();
                 const scaleX = poolCanvas.width / rect.width;
@@ -2223,16 +2240,27 @@ Combo
                 currentY = (e.clientY - rect.top) * scaleY;
                 draw();
             });
-            poolCanvas.addEventListener('mouseup', function(e) {
-                if (isDragging) {
-                    isDragging = false;
-                    shoot();
-                }
-            });
-            poolCanvas.addEventListener('mouseleave', function() {
-                if (isDragging) { isDragging = false;
-                    draw(); }
-            });
+            document.addEventListener('mouseup', function() {
+
+    if (!isDragging) return;
+
+    isDragging = false;
+
+    shoot();
+
+});
+            document.addEventListener('mousemove', function(e) {
+
+    if (!isDragging) return;
+
+    const rect = poolCanvas.getBoundingClientRect();
+
+    currentX = (e.clientX - rect.left) * (poolCanvas.width / rect.width);
+    currentY = (e.clientY - rect.top) * (poolCanvas.height / rect.height);
+
+    draw();
+
+});
 
             poolCanvas.addEventListener('touchstart', function(e) {
                 e.preventDefault();
@@ -2273,11 +2301,11 @@ Combo
             }, { passive: false });
 
             poolResetBtn.addEventListener('click', function() {
-                initBalls();
-                draw();
-                powerFill.style.width = '0%';
-                isMoving = false;
-            });
+    initBalls();
+    isMoving = false;
+    document.getElementById("powerFill").style.width = "0%";
+    draw();
+});
 
             function initPool() {
                 resizeCanvas();
