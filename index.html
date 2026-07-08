@@ -1033,16 +1033,12 @@ margin-top:4px;
 
         <!-- ================= WINDOW VIEW ================= -->
         <div class="view active" id="view-window">
-
-            <!-- Rolling hills -->
             <svg class="hill-layer hill-far" viewBox="0 0 800 260" preserveAspectRatio="none" aria-hidden="true">
                 <path d="M0,260 L0,150 C90,95 170,120 250,105 C330,90 400,130 480,110 C560,90 630,125 710,100 C750,88 780,105 800,95 L800,260 Z" fill="#2f5f4a"/>
             </svg>
             <svg class="hill-layer hill-near" viewBox="0 0 800 200" preserveAspectRatio="none" aria-hidden="true">
                 <path d="M0,200 L0,140 C70,95 140,115 210,100 C290,82 360,118 440,100 C520,82 590,112 670,95 C720,84 760,98 800,90 L800,200 Z" fill="#173d2c"/>
             </svg>
-
-            <!-- trees framing the meadow -->
             <svg class="tree-cluster tree-cluster-left" viewBox="0 0 200 240" preserveAspectRatio="xMinYMax meet" aria-hidden="true">
                 <path d="M30,240 L30,190 L10,190 L45,140 L25,140 L55,95 L38,95 L60,55 L82,95 L65,95 L95,140 L75,140 L110,190 L90,190 L90,240 Z" fill="#0f2e1c"/>
                 <path d="M120,240 L120,205 L104,205 L132,165 L118,165 L140,130 L156,130 L178,165 L164,165 L192,205 L176,205 L176,240 Z" fill="#153a24"/>
@@ -1051,20 +1047,11 @@ margin-top:4px;
                 <path d="M30,240 L30,190 L10,190 L45,140 L25,140 L55,95 L38,95 L60,55 L82,95 L65,95 L95,140 L75,140 L110,190 L90,190 L90,240 Z" fill="#0f2e1c"/>
                 <path d="M120,240 L120,205 L104,205 L132,165 L118,165 L140,130 L156,130 L178,165 L164,165 L192,205 L176,205 L176,240 Z" fill="#153a24"/>
             </svg>
-
             <div class="meadow-ground"></div>
             <div class="meadow-flowers" id="meadowFlowers"></div>
-
-            <!-- orange cat -->
             <div class="cat" id="orangeCat"><span class="cat-body" id="catBody">🐈</span></div>
-
-            <!-- fireflies -->
             <div id="fireflyContainer"></div>
-
-            <!-- count badge -->
             <div class="count-badge" id="countBadge">✦ 0 lights</div>
-
-            <!-- note search bar -->
             <div class="note-panel" id="notePanel">
                 <div class="search-bar">
                     <span class="search-icon" aria-hidden="true">🕯️</span>
@@ -1114,109 +1101,36 @@ margin-top:4px;
             <div class="game-heading">8‑ball pool</div>
             <div class="game-wrap">
                 <div class="pool-hud">
-
-<div class="hud-box">
-<div class="hud-title">Score</div>
-<div class="hud-value" id="scoreValue">0</div>
-</div>
-
-<div class="hud-box">
-<div class="hud-title">High Score</div>
-<div class="hud-value" id="highScoreValue">0</div>
-</div>
-
-<div class="hud-box">
-<div class="hud-title">Level</div>
-<div class="hud-value" id="levelValue">1</div>
-</div>
-
-<div class="hud-box">
-<div class="hud-title">Lives</div>
-<div class="hud-value" id="livesValue">3</div>
-</div>
-
-</div>
-
-<div class="pool-topbar">
-
-<button id="poolResetBtn">New Match</button>
-
-<select id="difficultySelect">
-
-<option value="easy">🟢 Easy</option>
-
-<option value="medium">🟡 Intermediate</option>
-
-<option value="hard">🔴 Hard</option>
-
-</select>
-
-</div>
-
-<div class="pool-table" id="poolTable">
-
-<canvas id="poolCanvas"></canvas>
-
-</div>
-
-<div class="power-indicator">
-
-Power
-
-<div class="power-bar">
-
-<div class="power-bar-fill" id="powerFill"></div>
-
-</div>
-
-</div>
-
-<div class="pool-stats">
-
-<div class="pool-stat">
-
-Pocketed
-
-<span id="ballsPocketed">0</span>
-
-</div>
-
-<div class="pool-stat">
-
-Shots
-
-<span id="shotsTaken">0</span>
-
-</div>
-
-<div class="pool-stat">
-
-Accuracy
-
-<span id="accuracyValue">100%</span>
-
-</div>
-
-<div class="pool-stat">
-
-Combo
-
-<span id="comboValue">x1</span>
-
-</div>
-
-</div>
-
-<div style="margin-top:15px">
-
-<span id="poolStatus">Aim & Shoot</span>
-
-</div>
-
-<div class="game-caption" id="poolCaption"></div>
+                    <div class="hud-box"><div class="hud-title">Score</div><div class="hud-value" id="scoreValue">0</div></div>
+                    <div class="hud-box"><div class="hud-title">High Score</div><div class="hud-value" id="highScoreValue">0</div></div>
+                    <div class="hud-box"><div class="hud-title">Level</div><div class="hud-value" id="levelValue">1</div></div>
+                    <div class="hud-box"><div class="hud-title">Lives</div><div class="hud-value" id="livesValue">3</div></div>
+                </div>
+                <div class="pool-topbar">
+                    <button id="poolResetBtn">New Match</button>
+                    <select id="difficultySelect">
+                        <option value="easy">🟢 Easy</option>
+                        <option value="medium">🟡 Intermediate</option>
+                        <option value="hard">🔴 Hard</option>
+                    </select>
+                </div>
+                <div class="pool-table" id="poolTable">
+                    <canvas id="poolCanvas"></canvas>
+                </div>
+                <div class="power-indicator">
+                    Power
+                    <div class="power-bar"><div class="power-bar-fill" id="powerFill"></div></div>
+                </div>
+                <div class="pool-stats">
+                    <div class="pool-stat">Pocketed <span id="ballsPocketed">0</span></div>
+                    <div class="pool-stat">Shots <span id="shotsTaken">0</span></div>
+                    <div class="pool-stat">Accuracy <span id="accuracyValue">100%</span></div>
+                    <div class="pool-stat">Combo <span id="comboValue">x1</span></div>
+                </div>
+                <div style="margin-top:15px"><span id="poolStatus">Aim & Shoot</span></div>
+                <div class="game-caption" id="poolCaption"></div>
             </div>
         </div>
-
     </div>
 
     <script>
@@ -1252,7 +1166,7 @@ Combo
             });
 
             // ==============================================================
-            // STARS (Now appended to view-window so they sit on the sky)
+            // STARS
             // ==============================================================
             const starContainer = document.getElementById('view-window');
             const starCount = window.innerWidth < 600 ? 30 : 75;
@@ -1262,7 +1176,6 @@ Combo
                 const inBand = Math.random() < 0.4;
                 let size, leftVw, topVh, opacity;
                 if (inBand) {
-                    // cluster along the diagonal galaxy band for a denser starry streak
                     const t = Math.random();
                     leftVw = -10 + t * 120;
                     topVh = 6 + t * 34 + (Math.random() - 0.5) * 10;
@@ -1284,7 +1197,7 @@ Combo
             }
 
             // ==============================================================
-            // MEADOW FLOWERS (Code-generated)
+            // MEADOW FLOWERS
             // ==============================================================
             const meadowFlowers = document.getElementById('meadowFlowers');
             if (meadowFlowers) {
@@ -1373,34 +1286,24 @@ Combo
             // FIREFLIES + FLOATING POPUPS
             // ==============================================================
             const FIREFLY_MESSAGES = [
-                "keep going",
-                "you're doing great",
-                "i'm proud of you",
-                "uncs can be cool too",
-                "daredevil is here woohoo!!",
-                "punch more bugs if you're having a bad day",
-                "You're not a hot mess; you're a spicy little disaster, and honestly? It's a whole vibe. Own it.",
+                "keep going","you're doing great","I'm proud of you","UNCs can be cool too",
+                "daredevil is here woohoo!!","punch more bugs if you're having a bad day", "Your vibe alone should come with a heat advisory",
+                "You're not a hot mess; you're a spicy little disaster, and honestly? It's a whole vibe. Own it.","Not all stars are in the sky, like one is sitting in Karachi and other in Isl",
                 "Adulting is a pyramid scheme. You can't get fired from it, and no one actually knows the rules, so just fake it till you make it (or take a nap).",
                 "The universe is 13.8 billion years old. You being late to work doesn't even register on the cosmic scale.",
-                "Life's LBW—review's just chai.",
-                "Are you sun? cause you've brightened up my day.",
-                "Don't be a stressosaurous.",
-                "Be an unskippable AD.",
-                "You're made of stardust. Act like it.",
-                "This moment is yours — breathe it in.",
-                "The forest has seen empires fall. You're doing fine.",
-                "Even the tallest trees started as seeds.",
-                "You are exactly where you need to be."
+                "Have some chai.","Are you sun? cause you've brightened up my day.",
+                "Don't be a stressosaurous.","Be an unskippable AD.","You're made of stardust. Act like it.",
+                "This moment is yours — breathe it in.","The forest has seen empires fall. You're doing fine.",
+                "Even the tallest trees started as seeds.","You are exactly where you need to be.",
+                "Are you tea? cause you're so pre-tea", "Don't let the world shatter your whimsy",
+                "Why did the calender feel proud? because it had lots of dates XD"
             ];
 
             const fireflyContainer = document.getElementById('fireflyContainer');
             const countBadge = document.getElementById('countBadge');
             let caughtCount = 0;
-
             const fireflyCount = window.innerWidth < 600 ? 30 : 45;
             const colours = ['', '', 'ember', 'deep'];
-            // structured swarm clusters instead of pure scatter — feels like real firefly groups
-            // near the treeline and meadow edges rather than floating anywhere on screen
             const clusterCenters = [
                 { x: 10, y: 62 }, { x: 24, y: 40 }, { x: 40, y: 70 },
                 { x: 58, y: 48 }, { x: 72, y: 66 }, { x: 88, y: 42 }, { x: 95, y: 74 }
@@ -1430,22 +1333,15 @@ Combo
                     f.classList.add('caught');
                     caughtCount++;
                     countBadge.textContent = '✦ ' + caughtCount + (caughtCount === 1 ? ' light' : ' lights');
-
-                    // Create floating popup
                     const msg = FIREFLY_MESSAGES[Math.floor(Math.random() * FIREFLY_MESSAGES.length)];
                     const popup = document.createElement('div');
                     popup.className = 'firefly-popup';
                     const rect = f.getBoundingClientRect();
                     popup.textContent = msg;
-                    // Center the popup above the firefly
                     popup.style.left = (rect.left + rect.width / 2 - 110) + 'px';
                     popup.style.top = (rect.top - 20) + 'px';
                     document.body.appendChild(popup);
-
-                    // Animate in
                     requestAnimationFrame(() => popup.classList.add('show'));
-                    
-                    // Remove after 3.5 seconds
                     setTimeout(() => {
                         popup.classList.remove('show');
                         setTimeout(() => popup.remove(), 400);
@@ -1453,15 +1349,14 @@ Combo
                 });
                 fireflyContainer.appendChild(f);
             }
-
             for (let i = 0; i < fireflyCount; i++) addFirefly();
 
             // ==============================================================
-            // ORANGE CAT — wanders the meadow, occasionally rolls on the grass
+            // ORANGE CAT
             // ==============================================================
             const orangeCat = document.getElementById('orangeCat');
             const catBody = document.getElementById('catBody');
-            const HILL_MIN = 4, HILL_MAX = 46; // percent range spanning the near hill's ridge
+            const HILL_MIN = 4, HILL_MAX = 46;
             let catPos = HILL_MIN;
             let catIsRolling = false;
 
@@ -1484,9 +1379,7 @@ Combo
                 orangeCat.style.transition = 'left ' + duration + 'ms linear';
                 orangeCat.style.left = nextPos + '%';
                 catPos = nextPos;
-
                 const tuftInterval = setInterval(spawnGrassTuft, 230);
-
                 setTimeout(function() {
                     clearInterval(tuftInterval);
                     catBody.classList.remove('walking');
@@ -1508,7 +1401,7 @@ Combo
             });
 
             // ==============================================================
-            // NOTE PANEL (Text notes still go to chat)
+            // NOTE PANEL
             // ==============================================================
             const messageArea = document.getElementById('messageArea');
             function addMessage(avatar, text, className = '') {
@@ -1530,8 +1423,6 @@ Combo
             const FORM_ENDPOINT = "https://formspree.io/f/mdarjday";
             const noteInput = document.getElementById('noteInput');
             const noteSendBtn = document.getElementById('noteSendBtn');
-
-            // a few warm replies so leaving a note doesn't feel like shouting into the void
             const NOTE_REPLIES = [
                 "read it. thank you for leaving this here — it means more than you know.",
                 "got it, and it's kept safe. you don't owe a reply, but i'm always listening.",
@@ -1579,56 +1470,38 @@ Combo
             const cricketReset = document.getElementById('cricketReset');
             const pitch = document.getElementById('pitch');
 
-            let totalRuns = 0,
-                ballsFaced = 0,
-                ballActive = false,
-                ballStartTime = 0,
-                ballHandled = false,
-                ballLineY = 50,
-                batY = 50;
+            let totalRuns = 0, ballsFaced = 0, ballActive = false, ballStartTime = 0, ballHandled = false, ballLineY = 50, batY = 50;
             const BALL_DURATION = 950;
             let autoBowlTimer = null;
 
             function pitchWidth() { return pitch.clientWidth || 500; }
-
-            function setBatY(percent) {
-                batY = Math.max(10, Math.min(90, percent));
-                batter.style.top = batY + '%';
-            }
+            function setBatY(percent) { batY = Math.max(10, Math.min(90, percent)); batter.style.top = batY + '%'; }
             setBatY(50);
 
             pitch.addEventListener('mousemove', function(e) {
                 const rect = pitch.getBoundingClientRect();
-                const relY = e.clientY - rect.top;
-                setBatY((relY / rect.height) * 100);
+                setBatY(((e.clientY - rect.top) / rect.height) * 100);
             });
             pitch.addEventListener('touchmove', function(e) {
                 if (e.touches && e.touches[0]) {
                     const rect = pitch.getBoundingClientRect();
-                    const relY = e.touches[0].clientY - rect.top;
-                    setBatY((relY / rect.height) * 100);
+                    setBatY(((e.touches[0].clientY - rect.top) / rect.height) * 100);
                     e.preventDefault();
                 }
             }, { passive: false });
 
             document.addEventListener('keydown', function(e) {
                 if (!views.cricket.classList.contains('active')) return;
-                if (e.code === 'ArrowUp') { e.preventDefault();
-                    setBatY(batY - 7); } else if (e.code === 'ArrowDown') { e.preventDefault();
-                    setBatY(batY + 7); } else if (e.code === 'Space') { e.preventDefault();
-                    swingBtn.click(); }
+                if (e.code === 'ArrowUp') { e.preventDefault(); setBatY(batY - 7); }
+                else if (e.code === 'ArrowDown') { e.preventDefault(); setBatY(batY + 7); }
+                else if (e.code === 'Space') { e.preventDefault(); swingBtn.click(); }
             });
 
-            function playSwing() {
-                batter.classList.remove('swinging');
-                void batter.offsetWidth;
-                batter.classList.add('swinging');
-            }
+            function playSwing() { batter.classList.remove('swinging'); void batter.offsetWidth; batter.classList.add('swinging'); }
 
             function bowlBall() {
                 if (ballActive) return;
-                ballActive = true;
-                ballHandled = false;
+                ballActive = true; ballHandled = false;
                 ballLineY = 20 + Math.random() * 60;
                 ball.style.top = ballLineY + '%';
                 ball.style.transition = 'none';
@@ -1639,9 +1512,7 @@ Combo
                 ball.style.transition = 'left ' + BALL_DURATION + 'ms linear';
                 ball.style.left = targetX + 'px';
                 ballStartTime = performance.now();
-                autoBowlTimer = setTimeout(function() {
-                    if (!ballHandled) { registerBall(0, "left it, didn't move in time."); }
-                }, BALL_DURATION + 60);
+                autoBowlTimer = setTimeout(function() { if (!ballHandled) registerBall(0, "left it, didn't move in time."); }, BALL_DURATION + 60);
             }
 
             function runsForProgress(p) {
@@ -1660,12 +1531,10 @@ Combo
             }
 
             function registerBall(runs, label) {
-                ballHandled = true;
-                ballActive = false;
+                ballHandled = true; ballActive = false;
                 ball.style.opacity = '0';
                 clearTimeout(autoBowlTimer);
-                ballsFaced++;
-                totalRuns += runs;
+                ballsFaced++; totalRuns += runs;
                 cricketStats.textContent = totalRuns + ' runs off ' + ballsFaced + ' balls';
                 cricketCaption.textContent = label;
                 autoBowlTimer = setTimeout(bowlBall, 700);
@@ -1678,30 +1547,24 @@ Combo
                 const progress = elapsed / BALL_DURATION;
                 const timing = runsForProgress(progress);
                 const alignDiff = Math.abs(batY - ballLineY);
-
-                let runs = timing.runs,
-                    label = timing.label;
-                if (alignDiff > 25) { runs = 0;
-                    label = 'wrong line entirely, dot ball.'; } else if (alignDiff > 12) {
+                let runs = timing.runs, label = timing.label;
+                if (alignDiff > 25) { runs = 0; label = 'wrong line entirely, dot ball.'; }
+                else if (alignDiff > 12) {
                     runs = stepDown(runs);
-                    label = runs === 0 ? 'edged it, no run.' : (runs + (runs === 1 ? ' run' : ' runs') +
-                        ', bat wasn\'t quite on the line.');
+                    label = runs === 0 ? 'edged it, no run.' : (runs + (runs === 1 ? ' run' : ' runs') + ', bat wasn\'t quite on the line.');
                 }
                 registerBall(runs, label);
             }
 
             swingBtn.addEventListener('click', function() {
-                if (!ballActive && ballsFaced === 0 && totalRuns === 0) { cricketCaption.textContent = '';
-                    bowlBall(); return; }
-                if (ballActive) { attemptHit(); }
+                if (!ballActive && ballsFaced === 0 && totalRuns === 0) { cricketCaption.textContent = ''; bowlBall(); return; }
+                if (ballActive) attemptHit();
             });
             cricketReset.addEventListener('click', function() {
                 clearTimeout(autoBowlTimer);
-                ballActive = false;
-                ballHandled = true;
+                ballActive = false; ballHandled = true;
                 ball.style.opacity = '0';
-                totalRuns = 0;
-                ballsFaced = 0;
+                totalRuns = 0; ballsFaced = 0;
                 cricketStats.textContent = '0 runs off 0 balls';
                 cricketCaption.textContent = '';
             });
@@ -1714,43 +1577,16 @@ Combo
             const bikeBtn = document.getElementById('bikeBtn');
             const bikeStats = document.getElementById('bikeStats');
             const bikeCaption = document.getElementById('bikeCaption');
+            const CRASH_LINES = ["clipped that one. still, nicely ridden up to there.","every ride ends somewhere. this is just where this one did.","that bump won this round. there's always another road."];
+            const RECORD_LINES = ["and that's a new personal best. not bad for a quiet night in.","new record. somewhere a mountain is mildly impressed.","beat your own number. that's the only competition that ever mattered anyway."];
 
-            const CRASH_LINES = [
-                "clipped that one. still, nicely ridden up to there.",
-                "every ride ends somewhere. this is just where this one did.",
-                "that bump won this round. there's always another road."
-            ];
-            const RECORD_LINES = [
-                "and that's a new personal best. not bad for a quiet night in.",
-                "new record. somewhere a mountain is mildly impressed.",
-                "beat your own number. that's the only competition that ever mattered anyway."
-            ];
+            let memoryHighScore = 0, highScore = (function() { try { const v = localStorage.getItem('porchlight_bike_highscore'); return v ? parseInt(v,10) : 0; } catch(e) { return memoryHighScore; } })();
+            function saveHighScore(v) { try { localStorage.setItem('porchlight_bike_highscore', String(v)); } catch(e) { memoryHighScore = v; } }
 
-            function loadHighScore() {
-                try { const v = localStorage.getItem('porchlight_bike_highscore'); return v ? parseInt(v, 10) : 0; } catch (
-                e) { return memoryHighScore; }
-            }
-
-            function saveHighScore(v) {
-                try { localStorage.setItem('porchlight_bike_highscore', String(v)); } catch (e) { memoryHighScore = v; }
-            }
-            let memoryHighScore = 0,
-                highScore = loadHighScore();
-
-            let gameState = 'idle',
-                holding = false,
-                isAirborne = false,
-                score = 0,
-                baseSpeed = 140,
-                obstacles = [],
-                lastFrameTime = 0,
-                nextSpawnAt = 0,
-                rafId = null;
+            let gameState = 'idle', holding = false, isAirborne = false, score = 0, baseSpeed = 140, obstacles = [], lastFrameTime = 0, nextSpawnAt = 0, rafId = null;
 
             function riderLeft() { return 40; }
-
             function riderWidth() { return 42; }
-
             function updateStats() { bikeStats.textContent = 'score: ' + score + ' · best: ' + highScore; }
 
             function spawnObstacle() {
@@ -1762,16 +1598,14 @@ Combo
                 obstacles.push({ el, x: sceneWidth, width: 26, type: 'bump', scored: false });
             }
 
-            function clearObstacles() { obstacles.forEach(o => o.el.remove());
-                obstacles = []; }
+            function clearObstacles() { obstacles.forEach(o => o.el.remove()); obstacles = []; }
 
             function triggerJump() {
                 if (isAirborne || gameState !== 'running') return;
                 isAirborne = true;
                 rider.classList.remove('crouch');
                 rider.classList.add('jumping');
-                setTimeout(function() { rider.classList.remove('jumping');
-                    isAirborne = false; }, 750);
+                setTimeout(function() { rider.classList.remove('jumping'); isAirborne = false; }, 750);
             }
 
             function gameOver() {
@@ -1779,13 +1613,9 @@ Combo
                 if (rafId) cancelAnimationFrame(rafId);
                 clearObstacles();
                 let newRecord = false;
-                if (score > highScore) { highScore = score;
-                    saveHighScore(highScore);
-                    newRecord = true; }
+                if (score > highScore) { highScore = score; saveHighScore(highScore); newRecord = true; }
                 updateStats();
-                const line = newRecord ?
-                    RECORD_LINES[Math.floor(Math.random() * RECORD_LINES.length)] :
-                    CRASH_LINES[Math.floor(Math.random() * CRASH_LINES.length)];
+                const line = newRecord ? RECORD_LINES[Math.floor(Math.random()*RECORD_LINES.length)] : CRASH_LINES[Math.floor(Math.random()*CRASH_LINES.length)];
                 bikeCaption.textContent = (newRecord ? 'new record — ' : '') + line;
                 bikeBtn.textContent = 'ride again';
             }
@@ -1795,36 +1625,25 @@ Combo
                 if (!lastFrameTime) lastFrameTime = timestamp;
                 const dt = (timestamp - lastFrameTime) / 1000;
                 lastFrameTime = timestamp;
-                const rLeft = riderLeft(),
-                    rRight = rLeft + riderWidth();
+                const rLeft = riderLeft(), rRight = rLeft + riderWidth();
                 const speed = baseSpeed * (holding ? 0.45 : 1);
-                for (let i = obstacles.length - 1; i >= 0; i--) {
+                for (let i = obstacles.length-1; i >= 0; i--) {
                     const o = obstacles[i];
                     o.x -= speed * dt;
                     o.el.style.left = o.x + 'px';
-                    const oLeft = o.x,
-                        oRight = o.x + o.width;
+                    const oLeft = o.x, oRight = o.x + o.width;
                     if (oLeft < rRight && oRight > rLeft) { if (o.type === 'bump' && !isAirborne) { gameOver(); return; } }
-                    if (!o.scored && oRight < rLeft) { o.scored = true;
-                        score += 1;
-                        baseSpeed = Math.min(300, 140 + score * 5);
-                        updateStats(); }
-                    if (o.x < -70) { o.el.remove();
-                        obstacles.splice(i, 1); }
+                    if (!o.scored && oRight < rLeft) { o.scored = true; score += 1; baseSpeed = Math.min(300, 140 + score*5); updateStats(); }
+                    if (o.x < -70) { o.el.remove(); obstacles.splice(i,1); }
                 }
-                if (timestamp >= nextSpawnAt) { spawnObstacle();
-                    const gap = Math.max(950, 1900 - score * 25);
-                    nextSpawnAt = timestamp + gap + Math.random() * 400; }
+                if (timestamp >= nextSpawnAt) { spawnObstacle(); const gap = Math.max(950, 1900 - score*25); nextSpawnAt = timestamp + gap + Math.random()*400; }
                 rafId = requestAnimationFrame(gameLoop);
             }
 
             function startGame() {
                 clearObstacles();
-                score = 0;
-                baseSpeed = 140;
-                isAirborne = false;
-                holding = false;
-                rider.classList.remove('crouch', 'jumping');
+                score = 0; baseSpeed = 140; isAirborne = false; holding = false;
+                rider.classList.remove('crouch','jumping');
                 updateStats();
                 bikeCaption.textContent = '';
                 bikeBtn.textContent = 'hold to grip · release to jump';
@@ -1834,17 +1653,8 @@ Combo
                 rafId = requestAnimationFrame(gameLoop);
             }
 
-            function onPressStart(e) {
-                if (e.cancelable) e.preventDefault();
-                if (gameState === 'idle' || gameState === 'over') { startGame(); return; }
-                if (gameState === 'running' && !holding) { holding = true; if (!isAirborne) rider.classList.add('crouch'); }
-            }
-
-            function onPressEnd(e) {
-                if (gameState === 'running' && holding) { holding = false;
-                    rider.classList.remove('crouch');
-                    triggerJump(); }
-            }
+            function onPressStart(e) { if (e.cancelable) e.preventDefault(); if (gameState === 'idle' || gameState === 'over') { startGame(); return; } if (gameState === 'running' && !holding) { holding = true; if (!isAirborne) rider.classList.add('crouch'); } }
+            function onPressEnd(e) { if (gameState === 'running' && holding) { holding = false; rider.classList.remove('crouch'); triggerJump(); } }
 
             bikeBtn.addEventListener('mousedown', onPressStart);
             bikeBtn.addEventListener('touchstart', onPressStart, { passive: false });
@@ -1852,18 +1662,12 @@ Combo
             bikeBtn.addEventListener('mouseleave', onPressEnd);
             bikeBtn.addEventListener('touchend', onPressEnd);
             bikeBtn.addEventListener('touchcancel', onPressEnd);
-            document.addEventListener('keydown', function(e) {
-                if (e.code === 'Space' && views.bike.classList.contains('active') && !e.repeat) { e.preventDefault();
-                    onPressStart(e); }
-            });
-            document.addEventListener('keyup', function(e) {
-                if (e.code === 'Space' && views.bike.classList.contains('active')) { e.preventDefault();
-                    onPressEnd(e); }
-            });
+            document.addEventListener('keydown', function(e) { if (e.code === 'Space' && views.bike.classList.contains('active') && !e.repeat) { e.preventDefault(); onPressStart(e); } });
+            document.addEventListener('keyup', function(e) { if (e.code === 'Space' && views.bike.classList.contains('active')) { e.preventDefault(); onPressEnd(e); } });
             updateStats();
 
             // ==============================================================
-            // 8‑BALL POOL
+            // 8‑BALL POOL (fully repaired & race‑condition‑free)
             // ==============================================================
             const poolCanvas = document.getElementById('poolCanvas');
             const poolTable = document.getElementById('poolTable');
@@ -1875,35 +1679,13 @@ Combo
             let ctx, W, H;
             let cueBall, eightBall;
             let balls = [];
-            const FRICTION = 0.985;
-            const MIN_SPEED = 0.1;
-            const CUSHION_BOUNCE = 0.7;
-            const RADIUS = 10;
-            const POCKET_RADIUS = 18;
+            const FRICTION = 0.985, MIN_SPEED = 0.1, CUSHION_BOUNCE = 0.7, RADIUS = 10, POCKET_RADIUS = 18;
+            let isDragging = false, startX = 0, startY = 0, currentX = 0, currentY = 0;
+            let isMoving = false, turn = 'player', gameOverPool = false, pocketedThisTurn = 0, scratchedThisTurn = false;
+            let poolReady = false;
 
-            let isDragging = false,
-                startX = 0,
-                startY = 0,
-                currentX = 0,
-                currentY = 0;
-            let power = 0;
-            let isMoving = false;
-
-            // turn-based opponent
-            let turn = 'player';
-            let gameOverPool = false;
-            let pocketedThisTurn = 0;
-            let scratchedThisTurn = false;
-            const WIN_LINES = [
-                "nice shot. you actually beat somebody at something today.",
-                "champion of a pool table that only exists in a browser tab. still counts.",
-                "🎉 you win. mountain, bike, and now pool — not bad for tonight."
-            ];
-            const LOSE_LINES = [
-                "lost to a made-up opponent with no hands. rematch?",
-                "the house always wins, apparently, even a house that's just some code.",
-                "no shame in it, they've been practicing since before the page loaded."
-            ];
+            const WIN_LINES = ["nice shot. you actually beat somebody at something today.","champion of a pool table that only exists in a browser tab. still counts.","🎉 you win. mountain, bike, and now pool — not bad for tonight."];
+            const LOSE_LINES = ["lost to a made-up opponent with no hands. rematch?","the house always wins, apparently, even a house that's just some code.","no shame in it, they've been practicing since before the page loaded."];
 
             function resizeCanvas() {
                 const rect = poolTable.getBoundingClientRect();
@@ -1917,30 +1699,22 @@ Combo
             }
 
             function initBalls() {
-                const cx = W * 0.28,
-                    cy = H / 2;
+                const cx = W * 0.28, cy = H / 2;
                 cueBall = { x: cx, y: cy, vx: 0, vy: 0, radius: RADIUS, color: '#fff' };
-
                 const apexX = W * 0.66;
-                const rowGapX = RADIUS * 1.85;
-                const rowGapY = RADIUS * 2.05;
-
-                balls = [];
-                // row 1 — apex
-                balls.push({ x: apexX, y: cy, vx: 0, vy: 0, radius: RADIUS, color: '#f4a460' });
-                // row 2
-                balls.push({ x: apexX + rowGapX, y: cy - rowGapY / 2, vx: 0, vy: 0, radius: RADIUS, color: '#4682b4' });
-                balls.push({ x: apexX + rowGapX, y: cy + rowGapY / 2, vx: 0, vy: 0, radius: RADIUS, color: '#daa520' });
-                // row 3 — outer two, 8-ball takes the centered spot
-                balls.push({ x: apexX + rowGapX * 2, y: cy - rowGapY, vx: 0, vy: 0, radius: RADIUS, color: '#cd5c5c' });
-                balls.push({ x: apexX + rowGapX * 2, y: cy + rowGapY, vx: 0, vy: 0, radius: RADIUS, color: '#2e8b57' });
-                eightBall = { x: apexX + rowGapX * 2, y: cy, vx: 0, vy: 0, radius: RADIUS, color: '#222' };
-
+                const rowGapX = RADIUS * 1.85, rowGapY = RADIUS * 2.05;
+                balls = [
+                    { x: apexX, y: cy, vx: 0, vy: 0, radius: RADIUS, color: '#f4a460' },
+                    { x: apexX + rowGapX, y: cy - rowGapY/2, vx: 0, vy: 0, radius: RADIUS, color: '#4682b4' },
+                    { x: apexX + rowGapX, y: cy + rowGapY/2, vx: 0, vy: 0, radius: RADIUS, color: '#daa520' },
+                    { x: apexX + rowGapX*2, y: cy - rowGapY, vx: 0, vy: 0, radius: RADIUS, color: '#cd5c5c' },
+                    { x: apexX + rowGapX*2, y: cy + rowGapY, vx: 0, vy: 0, radius: RADIUS, color: '#2e8b57' }
+                ];
+                eightBall = { x: apexX + rowGapX*2, y: cy, vx: 0, vy: 0, radius: RADIUS, color: '#222' };
                 const all = [cueBall, eightBall, ...balls];
-                all.forEach((b, i) => b.id = i);
+                all.forEach((b,i) => b.id = i);
                 window.poolBalls = all;
                 isMoving = false;
-                power = 0;
                 turn = 'player';
                 gameOverPool = false;
                 pocketedThisTurn = 0;
@@ -1951,61 +1725,29 @@ Combo
             }
 
             function draw() {
-                ctx.clearRect(0, 0, W, H);
-                ctx.fillStyle = '#1a7a4a';
-                ctx.fillRect(0, 0, W, H);
+                ctx.clearRect(0,0,W,H);
+                ctx.fillStyle = '#1a7a4a'; ctx.fillRect(0,0,W,H);
                 ctx.fillStyle = '#0a1a0a';
-                [
-                    [0, 0],
-                    [W, 0],
-                    [0, H],
-                    [W, H],
-                    [W / 2, 0],
-                    [W / 2, H]
-                ].forEach(([x, y]) => {
-                    ctx.beginPath();
-                    ctx.arc(x, y, POCKET_RADIUS, 0, 2 * Math.PI);
-                    ctx.fill();
-                });
-                ctx.strokeStyle = '#3d2b1a';
-                ctx.lineWidth = 4;
-                ctx.strokeRect(0, 0, W, H);
-
+                [[0,0],[W,0],[0,H],[W,H],[W/2,0],[W/2,H]].forEach(([x,y]) => { ctx.beginPath(); ctx.arc(x,y,POCKET_RADIUS,0,2*Math.PI); ctx.fill(); });
+                ctx.strokeStyle = '#3d2b1a'; ctx.lineWidth = 4; ctx.strokeRect(0,0,W,H);
                 const all = window.poolBalls || [];
                 all.forEach(b => {
-                    ctx.beginPath();
-                    ctx.arc(b.x, b.y, b.radius, 0, 2 * Math.PI);
-                    ctx.fillStyle = b.color || '#fff';
-                    ctx.fill();
-                    ctx.strokeStyle = '#000';
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                    if (b === eightBall) {
-                        ctx.fillStyle = '#fff';
-                        ctx.font = 'bold 12px sans-serif';
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'middle';
-                        ctx.fillText('8', b.x, b.y);
-                    }
+                    ctx.beginPath(); ctx.arc(b.x,b.y,b.radius,0,2*Math.PI);
+                    ctx.fillStyle = b.color || '#fff'; ctx.fill();
+                    ctx.strokeStyle = '#000'; ctx.lineWidth = 1; ctx.stroke();
+                    if (b === eightBall) { ctx.fillStyle = '#fff'; ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('8',b.x,b.y); }
                 });
-
                 if (isDragging && !isMoving) {
-                    ctx.beginPath();
-                    ctx.moveTo(cueBall.x, cueBall.y);
-                    const dx = startX - currentX,
-                        dy = startY - currentY;
-                    const len = Math.sqrt(dx * dx + dy * dy);
+                    ctx.beginPath(); ctx.moveTo(cueBall.x, cueBall.y);
+                    const dx = startX - currentX, dy = startY - currentY;
+                    const len = Math.sqrt(dx*dx+dy*dy);
                     if (len > 5) {
-                        const normX = dx / len,
-                            normY = dy / len;
-                        const lineLen = Math.min(len * 2, 100);
-                        ctx.lineTo(cueBall.x + normX * lineLen, cueBall.y + normY * lineLen);
-                        ctx.strokeStyle = 'rgba(255,255,200,0.5)';
-                        ctx.lineWidth = 2;
-                        ctx.stroke();
-                       const power = Math.min(len, 220);
-                        const percent = (power / 220) * 100;
-                        document.getElementById("powerFill").style.width = percent + "%";
+                        const normX = dx/len, normY = dy/len;
+                        const lineLen = Math.min(len*2, 100);
+                        ctx.lineTo(cueBall.x + normX*lineLen, cueBall.y + normY*lineLen);
+                        ctx.strokeStyle = 'rgba(255,255,200,0.5)'; ctx.lineWidth = 2; ctx.stroke();
+                        const power = Math.min(len, 220);
+                        powerFill.style.width = (power/220*100) + '%';
                     }
                 }
             }
@@ -2014,121 +1756,50 @@ Combo
                 const all = window.poolBalls || [];
                 let moving = false;
                 all.forEach(b => {
-                    b.x += b.vx;
-                    b.y += b.vy;
-                    b.vx *= FRICTION;
-                    b.vy *= FRICTION;
-                    if (Math.abs(b.vx) < MIN_SPEED && Math.abs(b.vy) < MIN_SPEED) {
-                        b.vx = 0;
-                        b.vy = 0;
-                    }
+                    b.x += b.vx; b.y += b.vy;
+                    b.vx *= FRICTION; b.vy *= FRICTION;
+                    if (Math.abs(b.vx) < MIN_SPEED && Math.abs(b.vy) < MIN_SPEED) { b.vx = 0; b.vy = 0; }
                     if (b.vx !== 0 || b.vy !== 0) moving = true;
-                    if (b.x - b.radius < 0) { b.x = b.radius;
-                        b.vx *= -CUSHION_BOUNCE; }
-                    if (b.x + b.radius > W) { b.x = W - b.radius;
-                        b.vx *= -CUSHION_BOUNCE; }
-                    if (b.y - b.radius < 0) { b.y = b.radius;
-                        b.vy *= -CUSHION_BOUNCE; }
-                    if (b.y + b.radius > H) { b.y = H - b.radius;
-                        b.vy *= -CUSHION_BOUNCE; }
-
-                    const pockets = [
-                        [0, 0],
-                        [W, 0],
-                        [0, H],
-                        [W, H],
-                        [W / 2, 0],
-                        [W / 2, H]
-                    ];
+                    if (b.x - b.radius < 0) { b.x = b.radius; b.vx *= -CUSHION_BOUNCE; }
+                    if (b.x + b.radius > W) { b.x = W - b.radius; b.vx *= -CUSHION_BOUNCE; }
+                    if (b.y - b.radius < 0) { b.y = b.radius; b.vy *= -CUSHION_BOUNCE; }
+                    if (b.y + b.radius > H) { b.y = H - b.radius; b.vy *= -CUSHION_BOUNCE; }
+                    const pockets = [[0,0],[W,0],[0,H],[W,H],[W/2,0],[W/2,H]];
                     for (let p of pockets) {
-                        const dx = b.x - p[0],
-                            dy = b.y - p[1];
-                        if (Math.sqrt(dx * dx + dy * dy) < POCKET_RADIUS) {
-                            if (b === cueBall) {
-                                b.x = W * 0.3;
-                                b.y = H / 2;
-                                b.vx = 0;
-                                b.vy = 0;
-                                scratchedThisTurn = true;
-                                poolCaption.textContent = 'scratch — cue ball back in play.';
-                            } else if (b === eightBall) {
-                                b.x = W * 0.7;
-                                b.y = H / 2;
-                                b.vx = 0;
-                                b.vy = 0;
-                                gameOverPool = true;
-                                if (turn === 'player') {
-                                    poolStatus.textContent = 'you pocketed the 8-ball — you win!';
-                                    poolCaption.textContent = WIN_LINES[Math.floor(Math.random() * WIN_LINES.length)];
-                                } else {
-                                    poolStatus.textContent = 'opponent pocketed the 8-ball — they win.';
-                                    poolCaption.textContent = LOSE_LINES[Math.floor(Math.random() * LOSE_LINES.length)];
-                                }
-                                moving = false;
-                            } else {
-                                const idx = all.indexOf(b);
-                                if (idx !== -1) all.splice(idx, 1);
-                                pocketedThisTurn++;
-                            }
+                        const dx = b.x - p[0], dy = b.y - p[1];
+                        if (Math.sqrt(dx*dx+dy*dy) < POCKET_RADIUS) {
+                            if (b === cueBall) { b.x = W*0.3; b.y = H/2; b.vx = 0; b.vy = 0; scratchedThisTurn = true; poolCaption.textContent = 'scratch — cue ball back in play.'; }
+                            else if (b === eightBall) { b.x = W*0.7; b.y = H/2; b.vx = 0; b.vy = 0; gameOverPool = true; poolStatus.textContent = turn === 'player' ? 'you pocketed the 8-ball — you win!' : 'opponent pocketed the 8-ball — they win.'; poolCaption.textContent = (turn==='player' ? WIN_LINES : LOSE_LINES)[Math.floor(Math.random()*3)]; moving = false; }
+                            else { const idx = all.indexOf(b); if (idx !== -1) all.splice(idx,1); pocketedThisTurn++; }
                             break;
                         }
                     }
                 });
-
-                for (let i = 0; i < all.length; i++) {
-                    for (let j = i + 1; j < all.length; j++) {
-                        const a = all[i],
-                            b = all[j];
-                        const dx = b.x - a.x,
-                            dy = b.y - a.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
+                for (let i=0; i<all.length; i++) {
+                    for (let j=i+1; j<all.length; j++) {
+                        const a = all[i], b = all[j];
+                        const dx = b.x - a.x, dy = b.y - a.y, dist = Math.sqrt(dx*dx+dy*dy);
                         const minDist = a.radius + b.radius;
                         if (dist < minDist) {
-                            const angle = Math.atan2(dy, dx);
-                            const overlap = (minDist - dist) / 2;
-                            a.x -= Math.cos(angle) * overlap;
-                            a.y -= Math.sin(angle) * overlap;
-                            b.x += Math.cos(angle) * overlap;
-                            b.y += Math.sin(angle) * overlap;
-                            const tempVx = a.vx,
-                                tempVy = a.vy;
-                            a.vx = b.vx;
-                            a.vy = b.vy;
-                            b.vx = tempVx;
-                            b.vy = tempVy;
+                            const angle = Math.atan2(dy, dx), overlap = (minDist - dist)/2;
+                            a.x -= Math.cos(angle)*overlap; a.y -= Math.sin(angle)*overlap;
+                            b.x += Math.cos(angle)*overlap; b.y += Math.sin(angle)*overlap;
+                            [a.vx, a.vy, b.vx, b.vy] = [b.vx, b.vy, a.vx, a.vy];
                         }
                     }
                 }
-
                 if (gameOverPool) moving = false;
                 isMoving = moving;
                 return moving;
             }
 
-            function updateTurnUI() {
-                if (gameOverPool) return;
-                poolStatus.textContent = turn === 'player' ? 'your shot — aim & shoot' : "opponent's shot...";
-            }
-
             function resolveTurn() {
                 if (gameOverPool) return;
-                const scratched = scratchedThisTurn;
-                const pocketed = pocketedThisTurn;
-                pocketedThisTurn = 0;
-                scratchedThisTurn = false;
-
-                if (scratched) {
-                    turn = (turn === 'player') ? 'opponent' : 'player';
-                } else if (pocketed > 0) {
-                    // whoever just shot keeps their turn
-                } else {
-                    turn = (turn === 'player') ? 'opponent' : 'player';
-                }
-
-                updateTurnUI();
-                if (!gameOverPool && turn === 'opponent') {
-                    setTimeout(opponentShoot, 1100);
-                }
+                if (scratchedThisTurn) turn = (turn === 'player') ? 'opponent' : 'player';
+                else if (pocketedThisTurn === 0) turn = (turn === 'player') ? 'opponent' : 'player';
+                pocketedThisTurn = 0; scratchedThisTurn = false;
+                poolStatus.textContent = turn === 'player' ? 'your shot — aim & shoot' : "opponent's shot...";
+                if (turn === 'opponent' && !gameOverPool) setTimeout(opponentShoot, 1100);
             }
 
             function opponentShoot() {
@@ -2137,20 +1808,15 @@ Combo
                 let candidates = all.filter(b => b !== cueBall && b !== eightBall);
                 if (candidates.length === 0) candidates = all.filter(b => b !== cueBall);
                 if (candidates.length === 0) return;
-                const target = candidates[Math.floor(Math.random() * candidates.length)];
-                const dx = target.x - cueBall.x;
-                const dy = target.y - cueBall.y;
-                const len = Math.sqrt(dx * dx + dy * dy) || 1;
-                const normX = dx / len,
-                    normY = dy / len;
-                const jitter = (Math.random() - 0.5) * 0.4;
-                const cosA = Math.cos(jitter),
-                    sinA = Math.sin(jitter);
-                const jx = normX * cosA - normY * sinA;
-                const jy = normX * sinA + normY * cosA;
-                const powerVal = (0.5 + Math.random() * 0.45) * 12;
-                cueBall.vx = jx * powerVal;
-                cueBall.vy = jy * powerVal;
+                const target = candidates[Math.floor(Math.random()*candidates.length)];
+                const dx = target.x - cueBall.x, dy = target.y - cueBall.y;
+                const len = Math.sqrt(dx*dx+dy*dy) || 1;
+                const normX = dx/len, normY = dy/len;
+                const jitter = (Math.random()-0.5)*0.4;
+                const cosA = Math.cos(jitter), sinA = Math.sin(jitter);
+                const jx = normX*cosA - normY*sinA, jy = normX*sinA + normY*cosA;
+                const powerVal = (0.5 + Math.random()*0.45)*12;
+                cueBall.vx = jx*powerVal; cueBall.vy = jy*powerVal;
                 isMoving = true;
                 poolStatus.textContent = 'opponent is shooting...';
                 poolCaption.textContent = '';
@@ -2158,132 +1824,105 @@ Combo
             }
 
             function animate() {
-                if (isMoving) {
-                    updatePhysics();
-                    draw();
-                    requestAnimationFrame(animate);
-                } else {
-                    draw();
-                    resolveTurn();
-                }
+                if (isMoving) { updatePhysics(); draw(); requestAnimationFrame(animate); }
+                else { draw(); resolveTurn(); }
             }
 
             function shoot() {
                 if (isMoving) return;
-                const dx = startX - currentX;
-                const dy = startY - currentY;
-                const len = Math.sqrt(dx * dx + dy * dy);
+                const dx = startX - currentX, dy = startY - currentY;
+                const len = Math.sqrt(dx*dx+dy*dy);
                 if (len < 5) return;
-                const normX = dx / len;
-                const normY = dy / len;
+                const normX = dx/len, normY = dy/len;
                 const maxPower = 260;
-                const powerVal = Math.min(len, maxPower) / maxPower * 18;
-                cueBall.vx = normX * powerVal;
-                cueBall.vy = normY * powerVal;
-                document.getElementById("powerFill").style.width = "0%";
+                const powerVal = Math.min(len, maxPower)/maxPower * 18;
+                cueBall.vx = normX*powerVal; cueBall.vy = normY*powerVal;
+                powerFill.style.width = '0%';
                 isMoving = true;
                 poolStatus.textContent = "Shooting...";
                 poolCaption.textContent = "";
                 animate();
             }
 
-            // --- Mouse events for pool ---
-            poolCanvas.addEventListener('mousedown', function(e) {
-                if (isMoving || gameOverPool || turn !== 'player') return;
-                const rect = poolCanvas.getBoundingClientRect();
-                const scaleX = poolCanvas.width / rect.width;
-                const scaleY = poolCanvas.height / rect.height;
-                const mx = (e.clientX - rect.left) * scaleX;
-                const my = (e.clientY - rect.top) * scaleY;
-                const dx = mx - cueBall.x,
-                    dy = my - cueBall.y;
-                if (Math.sqrt(dx * dx + dy * dy) < 40) {
-                    isDragging = true;
-                    startX = mx;
-                    startY = my;
-                    currentX = mx;
-                    currentY = my;
-                }
-            });
+            function attachPoolListeners() {
+                poolCanvas.addEventListener('mousedown', onPoolMouseDown);
+                document.addEventListener('mousemove', onPoolMouseMove);
+                document.addEventListener('mouseup', onPoolMouseUp);
+                poolCanvas.addEventListener('touchstart', onPoolTouchStart, { passive: false });
+                poolCanvas.addEventListener('touchmove', onPoolTouchMove, { passive: false });
+                poolCanvas.addEventListener('touchend', onPoolTouchEnd, { passive: false });
+                poolResetBtn.addEventListener('click', resetPool);
+                window.addEventListener('resize', resizeCanvas);
+            }
 
-            document.addEventListener('mousemove', function(e) {
+            function onPoolMouseDown(e) {
+                if (!poolReady || isMoving || gameOverPool || turn !== 'player') return;
+                const rect = poolCanvas.getBoundingClientRect();
+                const scaleX = poolCanvas.width / rect.width, scaleY = poolCanvas.height / rect.height;
+                const mx = (e.clientX - rect.left) * scaleX, my = (e.clientY - rect.top) * scaleY;
+                const dx = mx - cueBall.x, dy = my - cueBall.y;
+                if (Math.sqrt(dx*dx+dy*dy) < 40) { isDragging = true; startX = mx; startY = my; currentX = mx; currentY = my; }
+            }
+            function onPoolMouseMove(e) {
                 if (!isDragging) return;
                 const rect = poolCanvas.getBoundingClientRect();
                 currentX = (e.clientX - rect.left) * (poolCanvas.width / rect.width);
                 currentY = (e.clientY - rect.top) * (poolCanvas.height / rect.height);
                 draw();
-            });
-
-            document.addEventListener('mouseup', function() {
+            }
+            function onPoolMouseUp() {
                 if (!isDragging) return;
                 isDragging = false;
                 shoot();
-            });
-
-            // --- Touch events for pool ---
-            poolCanvas.addEventListener('touchstart', function(e) {
+            }
+            function onPoolTouchStart(e) {
                 e.preventDefault();
-                if (isMoving || gameOverPool || turn !== 'player') return;
+                if (!poolReady || isMoving || gameOverPool || turn !== 'player') return;
                 const rect = poolCanvas.getBoundingClientRect();
-                const scaleX = poolCanvas.width / rect.width;
-                const scaleY = poolCanvas.height / rect.height;
+                const scaleX = poolCanvas.width / rect.width, scaleY = poolCanvas.height / rect.height;
                 const touch = e.touches[0];
-                const mx = (touch.clientX - rect.left) * scaleX;
-                const my = (touch.clientY - rect.top) * scaleY;
-                const dx = mx - cueBall.x,
-                    dy = my - cueBall.y;
-                if (Math.sqrt(dx * dx + dy * dy) < 50) {
-                    isDragging = true;
-                    startX = mx;
-                    startY = my;
-                    currentX = mx;
-                    currentY = my;
-                }
-            }, { passive: false });
-            poolCanvas.addEventListener('touchmove', function(e) {
+                const mx = (touch.clientX - rect.left) * scaleX, my = (touch.clientY - rect.top) * scaleY;
+                const dx = mx - cueBall.x, dy = my - cueBall.y;
+                if (Math.sqrt(dx*dx+dy*dy) < 50) { isDragging = true; startX = mx; startY = my; currentX = mx; currentY = my; }
+            }
+            function onPoolTouchMove(e) {
                 e.preventDefault();
                 if (!isDragging) return;
                 const rect = poolCanvas.getBoundingClientRect();
-                const scaleX = poolCanvas.width / rect.width;
-                const scaleY = poolCanvas.height / rect.height;
+                const scaleX = poolCanvas.width / rect.width, scaleY = poolCanvas.height / rect.height;
                 const touch = e.touches[0];
                 currentX = (touch.clientX - rect.left) * scaleX;
                 currentY = (touch.clientY - rect.top) * scaleY;
                 draw();
-            }, { passive: false });
-            poolCanvas.addEventListener('touchend', function(e) {
+            }
+            function onPoolTouchEnd(e) {
                 e.preventDefault();
-                if (isDragging) {
-                    isDragging = false;
-                    shoot();
-                }
-            }, { passive: false });
-
-            poolResetBtn.addEventListener('click', function() {
+                if (isDragging) { isDragging = false; shoot(); }
+            }
+            function resetPool() {
                 initBalls();
                 isMoving = false;
-                document.getElementById("powerFill").style.width = "0%";
+                powerFill.style.width = '0%';
                 draw();
-            });
+            }
 
             function initPool() {
                 resizeCanvas();
-                window.addEventListener('resize', resizeCanvas);
+                poolReady = true;
+                if (!poolCanvas._listenersAttached) {
+                    attachPoolListeners();
+                    poolCanvas._listenersAttached = true;
+                }
             }
 
             let poolInitialized = false;
             function ensurePoolInit() {
-                if (!poolInitialized) {
-                    poolInitialized = true;
-                    initPool();
-                }
+                if (!poolInitialized) { poolInitialized = true; initPool(); }
             }
 
             navButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    if (this.dataset.view === 'pool') {
-                        setTimeout(ensurePoolInit, 50);
-                    }
+                    if (this.dataset.view === 'pool') setTimeout(ensurePoolInit, 50);
                 });
             });
 
