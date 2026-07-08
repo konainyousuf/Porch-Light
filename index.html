@@ -1055,123 +1055,11 @@
         <div class="view" id="view-pool">
             <div class="game-heading">8‑ball pool</div>
             <div class="game-wrap">
-               <div class="pool-hud">
-
-    <div class="hud-card">
-        <span>🏆 Score</span>
-        <strong id="scoreValue">0</strong>
-    </div>
-
-    <div class="hud-card">
-        <span>⭐ High Score</span>
-        <strong id="highScoreValue">0</strong>
-    </div>
-
-    <div class="hud-card">
-        <span>🎮 Level</span>
-        <strong id="levelValue">1</strong>
-    </div>
-
-    <div class="hud-card">
-        <span>❤️ Lives</span>
-        <strong id="livesValue">3</strong>
-    </div>
-
-</div>
-
-
-<div class="difficulty-box">
-
-<label>Select Difficulty</label>
-
-<select id="difficultySelect">
-
-<option value="easy">Easy</option>
-
-<option value="medium">Intermediate</option>
-
-<option value="hard">Hard</option>
-
-</select>
-
-</div>
-
-
-<div id="poolTable">
-
-<canvas id="poolCanvas"></canvas>
-
-</div>
-
-
-<div class="power-container">
-
-<div class="power-title">
-
-Power
-
-</div>
-
-<div class="power-bar">
-
-<div id="powerFill"></div>
-
-</div>
-
-</div>
-
-
-<div class="stats-panel">
-
-<div>
-
-Pocketed Balls
-
-<span id="ballsPocketed">0</span>
-
-</div>
-
-<div>
-
-Combo
-
-<span id="comboValue">x1</span>
-
-</div>
-
-<div>
-
-Shots Taken
-
-<span id="shotsTaken">0</span>
-
-</div>
-
-<div>
-
-Accuracy
-
-<span id="accuracyValue">100%</span>
-
-</div>
-
-</div>
-
-
-<div id="poolStatus">
-
-Your Shot
-
-</div>
-
-<div id="poolCaption"></div>
-
-
-<button id="poolResetBtn">
-
-Restart Match
-
-</button>
+                <div class="pool-table" id="poolTable">
+                    <canvas id="poolCanvas"></canvas>
+                </div>
+                <div class="pool-controls">
+                    <button id="poolResetBtn">new game</button>
                     <div class="power-indicator">
                         power
                         <div class="power-bar"><div class="power-bar-fill" id="powerFill"></div></div>
@@ -1201,9 +1089,9 @@ Restart Match
             else greetWord = 'Good night';
             const greetLines = {
                 morning: ["a good day to start slow.", "no rush, the day's got time."],
-                afternoon: ["hope it's being kind to you so far.", "You lool like a whole meal but don't forget to have lunch"],
-                evening: ["the light's been on all day, waiting for this bit.", "come sit for a while.", "Don't forget to watch the sunset if you can"],
-                night: ["everyone else is asleep, this porch light isn't.", "still here, whatever hour it is.","the light is open, so is my heart and make sure to pet Otis"]
+                afternoon: ["hope it's being kind to you so far.", "however it's going, this is still here."],
+                evening: ["the light's been on all day, waiting for this bit.", "come sit for a while."],
+                night: ["everyone else is asleep, this porch light isn't.", "still here, whatever hour it is."]
             };
             let pool = greetLines.afternoon;
             if (hour < 5 || hour >= 21) pool = greetLines.night;
@@ -1356,9 +1244,6 @@ Restart Match
                 "The forest has seen empires fall. You're doing fine.",
                 "Even the tallest trees started as seeds.",
                 "You are exactly where you need to be."
-                "The world needs more people like you
-                "Are you tea? cause you're so pre-teaa"
-                "Don't let the world shatter your whimsy"
             ];
 
             const fireflyContainer = document.getElementById('fireflyContainer');
